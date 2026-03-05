@@ -25,6 +25,8 @@ export * from './allocationWorkflow.service';
 export * from './allocationReports.service';
 export * from './realtime.service';
 export * from './offline.service';
+export * from './auditLogs.service';
+export * from './compliance.service';
 export * from './allocations.service';
 export * from './allocationDetails.service';
 export * from './allocationWorkflow.service';
