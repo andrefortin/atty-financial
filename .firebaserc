@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "atty-financial-8cb16"
+  },
+  "targets": {
+    "atty-financial-8cb16": {
+      "hosting": {
+        "production": [
+          "atty-financial"
+        ]
+      }
+    }
+  }
+}

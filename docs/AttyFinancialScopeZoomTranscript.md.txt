@@ -1,0 +1,561 @@
+﻿Atty Financial App Scope Discussion - February 18 VIEW RECORDING - 78 mins (No highlights): https://fathom.video/share/4hbVfM8J74rWye6zo7gRcyP-RDTWysGg
+
+
+________________
+
+
+
+
+0:00 - Andre (Fortin Media) See, we've got that going.
+
+
+0:02 - Chad McDonald (InterAgent) We're live streaming.
+
+
+0:03 - Andre (Fortin Media) Woo!
+
+
+0:06 - Chad McDonald (InterAgent) Where Zoom just...
+
+
+0:08 - Chris Davis (attyfinancial.com) Well, I wish that were the case, but I guess I'll take that as a compliment, I suppose.
+
+
+0:17 - Chad McDonald (InterAgent) So it's interesting, Chris. So I was talking to Andre yesterday, and he's actually finalizing a project right now, or a product, I guess you could say.  It's a Chrome web browser extension for the real estate and mortgage space, and I kind of chuckled because the irony was that you and I met through Eric in the mortgage business, and so there was some loose connection there.  But yeah, so I appreciate everybody jumping on, especially on kind of quick notice. So, Andre, I wanted to give you a chance to hear firsthand from Chris on what it is their business is doing, what it is he's trying to accomplish and build, so you can hear and see it through.
+
+
+1:08 - Andre (Fortin Media) The lens of your expertise.
+
+
+1:12 - Chad McDonald (InterAgent) So Chris, I'll let you kind of drive as you want here, and then we can go from there.
+
+
+1:17 - Chris Davis (attyfinancial.com) Yeah. So just high level, what we've launched as of December of 2024 is a company called Addy, ATTY Financial.  It's a niche digital bank specifically for the legal industry. We've partnered with a brick and mortar bank, so we didn't have to go through the process of getting our own charter.  And really, the bank handles all the back-end compliance, regulatory FDIC stuff. We're more the front-end fintech. We're out securing the customers.  We service them. So we're really kind of the sales and marketing division and then the concierge service model for our customers.  We are hyper-focused on the legal space. And what we've found is that a lot of law firms in certain practice areas don't really have the deposits.  it's the... So if you know anything about banking, deposits are the raw materials, and the PI, personal injury attorneys, and mass tort type attorneys typically have huge trust account balances if you find the right attorney.  know, one in particular that we have as a customer, he's got 10 million bucks that just sits in a trust account and is driving interest income for us.  So that's what we're out to find are more of those firms. That being said, offering access to deposit accounts and lending services, I mean, banking is very much a commodity.  So we are running up against the likes of all the major players and, you the key banks of the world, U.S.  Bank, Wells Fargo, et cetera. So we're having a hard time differentiating ourselves. But what we have stumbled across is a product and a lending product that we're calling a case cost line of credit.  So I don't know how much you know about the personal injury space. Because you're in Canada.
+
+
+3:10 - Andre (Fortin Media) I'm in Canada, although I spent nearly half my life in the U.S.
+
+
+3:14 - Chris Davis (attyfinancial.com) Okay. All right. So the billboard attorneys, they don't get paid until the case settles or they win. And as a result, they're fronting a lot of case expenses on behalf of those clients.  So when they have to order medical records or accident reports or hire expert witnesses or pay for depositions, all that money is coming out of their operating account, preventing them from spending that on things to help grow their business.  So this line of credit, they can use, they can tap the line to pay for those expenses. And what we've done is we've built an interest tracking tool so they can take the one master line of credit because within the bank, the loan exists as one product.  We don't have the ability to segment it into 5, 10, 500 separate sub accounts, if you will. So that's what we did with this Excel sheet is that we took, we're taking the ability.  We to track interest at a per client level. So if there's $100,000 drawn on the master line of credit, that could be segmented up across any number of clients, and we're tracking the individual principal balances tied to those individual clients.  I'm just going to stop before right there.
+
+
+4:25 - Andre (Fortin Media) So the way that it's operating here internally is that you have a master line of credit with the bank, and then based off your line of credit, you're assigning whatever the individual attorneys or law offices are getting.  So you're just tracking each individual balance against your massive credit line.
+
+
+4:46 - Chris Davis (attyfinancial.com) Is that correct? Close. So each law firm secures the line of credit with us.
+
+
+4:52 - Andre (Fortin Media) So they have their own line of credit.
+
+
+4:54 - Chris Davis (attyfinancial.com) So yes, they each have their own master line of credit. And then what we're helping them do is when they draw $5,000 this week and they need to apply it to three different clients, we're helping them with a tool to track which portion of that principle belongs.  To each client.
+
+
+5:09 - Andre (Fortin Media) Yeah. Okay.
+
+
+5:11 - Chris Davis (attyfinancial.com) So really, that's the gist of it. It's an Excel workbook. We share it via SharePoint. So to some degree, we are monitoring it to make sure that it's calculated correctly.  I lose sleep over it. I get up and I log into people's workbooks and I spot check all the time just to make sure the interest is accruing correctly.  Because if they wind up overcharging a client for interest, it can be bad news for a number of reasons.  So what we'd like to do is figure out a way to make a web-based version. Right now, the capabilities exist where there is an open API option from the banking platform that we built.  So it can pull and read transactions. It won't be able to push transaction activity into the banking environment quite yet.  So the idea... Is that something that you'd want to do? You know, frankly, I don't know how the bank's compliance team would feel about it.  We'd have to, ideally, yes, because our competitor, our primary competitor for this product is a company by the name of Advocate Capital.  And I don't know how they do it because everything, all their transactions happen same day. So my assumption is they've got, they're using their own money, not necessarily the bank's money.  And then they just do their banking behind the scenes. But they've got a whole team of people that make sure these transactions go through same day.  And it's generating reports for the customers. And it's really easy. They log in and say, okay, I want to apply $150 to client John Smith.  And then now I want to pay off Susan Jones here today for $2,600 and change or whatever it is.  So it's just a, well, they have a very mature product. have, you know, a product in diapers.
+
+
+7:07 - Andre (Fortin Media) Okay.
+
+
+8:09 - Chris Davis (attyfinancial.com) So yeah, this would need to be improved drastically. It's not very intuitive on how to use it, but the idea being we'd have some sort of dashboard that reads the transactions that you see here in this middle section, where then you could just go and assign, based off the matters or the individual clients, where you go in here and say, okay, I want to do $200.  Well, that didn't work, did it? It's a little goofy. You know, $220 there, so I've got $280 left to distribute, so on and so forth.  So then I add another one, blah, blah, blah, and then do it that way. I mean, that's how I view this happening, because right now, the customer, meaning the law firm representative, has to log into the banking environment, execute the transaction that they need to execute.  Then you need to go into the SharePoint site in the Excel workbook, load in the client matter, load in the individual transaction, the amounts, the date, et cetera, where, yes, this is still duplicative. SCREEN SHARING: Chris started screen sharing - WATCH: https://fathom.video/share/4hbVfM8J74rWye6zo7gRcyP-RDTWysGg?timestamp=483.86314600000003  It's a limitation that the bank has currently. So what I have our customers do when they want to pay off the Smith settlement, they'd log in and they would make a payment specifically of the principal only amount tied to that client, because that effectively stops the interest accrual for that client.  And then any interest that they still owe would be covered in that next auto payment drafted from the bank.  That makes sense.
+
+
+11:35 - Andre (Fortin Media) OK, yeah, it kind of makes sense. Yeah, the principal first. So this stops accruing.
+
+
+11:40 - Chris Davis (attyfinancial.com) Yeah, because you can't specify the difference. That's that's a I think that's a limitation across multiple banking systems, not just ours to where you couldn't like if I have a loan with Bank of America, I can't go in there and specify exactly how much interest I want to pay.  I can make a principal only payment or I can do a standard payment, which exhausts interest first, but I can't do, you know, the combo exact specifications.
+
+
+12:08 - Chad McDonald (InterAgent) Yeah. Yeah. Yeah. Yeah. think you're right. In systems that I've been in, I've only seen it that way as well.  One of the curiosities I would have around the API capability with the bank is that if in the scenario that you're going in and you're drawing down on the line, if you go in and let's say you want to draw $20,000 down on the line, but that $20,000 is going to get allocated to two different cases, I wonder if the API has the ability, because a lot of times in those banking platforms, there's a notes section.  So if you could, in the notes section, put in the case number or whatever your internal tracking, you know, that law firm's internal tracking, and if the API can pull that note through, because then when they get to the dashboard in here, they can see, okay, this $20,000 was for, you know, these two cases, and then it becomes from a user.  Perspective, easier to allocate $10,000 to this one, $10,000 to this one.
+
+
+13:13 - Chris Davis (attyfinancial.com) Yeah, absolutely. And, you know, I can show you real quick. Sorry.
+
+
+13:28 - Andre (Fortin Media) No problem. The account that this money goes into is not the IOTA account, right?
+
+
+13:33 - Chris Davis (attyfinancial.com) No, no. So here, this is one of our guys that was pulling. So he drew from the line and put this in his operating account.  So he was going to pay some expenses for this. So he did that, the $5,000, and then he paid off a client.  And then in the memo, just as you were mentioning, Chad, he has the ability to, you can put the client's name or whatever they want to put in there.
+
+
+14:06 - Chad McDonald (InterAgent) So, yes, it would read this at least.
+
+
+14:09 - Chris Davis (attyfinancial.com) And I don't believe that there is a limit on the number of transactions or draws that they could make.  So theoretically, they could go in there and say, all right, I want to allocate payments to 10 different clients.  could do 10 transactions in the bank. It just might get a little messy and cumbersome. You're going to enter it one way or the other.  And that was one of the things that this guy in particular, he had mentioned was in that advocate system, they have the ability.  It's like, okay, I need to draw. So there was an option where they could pull up their list of clients, hit check boxes next to those clients, and then there'd be a data entry field next to all the highlighted ones.  So you could say, okay, I need 125 for this, 230 for this, and down the line, and we give you a total.
+
+
+14:50 - Chad McDonald (InterAgent) So he could just execute one transaction. transaction.
+
+
+14:53 - Chris Davis (attyfinancial.com) Yeah.
+
+
+14:54 - Chad McDonald (InterAgent) Yeah. I wonder, why am I blanking on, what is that third-party platform that connects with the banks on all these?  What did you say?
+
+
+15:07 - Andre (Fortin Media) Link.
+
+
+15:08 - Chad McDonald (InterAgent) And one of them might have that up, and it integrates with like all the major U.S. Yeah, there's another one that literally is on the tip of my tongue.  Plaid, yes.
+
+
+15:19 - Andre (Fortin Media) There you go. Yeah, that'd be the other one.
+
+
+15:22 - Chad McDonald (InterAgent) So it seems like that's got to be how they're doing it is using Plaid. Because my experience with Plaid, mean, you get quite a bit of detail from the bank.
+
+
+15:35 - Chris Davis (attyfinancial.com) Yeah. Well, here's what, BankJoy is our digital banking platform provider. So they built our environment, and it reads data directly from the bank's core, which is Fiserv Premier.  So it's kind of, it's just Fiserv is the source of truth, and then everybody else is just kind of reading the information from it, which creates issues because if we need to create something specific, it's really up to Fiserv to say, yeah.  Yes, we can do it, or no, we can't. And then it's typically a $50,000 fee just to have a conversation about building something custom.
+
+
+16:16 - Andre (Fortin Media) You've got it.
+
+
+16:18 - Chris Davis (attyfinancial.com) So, yeah. And I don't know, you know, that advocate, when they do their payoffs, they tell you exactly how much is owed for principal and interest, and then they can just pay it, which makes me think that they're using their own money.  They've got private equity money or something, or it's, you know, in my case, I would love to go to the bank and say, all right, give me a $20 million.
+
+
+16:38 - Chad McDonald (InterAgent) Line of credit. then we loan that money out.
+
+
+16:41 - Chris Davis (attyfinancial.com) And then we can deal with the, you know, the few dollars in interest that we might lose through.
+
+
+16:48 - Andre (Fortin Media) I have a buddy who's, who's a lawyer. I think, well, yeah. He probably is in a position to do that.  It's like, oh, you need 10 million, 20 million, because you're going to be doing these lendings. I'm your guy.  I got that. You're sitting around. He's up in Wisconsin.
+
+
+17:04 - Chris Davis (attyfinancial.com) Oh, yeah. Yep.
+
+
+17:05 - Andre (Fortin Media) Thanks. So, he was in fintech previously.
+
+
+17:07 - Chris Davis (attyfinancial.com) Yep.
+
+
+17:09 - Andre (Fortin Media) So you made lots of money.
+
+
+17:13 - Chris Davis (attyfinancial.com) It's always good to, because there's not a lot that you can do in banking that's drastically different that really grabs someone's attention.  And frankly, the idea of changing your entire banking relationship isn't that appealing. So where we're winning, just so you're aware, like Advocate, I just know the most about them.  they charge probably 10% to 12% interest based on the credit worthiness of the borrower. Then they have an origination fee.  Every time that they do a draw on the line of credit, they charge them an origination fee, whereas we just have the one to establish the line of credit.  And then they charge a monthly technology fee. So when it's all said and done, the customers are paying 14% to 18% interest, whereas the most anybody's paying us right now is 8.75%.  So. And I just, I still have to, I'm not a banker and I've only been doing this for two years.  I'm still trying to understand what's a red flag and what's not for the compliance team at the bank. And if we're, if they give us a loan and then we're loaning it out to other people, I think they would freak out on that.  Or even if we had our own money and we're loaning it out, I think they would have a concern, but that's more work that I need to do.  um, but that said, um, there are certainly, it's based on the business, not on the person, correct?
+
+
+19:45 - Andre (Fortin Media) The, in terms of who we decide to lend to? Yes.
+
+
+19:50 - Chad McDonald (InterAgent) Credit worthiness?
+
+
+19:51 - Chris Davis (attyfinancial.com) Yeah.
+
+
+19:52 - Andre (Fortin Media) Yeah.
+
+
+19:52 - Chris Davis (attyfinancial.com) I mean, we look at the business first and then depending on the amount of the line or the loan, um, we do require a personal guarantee as well.  So we will get a PFS and all that. And that does impact the ability and the rate. So that being said, we're exploring a new insurance product that's out there.  It's called Bank Owned Guarantee Insurance, where instead of the guarantor being on the hook for the whole line, they can roll this policy premium in and then they're really on the hook for 20% of the total line.  They still have to liquidate the business and shut everything down, but at least if it's a million bucks, they can get out of paying $800,000 of it.  But yeah, so I think, and I know I'm just rambling, so I apologize for jumping all over the place, but as a version one, it'd be really great to be able to load new clients in here.  It reads transactions. We can assign them as needed. And that at any given time, I can click a button and get a report on that client says, okay, here's the principal balance.  Here's how much interest has accrued. You want to make a payoff. This is how you do it. And that would be ideal.  So, yeah, this really goes through how they'd access, set things up. We've got to comply. You know what? Let me just show you this, too.  This might help bring it all into focus or semi-focus. We've got, this is the workbook itself. So there's several hidden features or hidden tabs in here that track a lot of data.  But this first thing is really just, the bank wanted us to include this. So we have the firm sign off that they're using this for approved expenses and not billboards or car payments and things like that.  So that's all this is. This could be replaced real easily with a checkbox. Yes, I certify this month, period.  We have, this is kind of a settings deal where if they wanted to calculate what a client would owe in the future, they just update this date here. SCREEN SHARING: Chris started screen sharing - WATCH: https://fathom.video/share/4hbVfM8J74rWye6zo7gRcyP-RDTWysGg?timestamp=1320.049471
+
+
+23:07 - Andre (Fortin Media) Right. Right.
+
+
+23:08 - Chris Davis (attyfinancial.com) Right. Thank This is sharing information on how the interest is calculated. Here's the base rate, the modifier, when we last auto-allocated interest, and then the prime rate history down here.  And then this drives a lot of the other things through the sheet. This tab would be where you would add your unique matter ID.  This drives a lot of the other functions through and how that matter ID is tied to a client. Because you might have three cases with Teddy Valencia, but they'd be unique matter ID numbers, and that's how we track them throughout.  These are just notes on the type of case that it is. And then this is auto-generated as it's pulling from the rest of the sheet, or the workbook, I'm sorry.  Transactions, this is where we'd load in the transactions. It should punch in the matter ID. In my other version, it pulls from this list, so it kind of auto-populates, so don't have to do as much data entry.  You got the... The type, again, this is just a draw, a principal payment or an interest payment from the bank.  We do have an approved list of expenses. This should be a dropdown as well, which it is. don't know why it's not working here.  And then you plug in the amount and then the rest of this kind of just calculates on its own.  I hide a lot of this from the customer. I mean, it's kind of useless to be looking at it and questioning it.  Same with this one. This is a macro that's built. So when the bank drafts $155, I hit allocate that interest.  And then this is how it spreads it out. And the workflow is that it pays, it satisfies 100% of the interest for any principal balance with zero and interest remaining.  And then it just a pro rata distribution for the rest. So that's what we'd want to keep going forward.  And then there's some reporting in here as well, where you just, you select the matter and then it tells you exactly how much to pay.  And this is where it gets kind of clunky. So this is for the firm to pay us off, and this is going to be the same client.  This one here, 1586.22, and then this is ultimately what the client owes to the firm. That includes all the interest.  So this is the one they share with the firm or with the client, and then this is the one that they log in.  They pay us this amount before 8 p.m. Eastern, and then those numbers are good for that day. These are just some other reports that customers had asked for.  Like, I want to know every day that I drew on the line of credit what that looks like, how that money was applied to different cases.  And then also, I want to know on those interest payment dates how that money was spread across my clients, and that's all this is.
+
+
+25:52 - Andre (Fortin Media) Right.
+
+
+25:54 - Chris Davis (attyfinancial.com) And then here's kind of just a spot checker that I built to where this number over here, the principal balance, this one should always match what they're showing in the bank.  And that's kind of how we know if something has gone awry, if this number's different.
+
+
+26:09 - Andre (Fortin Media) And then I have to go with my coworker who has access to banking systems.
+
+
+26:16 - Chris Davis (attyfinancial.com) We download all the transactions, and then I rebuild their sheet from scratch to find out where the error occurred.
+
+
+26:27 - Andre (Fortin Media) Don't be jealous. want to see those reports, those overviews.
+
+
+26:31 - Chris Davis (attyfinancial.com) What's that?
+
+
+26:32 - Andre (Fortin Media) They want to see those overview reports.
+
+
+26:34 - Chris Davis (attyfinancial.com) Yeah, yeah. So I think most importantly, like I said, they want to be able to see, they want to be able to log their transactions, know how much to pay off, when to pay it off, and effectively how to pay it off.  And really, that's the most important thing. I think they just need a bit of confidence in what they're using.  And then I also have the integration documentation from BankJoy available too.
+
+
+27:04 - Andre (Fortin Media) That helps.
+
+
+27:04 - Chris Davis (attyfinancial.com) Yeah.
+
+
+27:06 - Andre (Fortin Media) The, and primarily this is going to be. Great question.
+
+
+27:16 - Chris Davis (attyfinancial.com) would say that the vast majority of users are going to be accessing from their desktop, computer, or laptop. So BankJoy does give us the ability to put on the dashboard their little tiles they've created where – actually, I might be able to show you what one of those looks like.  So the idea would – we'd have a tile that they would click and go – and it would take them, you know, as a single sign-on, hopefully, into their version of the tracking sheet.  Let me see if this still works. We got an old Figma thing that shows the bank environment. Frankly, don't have – BankJoy doesn't offer a demo environment.  I'm payment. I Which is really frustrating, but, so here's roughly what it looks like. Once you log in, this is the way your dashboard would look.  So you see all of your accounts, and then we could take one of these tiles and customize it as a way to jump right into the tracking app.
+
+
+28:35 - Andre (Fortin Media) Gotcha. And that's your expectation of how they would launch it, right?
+
+
+28:40 - Chris Davis (attyfinancial.com) Yeah, I would give them a link, and then also give them the ability to access directly from here. Because if I'm in here, you know, move transferring money from my line to my operating account, it'd be nice just to go back to the dashboard and hit launch, and then I'm all of a sudden into the tracking app versus having to go out and log into a separate website.
+
+
+28:59 - Andre (Fortin Media) Right, that makes sense. Okay. Oops. Okay. The... In terms of how you're securing the data, right now it's just a big spreadsheet with a password on it? SCREEN SHARING: Chris started screen sharing - WATCH: https://fathom.video/share/4hbVfM8J74rWye6zo7gRcyP-RDTWysGg?timestamp=1690.545822
+
+
+29:18 - Chris Davis (attyfinancial.com) There's not even a password. I create a separate spreadsheet for each firm, and then I have it in a SharePoint site that only they access.  So have a separate SharePoint site for each firm.
+
+
+29:31 - Andre (Fortin Media) All right. So you're doing the user security and authentication through SharePoint?
+
+
+29:35 - Chris Davis (attyfinancial.com) Yes. Yeah. And there's no real... We had a cybersecurity claim due to an employee that accessed an email they should have accessed or clicked a link they shouldn't have accessed.  So these really don't have any PII in them. So there's no... The only identifying information is their name. There's no address or birthdates or anything like that by design.
+
+
+30:00 - Andre (Fortin Media) Yeah. Well, that's good. One of my... A good friend of mine here up in Canada, he's currently doing... He's a senior cybersecurity consultant to, theoretically, the Canadian government, but in reality, to the prime minister's Brookfield Capital.  When you look at all this stuff, I'm like, aren't all those companies you're working for Brookfield Capital companies? He goes, yeah.  Don't you work for the government?
+
+
+30:30 - Chris Davis (attyfinancial.com) Yeah. So what's, you know what, I don't even know. It's just, that's the way the world works here. Yeah.  I mean, I know the bank is going to want to, they're going to want to, or whatever the documentation is to, gosh, what is that documentation packet that they request?  Anyway, they're going to want to know how the information is stored, how it's protected, how it's secured.
+
+
+30:56 - Andre (Fortin Media) Is it the PCI compliance? The, I think that's what they call it.
+
+
+31:01 - Chris Davis (attyfinancial.com) Yeah. Vendor due diligence package, maybe something like that. Yeah.
+
+
+31:05 - Andre (Fortin Media) Yeah. Like, how is it secured? Where is it secured? Who is Access to it, how often are you auditing it for security vulnerabilities, blah, blah, blah, blah, blah.  I say blah, blah, blah. I don't mean blah, blah, blah.
+
+
+31:17 - Chris Davis (attyfinancial.com) One of the reasons we moved to the SharePoint site is because the bank does require us to get a copy of it from the customers once a quarter at minimum.  So it's just way easier for me to be able to go in and download a copy than it is for me to bother the customer on a monthly or quarterly basis for a copy.
+
+
+31:33 - Andre (Fortin Media) So, yeah, this point, do you want to make a spreadsheet the source of truth or would you want to put that into a database or do you want to like, how do you want to view it?  I mean, data is data.
+
+
+31:49 - Chris Davis (attyfinancial.com) Just what do you feel comfortable with? You know, that's a great question. I don't have an answer to because the guy that helped me get to where we are today, his employer is an incredibly brilliant person who's actually a process scientist.  And he says, basically, whatever.
+
+
+33:08 - Andre (Fortin Media) I'm like, right, we can save it as a text file. At the end of the day, it doesn't matter as long as you can, like, you're being able to see who made edits and when those took place.  So, like, if you have a spreadsheet and it works for you and you're able to look at the spreadsheet and go, oh, I can just look at this and I know what's going on.  Great. We can drive the application off a spreadsheet at the end of the day.
+
+
+33:26 - Chris Davis (attyfinancial.com) You bring up a good point because the bank has asked BankJoy to provide monthly or weekly audit reports on anybody that makes anything, any change to an admin setting, since me and my coworker have admin setting rights.  So it would be probably wise to have some sort of feature in here that, oh, who logged this transaction?  It'd be nice to say, oh, it was Steve Jones who logged in yesterday and logged it and it wasn't me going in and changing things.  So I don't know how difficult that would be, but that just kind of popped in my head.
+
+
+34:00 - Andre (Fortin Media) Yeah. mean, you're accessing it through SharePoint and SharePoint essentially your access control. So you're like, I don't know. You know, how that's working.  For another example, let's say that you put this up inside of a Google Suite, you know, a Google Drive and like a Google Suite account for corporate, right?  When you share permissions for that spreadsheet, you can share it on an individual basis, like this email, this email, this email, which belongs to those people.  So the Google Sheet itself tracks the updates based on users in its history. So if somebody came in and made changes, you can just look at the change history that it automatically provides and go, oh, that person did this.  So you're able to, I mean, it provides its own type of change management tracking, if you will, because it's an enterprise product.  And so they're like, hey, we need to know who made a change because that's really important. If Bob Jones logged in and he deleted this column, it's kind of important to know that Bob Jones made these changes because he added a bunch of transactions, right?  You're like, yeah, it's not good. So I'm saying that you could monitor. To take advantage of some of the other, like you're essentially just moving where authentication is taking place and where things are being created and being shared.  And if you want to keep it as a spreadsheet, you could avoid the SharePoint entirely. And it's just, it's a link to the spreadsheet that they click on.  And because they have to be authenticated with Google. It's like, we don't care how you log in, as long as you have a Google account.  What if I don't? We'll get one, right? That's how it is. We want to track you that way. And that's the end of the story.  I mean, there's different things you can use, but.
+
+
+35:40 - Chris Davis (attyfinancial.com) I think I'd love to get them away from the spreadsheet look and feel entirely. And really just, I'd go more along the lines of a dashboard where really all you can do, you can use it.  You can use the calculator function to total up payoffs or how much you need to draw. You can assign the transaction amounts and then you can print off reports.  Really? I mean, that would be ideal. In addition to adding new clients in there, of course.
+
+
+37:08 - Chad McDonald (InterAgent) User interface itself that the law firms log into would be, you know, the nice pretty dashboard and the easy, you know, run my report, this, that, whatever.  On the back end, from an administration perspective, there would be these database tables that might be in a Google spreadsheet or an Airtable spreadsheet or a SharePoint spreadsheet like you have.  And so whether you personally want to get into those or not, maybe there's an admin login on the, you know, the nice front end GUI that you're looking at that you as an admin can go in and see everybody and pull your own reports.  That's fine. But then down the line, if, you know, BankJoy or somebody says, hey, we see something, we need the details.  You can, on the back end where these databases or these spreadsheets live, that's what Andre is referring to. And so it's, the database, this is what's driving.  The front-end user experience on that dashboard.
+
+
+38:12 - Chris Davis (attyfinancial.com) Okay. That makes sense.
+
+
+38:14 - Chad McDonald (InterAgent) I apologize for the lack of... No, it's okay. And that's the question because as we try to work to scope this out, if there's a requirement that, oh, it has to be in a SQL database or it can be in a Google spreadsheet, those are very different when it comes to infrastructure, costs, requirements, things like that. ACTION ITEM: Confirm w/ bank compliance re: data storage/audit; then share decision w/ Andre & Chad - WATCH: https://fathom.video/share/4hbVfM8J74rWye6zo7gRcyP-RDTWysGg?timestamp=2255.3188439999994  So that's the purpose of the question of understanding like where will the data live and how can it live and are there some specific requirements?
+
+
+38:49 - Chris Davis (attyfinancial.com) Yeah, I need to confirm with the bank's compliance team for one, just to be certain. But right now, they don't have any issues with just living in an Excel sheet.  So I can't imagine that they'd be concerned with a Google sheet. Now, my biggest thing is how do we get this...  To a usable V1 quickly, but at the same time, doing it in a way that we build a foundation so we can continuously improve or add customer requests, not just things that would be useful.  I don't want to be everything to everybody, but if somebody has a legitimate request for a report, I need to be able to build that for them or create a function for them.  Or if someday BankJoy and our bank partner allow us to push transactions from where we're at into the banking environment, I'd like to be able to do that.  I don't know how this stuff is built. I just want to do it right on the initial build so it's got some flexibility going forward.
+
+
+39:52 - Chad McDonald (InterAgent) Yeah, and Andre, I'll let you speak to that here in just a second. And I think the one big thing that I, and the reason I brought Andre into this as I was telling you, Chris, is that the five servers of the world who say it's 50K for a change request and all.  That's because they've built a platform that is so rigid that the amount of work and effort to make the changes do cost a lot.  And the old way of software and applications, that's the way it kind of worked. But this new school world, there's so much way to be more fluid in customization.  But again, I'm not a technical person like Andre, so I'm not going to put my foot in my mouth and promise certain aspects.  So I'll let you speak to that, Andre.
+
+
+40:40 - Andre (Fortin Media) You're right. I've been writing code since I was six years old, like a long time. Super geek from way back.  Like a Commodore VIC-20, I went to school and they just switched out punch cards to the tapes. So I go way, way back, you know.  And in the last project we just did, like we have like 50,000 lines of code that was all created by AI because I'm here.  Yeah. So we're able to leverage, like senior developers are able to leverage AI to be able to make those changes properly because you understand what's required.  So you're not like praying and hoping and you say, hey, make magic happen. It's like, no, no, okay. Here's the scope.  Here's what we need. Make these changes. So we did this project in a month, which would have taken, I don't know, like four months, maybe previously, or three months with a team of people.  Now, here's just one guy, off time, you know, shippable product. You're like, whoa, and I didn't touch a line intentionally, even though sometimes I'm like, it's so much faster, just hop in there, make a change.  But yeah, so the changes can happen rapidly. The core idea here is, if we understand the main components, like I'm assuming here that it's the audit trail is going to be important for transactions and for changes.  So if what we need to do to stay compliant is simply make sure that you can pull monthly reports with an...  I'm not the guy that if something breaks that I'm going to be on call to fix this. And that's what I really want.
+
+
+43:15 - Chris Davis (attyfinancial.com) That's one of my bigger concerns is what happens when this thing goes down? How do we fix it? And would it be something that I could go in and spot check or go in and manually pull data if somebody really needs something?  So that's just playing in the back of my mind. And maybe that's my worst case scenario outlook, but yeah.
+
+
+43:34 - Andre (Fortin Media) I mean, that's a reasonable assumption to be able to have. And it's part of the reason why I was asking you about what the layout needs to be.  So Airtable for you, it kind of looks like a spreadsheet. So if your worst case happens, everybody disappears and like suddenly you're going, no, no, where's my data?  Right. You could literally just log in and go, oh, okay. I understand what the structure looks like. It's easy for me to pull something out.  Ideally, that's not what's going to happen. You're to say, hey, here's a change that we want to see, Andre, you know, Chad.  Hey, Chad. Let's make this magic happen. And then we'll just implement that. And then you'll be able to see it.  happen. And, you we just keep going on, right? You have that contract. So we're able to keep updating it and renewing it.  So it's not, we're not looking to do a one-off thing and just do it. It's like, okay, well, let's make it, let's implement it.  And obviously, as you scale it, we're like, we'll make more money because you're making more money. I'm thinking it's how we're hoping to scope that in.  So that way there's our, our interests are aligned.
+
+
+44:30 - Chris Davis (attyfinancial.com) Like we're both, you know. Yeah, for sure. Because I've been, I mentioned this to Chad, I think that we are still marching towards breakeven.  I hope to be there in two to four months. So cost is a concern. And I'm not opposed to getting creative with things like maybe we, obviously there is cost up front, but maybe there's a way that we can work out a monthly type of fee based on the number of users that where everybody benefits as we grow this.  And we, you know, have it worth somebody's while to kind of keep an eye on it, make sure it's working as it should.
+
+
+45:02 - Andre (Fortin Media) Yeah. I was discussing that with Chad and you had mentioned that you're fairly flexible. So I said, well, what about like a, let's just get some skin in the game, some money up front for this development.  And then the end goal is that this runs forever. And as long as you're making money, we're making money.  So it could just be a percentage even of whatever you guys are making. So if we made 10 grand this month or whatever it is, and here's your percentage of a nice day, everything's running.
+
+
+45:29 - Chris Davis (attyfinancial.com) And as long as we're maintaining the project and everybody's happy, changes are happening, everything's good. I like that idea.  And I'm certainly willing to consider anything. I think the big thing is as we get bigger and if somebody like your friend somehow or somebody like him enters the mix and we start loaning our own money, then we all work together to figure out how we do that and pull ourselves away from the bank and create something where it's just tapping into our account.  And then we deal with everything directly with the bank. mean, that would be the ultimate end goal, frankly, for me.  I would, I'd love that. It'd be amazing.
+
+
+46:08 - Andre (Fortin Media) I actually have to give him a call here yesterday because he has some paperwork that he needs for me for something else.  So if that's okay, I'm just going to – would you mind if I shared this with him?
+
+
+46:21 - Chris Davis (attyfinancial.com) Yeah, I don't mind. I mean, I think – yeah, I don't see any reason why not.
+
+
+46:27 - Andre (Fortin Media) Yeah.
+
+
+46:28 - Chris Davis (attyfinancial.com) So yeah, it's – Well, I guess I would be concerned at – here's what I'll say. Advocate has gotten very, very active in looking into us because there's not a lot of us out there that do it.  So what I wouldn't want to do is give somebody else the idea to come in and compete against me.
+
+
+46:49 - Andre (Fortin Media) So I'll leave that with you and use your expression. where you're coming from.
+
+
+46:53 - Chris Davis (attyfinancial.com) Yeah. I need to make money first, and then you can tell people.
+
+
+46:57 - Andre (Fortin Media) How's that? Yeah. So it's – his primary area where he's focusing on, like they have his other businesses, like they do drones.  They do drones. And drones, like, you know, like, the quadcopter drones and all sorts of other interesting things. So he's into different spaces, but he's primarily a criminal attorney.
+
+
+47:18 - Chris Davis (attyfinancial.com) Okay.
+
+
+47:18 - Andre (Fortin Media) I think it is a criminal attorney. I just, whenever I need something lawyer-y, I'm like, yo, bro. And he's like, hey, I got you.  Don't worry. Just send it over. I'll take care of it. So, but so this, you know, the thing that would interest him is the aspect of like, oh, I have lots of money sitting in the bank and you can use my money and I get paid better than it's sitting in the bank.  Talk to me more.
+
+
+47:41 - Chris Davis (attyfinancial.com) The challenge becomes then when you get private money involved, they're typically wanting a return more than what the bank's willing to accept.  And then we kind of lose our competitive advantage with improved interest rates. At least that's what I found. And I don't know of anybody who's willing to throw private money in for, you know, a 6% return.  Cause we're, we're going to need to make some money on it too. But yeah.
+
+
+48:05 - Andre (Fortin Media) Yeah. So, I mean, that, that probably would be the next question is like, yeah, what kind of like. Return and how long and what's the risk ratio.  But anyway, he's a money guy. Like he had an investment. Most of the money that he made originally was in high frequency trading with his own company.
+
+
+48:21 - Chris Davis (attyfinancial.com) Okay.
+
+
+48:22 - Andre (Fortin Media) So like, you know, like when you're doing like 10 million, $100 million a day type stuff, like crazy amounts.  So, I mean, this is just like, you know, it just might be that he's like, okay, well, it's not a whole lot.  But, you know, it's something you're interested in, buddy. Okay, let me take a look.
+
+
+48:41 - Chris Davis (attyfinancial.com) So, yeah, I will. I will say this. I would, the more we talk about this, I'd hesitate to share a lot of information with them.  If there was a money guy that we were going to go to, our primary investor outside of the bank, he's a mass tort attorney.  He's got two private jets, if that gives you any idea on how much money he's got. And he would probably be interested in, in doing this as a way to accelerate his return on.  An investment before he'd allow anybody else to come in, because I would have to get board approval on bringing any money in like this.  And while I am on the board, he also has a very loud voice on the board. So, yeah, as we talk about it, it's nice to know that there's an option in, you know, if all else fails, I could I can go call Andre and say, hey, introduce me to your buddy.  Now, if your buddy is looking for a place to park a lot of money, we'll open an account for him and we can start there.  But no, I appreciate the dialogue on it.
+
+
+49:41 - Andre (Fortin Media) No. OK, no worries. No worries there. That said, yeah, so I think we could pretty much from what you're telling me and assuming that you can carve out some time to get some of the requirements out of your head, like into an audio file or onto paper or something that I can look at and go, OK, this is good.  I can make a transcription of it that we can move pretty fast to get your MVP in, I don't know, say three weeks, maybe four at the most.  Right. I mean, we did an entire product.
+
+
+51:08 - Chris Davis (attyfinancial.com) That payment doesn't change. So when they draft that amount of interest, they're like, well, why the hell are they drafting interest that's different from what you're calculating?  It's like, well, here's why. then, so, yeah. Now, those requirements that I briefly showed you, I'm happy to send those to you.  And you can tell me, hey, no, I need an audio walkthrough where I could potentially do a screen share or record myself on Teams or something going through the tool itself.
+
+
+51:36 - Andre (Fortin Media) That would be very helpful. Like, you just kind of like, you would be just doing the onboarding and how that works, as well as using the tool and just kind of laying out the use cases on how you would use it.  That way, you can do it at a time that's convenient to do. I just need the raw thing to be able to look at and go, okay, I understand how this product works.
+
+
+51:53 - Chris Davis (attyfinancial.com) I understand what the process is.
+
+
+51:54 - Andre (Fortin Media) Okay. Ideally, I think what would be great is to simply tie in the, because you have things that need to be signed and there needs to be transactions, there needs to be proof of acceptance of the terms.  Would you consider having... Like a DocuSign type automation thing put into there so that they would get the document.  can just digitally sign things and that's it.
+
+
+52:15 - Chris Davis (attyfinancial.com) It gets stored. Explain that to me again.
+
+
+52:19 - Andre (Fortin Media) I'm sorry. With your onboarding and you're accepting these terms of service.
+
+
+52:24 - Chris Davis (attyfinancial.com) When who's onboarding? I'm sorry.
+
+
+52:26 - Chad McDonald (InterAgent) That first page you have on the spreadsheet.
+
+
+52:28 - Chris Davis (attyfinancial.com) Oh, yep.
+
+
+52:29 - Chad McDonald (InterAgent) Like on the client says, okay, I'm agreeing. And so I think where Andre is going with this is user signs up for the application.  First time they log in, they're presented with a screen with terms and everything. They click and essentially it puts it right into a DocuSign and automates that they've signed off on it.  And then they'll receive an email with a copy that they've signed off and agreed to the terms of the platform.
+
+
+52:56 - Chris Davis (attyfinancial.com) Is that fairly accurate, Andre? One of the requirements I have here says user to review, agree to terms and certify accuracy of the information and digitally sign.  And then it's, you know, each year. User to certify the funds will be for approved case expenses. Entries are accurate, case-specific principle to be repaid within 30 days of case closure, and e-signed.
+
+
+53:16 - Andre (Fortin Media) So yeah, I mean, that would make sense. Okay. So I just wanted to make sure that I was looking at that just thinking about what makes sense to automate, what makes sense to be able to simplify, and how that would happen in terms of how a new user comes in from like they go to your portal, they click the button, what's the first thing they hit?  They hit this, they hit that. And then if, even if we use Plaid to be able to link their system in the future, if we want to be able to push transactions into it, that would be good. ACTION ITEM: Update terms to include bank data-pull consent; then send BankJoy docs + Excel screenshots/layouts + walkthrough to Andre & Chad - WATCH: https://fathom.video/share/4hbVfM8J74rWye6zo7gRcyP-RDTWysGg?timestamp=3154.3188439999994  I'm just thinking deeply as we're going along here.
+
+
+53:46 - Chris Davis (attyfinancial.com) No, I appreciate that. And I'm actually going to add something in here that the user agrees to allow us to pull reports.
+
+
+54:01 - Andre (Fortin Media) Like credit, like credit ratings and stuff, right?
+
+
+54:04 - Chris Davis (attyfinancial.com) Well, just be able to pull their data out of the system to provide to the bank. And when requested by the bank.
+
+
+54:10 - Andre (Fortin Media) Yeah, that makes a lot of sense.
+
+
+54:13 - Chad McDonald (InterAgent) Yeah, because Andre, I believe that the credit profile risk and all that is done at the bank level, not at the attyfinancial level.  So it's not going to be something that we need to worry about.
+
+
+54:25 - Andre (Fortin Media) That's two thumbs up.
+
+
+54:26 - Chris Davis (attyfinancial.com) Yeah. Ideally, I think, you know, a single sign-on from our digital banking platform, if at all possible. Otherwise, we give them a site to go to where they have login credentials.  There'd be an admin side for us where we could set, since not everybody's going to have the same rate, interest rate, we'd have to log in.  And you might be prime plus one, you might be prime plus two. And, you know, the reporting, it'd be nice for them to be able to, because what the other guy did was build in a function where you could upload your firm logo to put on invoices and things of that nature.  So just silly little things that I'm hoping wouldn't be a big deal.
+
+
+55:03 - Andre (Fortin Media) Yeah, I think. Those are pretty straightforward, but go ahead.
+
+
+55:08 - Chad McDonald (InterAgent) Yeah, no, and I can see where that other person, you know, had the thought of like a HubSpot. I don't know that HubSpot itself, it makes sense, but what they're seeing is on the admin side, you basically are going to have a client profile that you want to, when you set up a client, you know, you're going to put all their information in and you're going to put their rate in and all their details, and that's going to be on the admin side so you can manage that.  And so it does have like a loose CRM functionality there on the back end.
+
+
+55:40 - Chris Davis (attyfinancial.com) Okay.
+
+
+55:41 - Andre (Fortin Media) It's going to be more like a glorified contact card system.
+
+
+55:44 - Chad McDonald (InterAgent) Yeah, yeah.
+
+
+55:45 - Andre (Fortin Media) Requirements are. So as much fun as we integrate with something like HubSpot, it seems like a whole lot of effort for very little benefit.
+
+
+55:54 - Chad McDonald (InterAgent) Right.
+
+
+55:56 - Andre (Fortin Media) So get me wrong, as much as I love complexity, I like to keep things as simple as possible. It's like the Zen approach.
+
+
+56:03 - Chris Davis (attyfinancial.com) It's like, well, I'm in the process of leaving HubSpot for a different CRM. Especially when it's $280 a month for two users.  Crazy.
+
+
+57:16 - Andre (Fortin Media) The future of software development is essentially a la carte. It's like personalized software developed just for you because now it reduces the cost.  Before, if you were to code and you made a mistake and you had to go back, the amount of money that you're paying for your engineers was enormous.  I mean, I was not inexpensive. And when you have like four or five guys like me working on a product feature and then two weeks later you find out you didn't need it.  you're like, it costs us how many tens of thousands of dollars to find out now that didn't work? Yeah.  Right? Where we can simply like pick out a, like you can think about something. The time it takes to scaffold it and create a bad version of it, this get real world feedback is less time, like maybe a day or two and go, oh.  B2G. G1RX W forget large... And You can go, oh, yeah, that works, or no, it doesn't work. It's less expensive than getting a meeting and bringing everybody into a meeting than it is to have that one engineer go, hey, I tried something.  What do you think? And it's just, it's mind-blowing because I come from that background. I'm like, oh, my Lord.  I was working with Airways and, you know, and TELUS Mobility, and we were doing all these migrations from these older platforms.  I'm like, you're like, oh, it just shocks me.
+
+
+58:35 - Chris Davis (attyfinancial.com) Well, I think if something like this goes well, there are other things that we'd like to do. There's a thing called a three-way trust reconciliation that all law firms are, it suggests they do it month or quarterly.  They don't have to submit anything to the Bar Foundation, but it's what they have to do is prove that their trust account, their attorney trust account balance, trues up with the individual client ledgers and your overall bank account balance.  Those all have to match at... At any given point during the monthly statement cycle, there's a couple of people out there that do it currently.  There's a competitor of ours called Noda, N-O-T-A, by M&T Bank. They're limited to the states where Noda has a physical branch, or excuse me, where M&T has a physical branch, but they offer a three-way trust reconciliation feature.  We can get in all that later, but that would be, I think, kind of our next project if something like this goes well.  So certainly wouldn't be a one-and-done. I would love to figure out a way to integrate everything that we're doing with the client matter software that these firms are using, be it FileVine or SmartAdvocate or Clio or any of the others that are out there.  Rocket Fuel, I think, is one of them. But there's so much opportunity for us to make banking easier. And I don't feel like the Wells Fargo's and the Bank of America's of the world are focused.
+
+
+1:00:14 - Andre (Fortin Media) I'm a Canadian citizen, but I have an American social insurance number because my father was Canadian military, and when we were in Alaska, his goal when he was up there, he processed all Canadian personnel coming in and leaving the state.  So if I needed something, I'm like, Dad, I need this thing. And like one time, my work visa expired, and I go to work, and they're like, oh, man, you can't work.  Your work visa expired. I'm like, I'm still early.
+
+
+1:00:40 - Chris Davis (attyfinancial.com) He's like, no, no, we have to fire you. I'm like, no, no, hold on a second.
+
+
+1:00:43 - Andre (Fortin Media) Just give me an hour. I'll be back. He's like, Dad, right? And he's like, no worries. So he puts me on the three-way call.  He calls up the guys at the airport. He's like, hey, my son's coming out. He's like, yeah? He's like, yeah, he needs a new work visa.  He's like, all right, yes, sir. No problem, right? So I get there. I'm escorted over there. They take the stuff.  They print it. They seal it. They move. Here you go. Have a nice day. Tell your father hi. I'm like, all right, thanks.  I roll up. It's still warm. It's just, I'm like, here you go. It works. But just in terms of the banking, like I have this.  So when I try to open an account, they're like, so you're an American? I'm like, no, but you have a social security number.  I'm like, yes. So you're like a resident? Yes, because I have a work visa. Okay, but you're not a citizen.  I'm like, no, I got this TN visa, which allows me to work here. You're like, ah. So they rejected my application like three times.  And then they talked to someone who actually knew what was going on. You're like, oh, yeah, yeah. That's simple.  Like, it's just, they're like, I don't, they're like, I don't understand what people don't understand. Right. And I was like, so yeah, eventually had to work my way up to like some senior executive overseeing different branches in Florida.
+
+
+1:01:53 - Chris Davis (attyfinancial.com) And he's like, yeah, hold on. And it was done. Well, that's honestly the challenge of our partner bank. It's a regional bank in Quincy, Illinois.  They've been around for 80 years. They have about a billion, two in assets. But their clientele. Our people that have lived in Quincy, Illinois and have the family farm and, you know, they come into the branch to withdraw money and it's, you know, there's nothing forward thinking about them.  They're just now trying to implement a digital online account opening process. Yeah. So that's what we're, we're, we're kind of working in parallel with them, but at the same time, their thought process, all their employees are like 25 plus year employees.  So it's, it's very old school thinking, but I'm excited about this. I think to me, speed's important, but security is important.  A professional appearance is important. Something that works is important.
+
+
+1:02:53 - Andre (Fortin Media) So, yeah, I think we'll be able to wrap this all up in a really nice, beautiful package of people will look at and go, oh, okay.  You look at it and you feel like it builds trust because it doesn't look like front page 1997. Okay, this works.
+
+
+1:03:10 - Chris Davis (attyfinancial.com) It looks good.
+
+
+1:03:11 - Andre (Fortin Media) You know, it's easy to use. But a lot of that will be like, if we can just make sure that we can get your brain to give us a, you brain dump of what's inside and how you want to view it and what your idea is, even if you can just sketch out on a napkin or something, go here, see the screenshot of a napkin?  This is what I want the screen to look like, or this is how I envision it really helps to drive that.  I mean, if you're familiar with Figma, it helps because I can actually turn in with our tools. You can give me a drawing on a napkin of a layout, and I can turn that into a beautiful app.  It's like, I just need to get the right direction. And then we can quickly iterate to get to that MVP product.
+
+
+1:03:50 - Chris Davis (attyfinancial.com) Well, I can get you a lot of screenshots from the Excel sheet that I've built in terms of the way I would like, generally the way the report should look.  Like, I can certainly use something like PowerPoint to make a little, here's the way I envision this and blah, blah.
+
+
+1:04:02 - Andre (Fortin Media) Oh, yeah.
+
+
+1:04:03 - Chris Davis (attyfinancial.com) Yeah.
+
+
+1:04:04 - Andre (Fortin Media) Yeah, anything like that as a reference point so that we're not like... Trying to reinvent the wheel, or if you want to look like the competitor's product, like, okay, I like the way that they log in here.  I like this layout. Oh, we can make that. It's just, we need, it will help us to go very, very quickly to get that product out the door.
+
+
+1:04:24 - Chris Davis (attyfinancial.com) So, yeah, and I know we're over on time, but I just, this is something I'd slap together for the customers before I made some changes, but really it's just kind of a step-by-step.  Here's what you do on the first page. This is how you do this. And then kind of instructions like this.  Would something like this be helpful?
+
+
+1:04:40 - Andre (Fortin Media) Absolutely. Like, incredibly helpful.
+
+
+1:04:43 - Chad McDonald (InterAgent) Yes. Yeah, and even if you wanted to do a screen recording of you talking over this with any extra, you know, insights or thoughts or whatever you have, because the visual plus the audio, I think could streamline it a lot.  Now, Andre, the question I guess I have for you is we look to kind At least get some sort of scope together for Chris.  Do you want that before we finalize a scope or do you want to take – we have the recording from this call.  We'll have the other documents that he's already got that he'll send over to us. Do you feel comfortable with what we've got so far to say, okay, here's where we think we can land on this, and then we would dive into some of those core functionality aspects once we get going, or do you want that first? SCREEN SHARING: Chris started screen sharing - WATCH: https://fathom.video/share/4hbVfM8J74rWye6zo7gRcyP-RDTWysGg?timestamp=3863.0065159999995
+
+
+1:05:47 - Andre (Fortin Media) How quick do you want something you can look at and then go, okay, this is good or this is not good, change this?  Do you want it to be a week or do you want it to be two days? That would be the question.
+
+
+1:06:01 - Chris Davis (attyfinancial.com) In terms of like building on a prototype type of thing?
+
+
+1:06:05 - Andre (Fortin Media) Correct.
+
+
+1:06:07 - Chris Davis (attyfinancial.com) I mean, the sooner –
+
+
+1:06:11 - Chad McDonald (InterAgent) I think where he's going with that is if you took, you know, half hour this afternoon and did that recording or whatever and gave us that plus everything else we have, you probably get something in two days versus a week.
+
+
+1:06:27 - Chris Davis (attyfinancial.com) Yeah. Well, I can certainly do some of this today for sure. I need to update that instruction document, but if it's most helpful for me to just kind of walk through, if I'm coaching a new law firm on how to do this, if you don't care about historical data, like being a lot of data being loaded in the sheet, I can start with a clean sheet and just go through it like brand new.
+
+
+1:06:56 - Andre (Fortin Media) This is the way we would do this. That would be incredibly helpful. A lot of it, though, what we're also trying to get, and I think Chad's alluding to that too, is your thought process behind what's on the sheet.  And while you're tracking it, because that will inform what it is and how we build it, because it will give insight into what the most important things are, like, what are the insights you're trying to extract from it later?  Like, we know that they need some types of reports. So this is why we built this, and these are the requests we're getting.  We did this because we're trying to simplify this part. Like, that kind of knowledge, institutional knowledge, in this case, in your brain, Chris, is incredibly useful.
+
+
+1:07:36 - Chris Davis (attyfinancial.com) Okay. And then, if we were to get this over, what are we looking at, expense-wise, before I have you guys start doing any, spending any more time than you've already done here?  I mean, have you guys talked about that? Do you have an idea where we'd be?
+
+
+1:07:53 - Chad McDonald (InterAgent) No, we haven't fully talked about it. Part of it was, you know, make sure Andre had a good understanding of what we're going after here.  But I think, you know, he and I both, and it was a big reason why I circled back with you after talking with him, was he and I are both...  Very interested in, you know, the long-term partnership of this and the growth, you the growth opportunity for both parties through it.  And so I think, you know, I think we're going to try to come up with something that we feel is, you know, very, very fair and advantageous for, you know, for you guys and ultimately for us as well.
+
+
+1:08:30 - Chris Davis (attyfinancial.com) Well, and I'll, I guess I'll end with this. I appreciate that. And that's what I would like to, we, one of the first guys that we hired when my co-founder and I started this was a guy, a Salesforce familiar guy.  He was brought in as kind of our chief technology, chief digital officer. He had built a digital account opening tool, or so he said, when he was just working with a developer behind the scenes and selling us buckets and buckets of snake oil.  And failed to deliver. And then when we let him go, he attempted to extort us. So in addition to having to buy back his.  Shares, the attorney fees, and everything else we wound up, and the money we spent him during, I mean, that was like a $300,000 investment that was just all down the drain.  And then we went down the road for a replacement project with a group called Relativity Holdings, a group out of Florida.  They presented what appeared to be a functioning digital account opening product, and it was all smoke and mirrors. They didn't have anything, and we wasted about $50,000 with them, too.  So I'm super gun-shy. A lot of that was driven by the CEO at the time who was leaving the business.  So I'm very skeptical. I'm definitely a pessimist, just so you guys know who you're dealing with. But I'm also committed to finding the right partner, and I would love, I mean, my employee, Macy, and I were talking.  It'd be great if we had almost like a fractional CTO, in a way, where that's what you guys feel like to me, where when we have projects, we come to you, or if we need help.  We come to you. And it's not this full-blown employee relationship where we just can't afford it.
+
+
+1:10:15 - Chad McDonald (InterAgent) Yeah. Well, I mean, I can't speak fully for Andre, but I mean, I, you know, coming, doing a lot of work historically with kind of big agency mentality where it's like, I'm paying for this portion of what that team does, but I have to pay all the other overhead for the other nine other people, you know, that aren't really even contributing to this.  And I think he and I both, again, I'm sorry, Andre, I'm speaking for you, but I know for me, I definitely hated, you know, hated that aspect to it when I owned, you know, owned a bigger agency with a bunch of employees and all of that.  And so I think that's where I've, I've arrived at this place of where we keep it really nimble on our side, which allows us to be very competitive, but we also try to stay very much on the forefront of what's going on.  So we can move faster than what a lot of these big shops are going to be able to do.
+
+
+1:11:06 - Chris Davis (attyfinancial.com) No, I love it.
+
+
+1:12:08 - Andre (Fortin Media) That you're making money so that you feel happy paying us every month out of that additional value that we're bringing.  That said, the only thing that made me a gunshot is I dealt with a few different people, whereas we didn't take anything at front at all.  So there was no commitment on that part. It was never like $50,000. I'm just like, oh, my Lord. It was a nominal amount just to say, okay, yeah, okay, you're going to be here.  You're going to do what you say you're going to do, and you're going to be a partner with us so we can deliver a product so we're not wasting time on something that has no finish line, right?
+
+
+1:12:44 - Chris Davis (attyfinancial.com) Something that won't eventually get there.
+
+
+1:12:45 - Andre (Fortin Media) So we just want kind of like a small nominal commitment so we go, okay, this makes sense. Priority, these are serious people.  Let's make this thing happen.
+
+
+1:12:53 - Chris Davis (attyfinancial.com) Yeah, absolutely.
+
+
+1:12:54 - Andre (Fortin Media) The only thing that's really limited on is how much time we have left, and let's work on projects that are fun and interesting that have good upside potential.  I think this is it, and when Chad shared with me, I'm like, hey, this sounds great. So that's how I'm looking at it.  And I think the fractional CTO thing. I it's kind of essentially what you're getting, like as a team, it's like, hey, we got big brain here with Chad and we got, you some technical expertise over here.  I was like, hold on, just hurting my back, just kind of had myself over there. But some of my stuff on my track record, like there's products that we have, they're available online, they're in production that we make. ACTION ITEM: Email Macy meeting summary + next steps - WATCH: https://fathom.video/share/4hbVfM8J74rWye6zo7gRcyP-RDTWysGg?timestamp=4342.3188439999985  It's not just like we invent stuff. Unfortunately, some of the stuff you will never be able to see because that's all behind NDAs. ACTION ITEM: Email Chris references/projects for review - WATCH: https://fathom.video/share/4hbVfM8J74rWye6zo7gRcyP-RDTWysGg?timestamp=4342.3188439999985  But still, I did a lot of really cool stuff for the airlines and for some technology companies.
+
+
+1:13:36 - Chris Davis (attyfinancial.com) But yeah, well, along those lines, I mean, if you have references or if you have projects you're willing to share for us to take a peek at, because, you know, I do want to, I'm going to share this conversation with Macy, who's really my only other team member at this point.  But I feel really, really confident about this. I'm excited about this. I think that there's certainly, you know, we could even do an office space type thing where we pull a fraction of a penny on every transaction and then that we get paid that way.  But that was a joke.
+
+
+1:14:05 - Andre (Fortin Media) Yeah, I know. know one.
+
+
+1:14:08 - Chris Davis (attyfinancial.com) No. But I do think that we can come up with something that hopefully makes sense for you guys while preserving our ability to make money and, you know, yeah, just have it benefit everyone.  Because I do, like I said, I have a handful of projects that I'm dying to get started on. But first and foremost, I got to get to break even.
+
+
+1:14:27 - Andre (Fortin Media) Yes, that's good. There are a couple of, I was talking to Chad, was talking to some friends in Florida that are working with some smaller law firms.  And they have a couple of cases that can't move forward because they don't have the financing to get that done.  He's like, man, I got these two cases just sitting there with these guys. I'm like, oh, he's like, I'm like, you know, I was just talking to this guy, Chad, he was talking about this product.  He's like, what? That sounds great. I said, yeah, it's like, when you find out more, let me know. Yeah, please do.
+
+
+1:14:57 - Chris Davis (attyfinancial.com) We can, we can lend, I think we can lend in all 50 states. We can't take trust account money in 13 states because those states require that the banks have a.  We branch in state, which we only have physical branches in Illinois through the Partner Bank, but we have to go get IOLTA approval, but yeah, we can do lending, and it's primarily case expense lending, but there is also litigation funding where it's like, hey, this case is going to cost us a half a million dollars to go and litigate it.  We don't have the expertise in our team to evaluate and underwrite those cases, so there are companies out there that do that non-recourse, where if the case fails, but they're also paying 25% interest on it, and when they win, they take like 30% of the outcome for the firm, so it's feast or famine.  Yeah, that's sure, but is Florida one of those places you can do stuff? We can lend, and we can take deposit accounts, we just can't have attorney trust accounts.
+
+
+1:16:06 - Andre (Fortin Media) Okay, that's fine.
+
+
+1:16:07 - Chris Davis (attyfinancial.com) Yeah. The small to mid-sized law firm is really what we kind of targeted as that important firm that doesn't have the full-blown accounting department and CFO, where the stuff that we offer helps make their life easier. ACTION ITEM: Email Florida law firms Chris’s contact info for referrals - WATCH: https://fathom.video/share/4hbVfM8J74rWye6zo7gRcyP-RDTWysGg?timestamp=4517.3188439999985  Because our banking platform does connect via Plaid to all the external accounts, and they can move money bi-directionally and manage everything from our platform.
+
+
+1:16:31 - Andre (Fortin Media) Where should I direct them to?
+
+
+1:16:34 - Chris Davis (attyfinancial.com) I can give you my email address. Our website's attyfinancial.com, and my email is just cdavis at attyfinancial.com.
+
+
+1:16:46 - Andre (Fortin Media) attyfinancial.com. Great. We just added referral fees into that, right, Chad?
+
+
+1:16:54 - Chad McDonald (InterAgent) Right. No, we do.
+
+
+1:16:56 - Chris Davis (attyfinancial.com) We actually do pay those. So, anybody that refers to this business, we take an average, I think it's an average of the average daily balance of the first 90 days.  average average average daily daily daily balance the balance the the And then an average daily balance of the next 90 days, and we pay 10 basis points on that.  So it'd be pretty decent if sizable accounts.
+
+
+1:17:16 - Chad McDonald (InterAgent) Yeah, absolutely. I apologize. I do have another caller I've got to jump to in 10 minutes, and I need to do a couple things before that.  If you can, Chris, if you can email me the documents and stuff, and then once you've got a chance to go through that tutorial and stuff, send that over.
+
+
+1:17:36 - Chris Davis (attyfinancial.com) Okay.
+
+
+1:17:37 - Chad McDonald (InterAgent) But then Andre and I will circle back here pretty quick and come up with some options for you.
+
+
+1:17:44 - Chris Davis (attyfinancial.com) Great. I'll get on it. Thank you both. I really am excited. Thank you very much, Chris. care. Thank you.  See you guys soon. Bye. Thank you.

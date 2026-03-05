@@ -1,0 +1,95 @@
+Simplified User View Requirements,,,
+✓,Req ID,Requirement,Description/Notes
+,FR-1,System Access,Users access the tool through their banking platform without separate credentials and begin working immediately.
+☐,FR-1.1,Users shall access the tool by clicking a button or tile in their banking dashboard (desktop or mobile),
+☐,FR-1.2,Users shall not be required to enter separate username or password,
+,FR-2,Initial Setup,New users complete a one-time setup process to configure their firm and begin tracking cases.
+☐,FR-2.1,"ATTY Financial representative will complete admin setup, inclusive of prime rate and client-specific modifier.",
+☐,FR-2.2,"First-time users shall complete a setup wizard where they enter: Firm name, contact information, and upload firm logo.",
+☐,FR-2.3,Users shall be able to edit firm settings after initial setup,
+,FR-3,Compliance Certification,"Each user to certify that funds will be for approved case expenses, entries are accurate, case-specific principal to be repaid within 30 days of case closure, and e-signed."
+☐,FR-3.1,"User to review, agree to terms, and certify accuracy of information and digitally sign.",
+☐,FR-3.2,User agrees to allow ATTY Financial to pull firm reports when needed to provide to bank partner.,
+,FR-4,Client Matters,"Users create unique client matters, set status, and track them from opening through settlement or closure."
+☐,FR-4.1,"Users shall create new matters by entering: Unique Matter ID, Full Client Name, Status (Active/Closed/Archive), Optional notes.",
+☐,FR-4.2,Users shall see an error message if they attempt to create a case with a duplicate Matter ID,
+☐,FR-4.3,Users shall be able to update case status at any time,
+☐,FR-4.4,Users shall close cases by updating case status to Closed/Archived.,
+☐,FR-4.5,Users shall see an error if they attempt to close a Matter that still has a principal balance.,
+☐,FR-4.6,Users shall be able to search cases by Matter ID or client name,
+☐,FR-4.7,"Users shall have link displayed for each case to show: Total draws, Total principal payments, Total interest accrued, Principal balance, Total owed.",
+☐,FR-4.8,Users shall have link displayed for each case to generate firm payoff report.,
+☐,FR-4.9,Users shall have link displayed for each case to generate client payoff report.,
+,FR-5,Transaction Logging - Draws on Line of Credit,Users record line of credit draws allocating expenses to specific Matters with proper categorization.
+☐,FR-5.1,"Transactions should populate in a ""dashboard"" driven by a live feed/API connection from the banking platform.",
+☐,FR-5.2,"Line of credit draw transactions should populate in a ""dashboard"" with a Type of ""Draw"".",
+☐,FR-5.3,"Users shall assign each transaction across one or multiple Matters, while having the ability to assign specific dollar amounts to each Matter, as well as categorizing via an approved list of expense/payment categories.",
+☐,FR-5.4,"Users shall select expense category from a list including: Court & Filing Fees, Service of Process, Depositions & Transcripts, Expert Witness Fees, Medical Records & Related Costs, Investigation & Evidence, Discovery & Document Production, Witness Costs, Travel & Trial Preparation, Mediation & Arbitration, Miscellaneous.",
+☐,FR-5.5,Users shall see an error if they attempt to enter negative amounts,
+☐,FR-5.6,Users shall see an error if they assign a transaction to a Matter that is Closed/Archived.,
+☐,FR-5.7,"Users shall be able to filter transactions by case, type, category, or date range",
+,FR-6,Transaction Logging - Payments to Line of Credit,Users record payments to specific Matters within the line of credit to either pay off principal balance or make principal balance adjustments.
+☐,FR-6.1,"Payment transactions should populate in a ""dashboard"" driven by a live feed/API connection from the banking platform.",
+☐,FR-6.2,"Line of credit payment transactions should populate in a ""dashboard"" with a Type of ""Principal Payment"".",
+☐,FR-6.3,"Users shall assign each payment across one or multiple Matters, while having the ability to assign specific dollar amounts to each Matter, as well as categorizing via an approved list of payment categories.",
+☐,FR-6.4,"Users shall select payment category from a list including: Principal Payment/Adjustment, Payoff.",
+☐,FR-6.5,Users shall see an error if they attempt to enter negative amounts,
+☐,FR-6.6,Users shall see an error if they attempt to enter payment amount greater than principal balance.,
+☐,FR-6.7,Users shall see an error if they assign a transaction to a Matter that is Closed/Archived.,
+☐,FR-6.8,"Users shall be able to filter transactions by case, type, category, or date range",
+,FR-7,Transaction Logging - Allocation of Monthly Interest Payment,"Users record the allocation of interest across all active Matters with interest being applied first to active Matters with $0 principal balance, and a pro rata distribution across remaining matters with principal balance > $0."
+☐,FR-7.1,"Monthly autodraft interest payment transactions should populate in a ""dashboard"" driven by a live feed/API connection from the banking platform.",
+☐,FR-7.2,"Monthly autodraft interest payment transactions should populate in a ""dashboard"" with a Type of ""Interest Autodraft"".",
+☐,FR-7.3,"Expense/payment category should autopopulate as ""Monthly Interest Draft"".",
+☐,FR-7.4,All transactions with dates prior to Interest Payment date must be categorized and assigned prior to Interest allocation.,
+☐,FR-7.5,Interest allocation must be processed prior to categorizing and assigning any transaction with a date the same or later than the Interest Payment date.,
+☐,FR-7.6,"In the event that bank interest draft is greater than total of interest currently owed, all interest should be allocated, then the remainder held to be allocated during the next event.",
+,FR-8,Interest Calculation,"Users see daily interest automatically calculated on draws using current rates and firm settings, updated whenever rates or payments change."
+☐,FR-8.1,"Interest shall be calculated from draw date to current date, so long as principal balance is > $0.",
+☐,FR-8.2,"Interest to be calculated using the prime rate + modifier, while correctly adjusting interest accrual across time and rate changes.",
+☐,FR-8.3,"Interest to be automatically recalculated when: Prime rate changes,  a principal payment is applied, a principal adjustent is made, user changes 'as of' date.",
+☐,FR-8.4,Feature to exist that allows user to select a future date to project total interest at future date - disclaimer to be included that calculation does not take any potential rate changes into consideration and that it should serve only as an estimate.,
+,FR-9,Anticipated Draw Calculator,"Users to be able to select multiple Matters, input expense amount for each Matter, receive a total of all new expense amounts, and use that number to execute actual draw on line of credit through banking platform. Ideal scenario to have the ability to match the calculator input to the bank feed once displayed in dashboard (similar to QuickBooks Online match functionality)."
+☐,FR-9.1,Users to have access to caclulate expense function.,
+☐,FR-9.2,Users to select multiple Matters from list of Active Matters.,
+☐,FR-9.3,Users to input expense amount in data field next to Matter name.,
+☐,FR-9.4,User will receive a total amount to draw on line of credit to satisfy all inputted anticipated expenses.,
+☐,FR-9.5,"Inputs to be saved and ""matched"" upon bankfeed delivering a total that matches the expense calculated.",
+☐,FR-9.6,User would have button (similar to QBO functionality) to auto assign transaction to match amounts previously calculated and saved.,
+,FR-10,Anticipated Payoff Calculator,"Users to be able to select multiple Matters, receive a total firm payoff amount for all selected Matters, and use that number to execute a principal only payment towards the line of credit through banking platform. Ideal scenario to have the ability to match the calculator input to the bank feed once displayed in dashboard (similar to QuickBooks Online match functionality)."
+☐,FR-10.1,Users to have access to caclulate payoff function.,
+☐,FR-10.2,Users to select multiple Matters from list of Active Matters.,
+☐,FR-10.3,User will receive a total firm payoff amount (total of selected Matter principal only balances) to be used to execute principal only payment towards line of credit in banking platform. ,
+☐,FR-10.4,"Inputs to be saved and ""matched"" upon bankfeed delivering a total that matches the payoff calculated.",
+☐,FR-10.5,User would have button (similar to QBO functionality) to auto assign transaction to match amounts previously calculated and saved.,
+,FR-11,Reporting - Firm Payoff,Users get a report that details all transactions and the payoff amount to satisfy the selected Matter's principal balance.
+☐,FR-11.1,Users shall use link next to Matter or a drop down to select a specific Matter to generate a firm payoff report.,
+☐,FR-11.2,"Firm Payoff Report will display: Matter ID, Date of Report, Summary (all draws, total interest accrued, principal paid, interest paid, interest owed via next autodraft payment, and total firm payoff amount = principal balance), as well as an invoice style listing of all transaction activity.",
+☐,FR-11.3,Option to print or export to PDF,
+☐,FR-11.4,Generating Firm Payoff Report also generates Client Payoff Report.,
+,FR-12,Reporting - Client Payoff,Users get a report that details all transactions and the payoff amount to present to their client to satisfy and fully reimburse the user.
+☐,FR-12.1,Users shall use link next to Matter or a drop down to select a specific Matter to generate a client payoff report.,
+☐,FR-12.2,"Client Payoff Report will display: Law firm details and logo, Matter ID, Date of Report, Summary (all draws, total interest accrued, and total client payoff amount = principal balance+interest), as well as an invoice style listing of all transaction activity.",
+☐,FR-12.3,Option to print or export to PDF,
+,FR-13,Reporting - Funding Report,Users get a report that details the amounts funded/applied to all Matters on a selected date.
+☐,FR-13.1,Users shall use dropdown selector tool to choose a single draw date.,
+☐,FR-13.2,Report generates all Matters and amounts identified by the selected date.,
+☐,FR-13.3,"Report displays as invoice style report: law firm info and logo, date, total draw amount, and Matter ID, Purpose, and individual amounts that make up the total.",
+☐,FR-13.4,Option to print or export to PDF,
+,FR-14,Reporting - Finance Charge Report,Users get a report that details how each monthly interest autodraft payment is allocated across all Matters on a selected date.
+☐,FR-14.1,Users shall use dropdown selector tool to choose a Interest Payment date.,
+☐,FR-14.2,Report generates all Matters and amounts identified by the selected date.,
+☐,FR-14.3,"Report displays as invoice style report: law firm info and logo, date, total interest payment amount, and Matter ID, Principal Balance, and individual interest payment amounts applied to each Matter.",
+☐,FR-14.4,Option to print or export to PDF,
+,FR-15,Monitoring,Users see alerts for unassigned transactions and data quality issues requiring attention.
+☐,FR-15.1,Users shall see warning highlighting which closed cases have unpaid principal balances.,
+☐,FR-15.2,Users shall see how many days have passed since each case closed,
+☐,FR-15.3,Users shall see color-coded alerts: [Yellow warning: 20-29 days since case closed: Red error: 30+ days since case closed (payment overdue)],
+,FR-16,Master Dashboard,"Users view portfolio summary, generate case reports, and export data for accounting and audits."
+☐,FR-16.1,"Users shall see a master dashboard displaying: Total outstanding principal balance across all cases (this should match principal balance from banking platform), Total interest accrued across all cases, Number of active cases.",
+☐,FR-16.2,Users shall see current effective interest rate information.,
+☐,FR-16.3,"Users shall be able to search for specific Matters and generate a case summary report showing: Matter number, Client name, Case status, Total draws, Total interest, Total payments, Balance due.",
+☐,FR-16.4,Users should be able to access link for payoff reports using Matter search feature.,
+,FR-17,Banking Functions,"Users draw on or pay back their line of credit through the tool, the corresponding data is automatically updated"
+☐,FR-17.1,User shall be able to draw on line of credit inside the system,Upon full bank connectivity
+☐,FR-17.2,User shall be able to repay line of credit inside the system,

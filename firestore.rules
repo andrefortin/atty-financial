@@ -1,0 +1,262 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ============================================
+    // Helper Functions
+    // ============================================
+
+    // Check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Check if user belongs to a firm
+    function isMemberOfFirm(firmId) {
+      return isAuthenticated() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.firmId == firmId;
+    }
+
+    // Check if user has admin role
+    function isAdmin() {
+      return isAuthenticated() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'Admin';
+    }
+
+    // Check if user has Accountant role or higher
+    function isAccountantOrHigher() {
+      return isAuthenticated() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['Admin', 'Accountant', 'System'];
+    }
+
+    // Check if user can read firm data
+    function canReadFirm(firmId) {
+      return isMemberOfFirm(firmId);
+    }
+
+    // Check if user can write firm data
+    function canWriteFirm(firmId) {
+      return isMemberOfFirm(firmId);
+    }
+
+    // ============================================
+    // Users Collection
+    // ============================================
+    match /users/{userId} {
+      // Users can read their own data
+      // Admins can read all users in their firm
+      allow read: if isAuthenticated() &&
+                    (request.auth.uid == userId ||
+                     isMemberOfFirm(get(/databases/$(database)/documents/users/$(userId)).data.firmId));
+
+      // Users can update their own data (except role and firmId)
+      // Admins can create/update users in their firm
+      allow write: if isAuthenticated() &&
+                     ((request.auth.uid == userId &&
+                       !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'firmId', 'createdAt'])) ||
+                      (isAdmin() &&
+                       isMemberOfFirm(request.resource.data.firmId)));
+    }
+
+    // ============================================
+    // Firms Collection
+    // ============================================
+    match /firms/{firmId} {
+      // Firm members can read firm data
+      allow read: if canReadFirm(firmId);
+
+      // Only admins can create/update firms
+      // System account can also update firms
+      allow write: if isAuthenticated() &&
+                    (isAdmin() ||
+                     get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'System');
+    }
+
+    // ============================================
+    // Matters Collection
+    // ============================================
+    match /matters/{matterId} {
+      // Firm members can read matters belonging to their firm
+      allow read: if canReadFirm(resource.data.firmId);
+
+      // Accountants and Admins can create matters
+      // Only Accountants and Admins can update matters
+      // Only Admins can delete matters
+      allow create: if isAccountantOrHigher() &&
+                     canWriteFirm(request.resource.data.firmId);
+
+      allow update: if isAccountantOrHigher() &&
+                     canWriteFirm(resource.data.firmId);
+
+      allow delete: if isAdmin() &&
+                     canWriteFirm(resource.data.firmId);
+    }
+
+    // ============================================
+    // Transactions Collection
+    // ============================================
+    match /transactions/{transactionId} {
+      // Firm members can read transactions belonging to their firm
+      allow read: if canReadFirm(resource.data.firmId);
+
+      // Accountants and Admins can create transactions
+      // Only Accountants and Admins can update transactions
+      // Only Accountants and Admins can delete transactions
+      allow create: if isAccountantOrHigher() &&
+                     canWriteFirm(request.resource.data.firmId);
+
+      allow update: if isAccountantOrHigher() &&
+                     canWriteFirm(resource.data.firmId);
+
+      allow delete: if isAccountantOrHigher() &&
+                     canWriteFirm(resource.data.firmId);
+    }
+
+    // ============================================
+    // Rate Entries Collection
+    // ============================================
+    match /rateEntries/{entryId} {
+      // Firm members can read rate entries
+      // If entry is firm-specific, only firm members can read
+      // If entry is global (no firmId), all users can read
+      allow read: if isAuthenticated() &&
+                    (!resource.data.firmId ||
+                     isMemberOfFirm(resource.data.firmId));
+
+      // Only Admins can create rate entries
+      allow create: if isAdmin() &&
+                     (!request.resource.data.firmId ||
+                      isMemberOfFirm(request.resource.data.firmId));
+
+      // Only Admins can update rate entries
+      allow update: if isAdmin() &&
+                     (!resource.data.firmId ||
+                      isMemberOfFirm(resource.data.firmId));
+
+      // Only Admins can delete rate entries
+      allow delete: if isAdmin();
+    }
+
+    // ============================================
+    // Daily Balances Collection
+    // ============================================
+    match /dailyBalances/{balanceId} {
+      // Firm members can read daily balances for their firm
+      allow read: if canReadFirm(resource.data.firmId);
+
+      // System account only (for generated records)
+      allow write: if isAuthenticated() &&
+                     get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'System';
+    }
+
+    // ============================================
+    // Interest Allocations Collection
+    // ============================================
+    match /interestAllocations/{allocationId} {
+      // Firm members can read allocations for their firm
+      allow read: if canReadFirm(resource.data.firmId);
+
+      // Accountants and Admins can create allocations
+      allow create: if isAccountantOrHigher() &&
+                     canWriteFirm(request.resource.data.firmId);
+
+      // Only Admins can update allocations (for finalization)
+      allow update: if isAdmin() &&
+                     canWriteFirm(resource.data.firmId);
+
+      // Only Admins can delete allocations
+      allow delete: if isAdmin();
+    }
+
+    // ============================================
+    // Audit Logs Collection
+    // ============================================
+    match /auditLogs/{logId} {
+      // Firm members can read audit logs for their firm
+      allow read: if canReadFirm(resource.data.firmId);
+
+      // System account and Admins can create audit logs
+      // Audit logs are typically created by Cloud Functions or system triggers
+      allow create: if isAuthenticated() &&
+                     (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['System', 'Admin']);
+
+      // No updates or deletes allowed (immutable audit trail)
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    // ============================================
+    // Bank Feeds Collection
+    // ============================================
+    match /bankFeeds/{feedId} {
+      // Firm members can read bank feeds for their firm
+      allow read: if canReadFirm(resource.data.firmId);
+
+      // System account creates bank feeds
+      // Accountants and Admins can update (match/unmatch)
+      allow create: if isAuthenticated() &&
+                     get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'System';
+
+      allow update: if isAccountantOrHigher() &&
+                     canWriteFirm(resource.data.firmId);
+
+      // Only Admins can delete
+      allow delete: if isAdmin();
+    }
+
+    // ============================================
+    // Reports Collection
+    // ============================================
+    match /reports/{reportId} {
+      // Users can read their own reports
+      // Firm members can read reports for their firm
+      allow read: if isAuthenticated() &&
+                    (resource.data.generatedBy == request.auth.uid ||
+                     canReadFirm(resource.data.firmId));
+
+      // All authenticated users can create reports
+      allow create: if isAuthenticated() &&
+                     canWriteFirm(request.resource.data.firmId);
+
+      // Report generator can update status
+      allow update: if isAuthenticated() &&
+                     (request.auth.uid == resource.data.generatedBy ||
+                      isAdmin());
+
+      // Users can delete their own reports
+      // Admins can delete any report
+      allow delete: if isAuthenticated() &&
+                    (request.auth.uid == resource.data.generatedBy ||
+                     isAdmin());
+    }
+
+    // ============================================
+    // Notifications Collection
+    // ============================================
+    match /notifications/{notificationId} {
+      // Users can only read their own notifications
+      allow read: if isAuthenticated() &&
+                    resource.data.userId == request.auth.uid;
+
+      // System account creates notifications
+      allow create: if isAuthenticated() &&
+                     get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'System';
+
+      // Users can update their own notifications (mark as read)
+      allow update: if isAuthenticated() &&
+                     request.auth.uid == resource.data.userId;
+
+      // Users can delete their own notifications
+      allow delete: if isAuthenticated() &&
+                     request.auth.uid == resource.data.userId;
+    }
+
+    // ============================================
+    // Connection Test Collection (for testing)
+    // ============================================
+    match /_connection_test/{docId} {
+      // Only for development/testing
+      allow read, write: if false;
+    }
+  }
+}
