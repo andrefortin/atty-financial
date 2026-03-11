@@ -1,0 +1,20 @@
+{
+  "session_id": "3dcf7a6f-f8a3-4a4f-85df-74a4c6190b2c",
+  "prompts": [
+    "update the plan at specs/add-select-posting-options-feature.md to include the options for neighbourhood from the html listitem snippet update the plan to have a neighbourhood selection from the list items in this html snippet: <ul data-v-0524fc95=\"\"><li data-v-0524fc95=\"\"          \n  class=\"item\"><a data-v-0524fc95=\"\" href=\"/Neighbourhoods\" target=\"_blank\">Neighbourhoods</a></li> <li data-v-0524fc95=\"\" class=\"item\"><a           \n  data-v-0524fc95=\"\" href=\"/westboro\" target=\"_blank\">Westboro</a></li><li data-v-0524fc95=\"\" class=\"item\"><a data-v-0524fc95=\"\"                     \n  href=\"/BywardMarket\" target=\"_blank\">Byward Market Ottawa</a></li><li data-v-0524fc95=\"\" class=\"item\"><a data-v-0524fc95=\"\"                        \n  href=\"/CentretownOttawa\" target=\"_blank\">Centretown Ottawa</a></li><li data-v-0524fc95=\"\" class=\"item\"><a data-v-0524fc95=\"\" href=\"/Glebe\"         \n  target=\"_blank\">The Glebe Ottawa</a></li><li data-v-0524fc95=\"\" class=\"item\"><a data-v-0524fc95=\"\" href=\"/SandyHill\" target=\"_blank\">Sandy Hill    \n  Ottawa</a></li><li data-v-0524fc95=\"\" class=\"item\"><a data-v-0524fc95=\"\" href=\"/Orleans\" target=\"_blank\">Orleans Ottawa</a></li><li                \n  data-v-0524fc95=\"\" class=\"item\"><a data-v-0524fc95=\"\" href=\"/BlackburnHamlet\" target=\"_blank\">Blackburn Hamlet Ottawa</a></li><li                  \n  data-v-0524fc95=\"\" class=\"item\"><a data-v-0524fc95=\"\" href=\"/Castleman\" target=\"_blank\">Castleman</a></li><li data-v-0524fc95=\"\" class=\"item\"><a   \n  data-v-0524fc95=\"\" href=\"/Beaconhill\" target=\"_blank\">Beaconhill Ottawa</a></li><li data-v-0524fc95=\"\" class=\"item\"><a data-v-0524fc95=\"\"          \n  href=\"/Fallingbrook\" target=\"_blank\">Fallingbrook, Ottawa</a></li><li data-v-0524fc95=\"\" class=\"item\"><a data-v-0524fc95=\"\" href=\"/Overbrook\"      \n  target=\"_blank\">Overbrook Ottawa</a></li><li data-v-0524fc95=\"\" class=\"item\"><a data-v-0524fc95=\"\" href=\"/Rockland\"                                \n  target=\"_blank\">Rockland</a></li><li data-v-0524fc95=\"\" class=\"item\"><a data-v-0524fc95=\"\" href=\"/Altavista\" target=\"_blank\">Altavista             \n  Ottawa</a></li><li data-v-0524fc95=\"\" class=\"item\"><a data-v-0524fc95=\"\" href=\"/Wateridge-Solds-Listed\" target=\"_blank\">Wateridge</a></li></ul> ",
+    "update the plan to have a neighborhood type instead of a ottawaneighborhood type because the list will be filled in by the results for a neighborhood search by city in an update.",
+    "/implement specs/add-select-posting-options-feature.md",
+    "move posting options above 'saved searches' and swith the icon from an gear to a sign",
+    "have we updated the base url for openai chat completion?",
+    "No, this is good. What about including the latest models for openai",
+    "And also we need an llm setting for image generation for Google Nano Banana",
+    "openai model gpt-5.2, gpt-5 are now available as well.",
+    "Use this url for info on google image generation : https://ai.google.dev/gemini-api/docs/image-generation",
+    "https://ai.google.dev/gemini-api/docs/image-generation#javascript_4\nfor javascript versions\nfor curl based commands : https://ai.google.dev/gemini-api/docs/image-generation#rest_4",
+    "continue",
+    "/plan \"we need to update the template to include an user prompt that will get sent along with the template\"",
+    "/implement specs/add-user-prompt-to-templates.md",
+    "/plan \"update the posting options to how the list of saved options. Add an scrape now icon action button to each posting option. include at the top of the page a new posting option button. When we click the add new button, it can display the create new publishing option panel, just like when we click the edit action button. also include bulk action buttions and a select checkboxes."
+  ],
+  "agent_name": "Vesper"
+}

@@ -1,0 +1,9 @@
+{
+  "session_id": "8a6925e7-dea8-4a79-9317-62c6ff1358bb",
+  "prompts": [
+    "clear",
+    "/prime_app plugin",
+    "/prime_app --refresh plugin"
+  ],
+  "agent_name": "Vesper"
+}

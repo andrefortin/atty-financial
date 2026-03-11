@@ -1,0 +1,15 @@
+{
+  "session_id": "49aa0496-2f78-4966-bd59-437210af7dbf",
+  "prompts": [
+    "what models do we have",
+    "update the plan 'specs/add-list-view-bulk-actions-to-posting-options.md' to use the logo logo_home_search_canada.png and the name              \n  'HOME-SEARCH-CA' as the name. When we scrape properties from this list. ",
+    "update the plan 'specs/add-list-view-bulk-actions-to-posting-options.md' to use the logo logo_home_search_canada.png and the name              \n  'HOME-SEARCH-CA' as the name. When we scrape properties from this list. ",
+    "We need action buttons to scrape the listing, checkboxes, and bulk action buttons",
+    "/plan \"update the posting options to how the list of saved options. Add an scrape now icon action button to each posting option. include at the top of the page a new posting option button. When we click the add new button, it can display the create new publishing option panel, just like when we click the edit action button. also include bulk action buttions and a select checkboxes.",
+    "Also show the home search logo",
+    "/implement specs/posting-options-list-view-with-bulk-actions.md",
+    "update the logo url for Realtor.com to use assets/logo_realtor_com.png",
+    "for the posting options do not save undefined values, use null instead."
+  ],
+  "agent_name": "Phoenix"
+}

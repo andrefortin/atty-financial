@@ -1,0 +1,8 @@
+{
+  "session_id": "83502a82-0887-480c-b586-6ba3a3d4e96c",
+  "prompts": [
+    "/implement specs/real-estate-listing-enrichment-feature.md",
+    "update docs and push to git"
+  ],
+  "agent_name": "Vesper"
+}

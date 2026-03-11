@@ -1,0 +1,9 @@
+{
+  "session_id": "37bbe29b-4923-4112-9810-1576f32c34ae",
+  "prompts": [
+    "/prime_app 'consolidata'",
+    "/plan 'We need to create the ability to allow users to use a custom domain domain that their account can use to brand the app as their own  as this is a SaaS product. The user should be able to enter their custom domain that they own and have the app brand any traffic to that domain name with the accounts branded settings that have been saved to the database. Provide simple direction for any the account user (admin) as this should only be visible to account admins not regular account users, on how to add any dns settings. make it simple for non technical people and super sexy. Think deeply and impress me.'",
+    "/build apps/consolidata/specs/saas-custom-domain-branding-system.md"
+  ],
+  "agent_name": "Vesper"
+}

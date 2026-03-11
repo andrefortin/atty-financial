@@ -1,0 +1,16 @@
+{
+  "session_id": "791bc0c0-d8e3-430c-94a6-143db1d5d309",
+  "prompts": [
+    "/prime_app backend",
+    "/implement specs/implement-all-backend-todos.md",
+    "skip implementing the scrapers",
+    "continue",
+    "continue",
+    "continje",
+    "update docs and push to git",
+    "/prime_app --refresh backend",
+    "/plan \"in the 'apps/backend' application we are using convex for the authentication and have an option to use workos an another. Ensure our authencation flow and user signup and login and password reset flow are fully implemented. We won't be doing scraping in the backend however we do need a way to send notifications to the plugin extensions that a user is logged in as in addition to receiving analytic, data telementry data, usage data, and sending notification and messages back and forth to the backend or frontend application where a manager can interact with the user's plugin and can send it a message to scrape a page or perform some other action. Look for any gaps in our implementation for what we had designed and analysis the app for gaps in features that we should have implemented for similar apps. We need the MVP list and a future enhancement list that we can create build plans from.\"",
+    "/plan 'update full swagger documentation for our existing apis\""
+  ],
+  "agent_name": "Vesper"
+}

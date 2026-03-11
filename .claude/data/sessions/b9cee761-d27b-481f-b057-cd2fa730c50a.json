@@ -1,0 +1,7 @@
+{
+  "session_id": "b9cee761-d27b-481f-b057-cd2fa730c50a",
+  "prompts": [
+    "create a claude command to perform a similar `/prime` command but on a specific app in our apps folder so we can focus on working on that specific app and make it the focus on the orchestration commands."
+  ],
+  "agent_name": "Vesper"
+}

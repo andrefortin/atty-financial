@@ -1,0 +1,79 @@
+import React, { useState, useEffect } from 'react';
+import { Button } from '../ui';
+import { NAVIGATION_ITEMS } from '../../utils/navigation';
+
+export interface HeaderProps {
+  children?: React.ReactNode;
+  currentPage?: string;
+  onPageChange?: (page: string) => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({
+  currentPage = 'dashboard',
+  onPageChange,
+}) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const user = {
+    name: 'John Smith',
+    email: 'john.smith@smithlaw.com',
+    avatar: 'JS',
+  };
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isMobileMenuOpen]);
+
+  const getIcon = (iconName: string) => {
+    const icons: Record<string, React.ReactNode> = {
+      LayoutDashboard: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2V7a2 2 0 012 2h2a2 2 0 014 12H0c0 3.042 1.135 5.824 3.7.938l3-2.647z" />
+        </svg>
+      ),
+      Briefcase: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2 2h-4a2 2 0 00-2 2v2a2 2 0 01-2 2H6a2 2 0 01-2 2v-2a2 2 0 012 2h2a2 2 0 014 12H0c0 3.042 1.135 5.824 3.7.938l3-2.647z" />
+        </svg>
+      ),
+      Receipt: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2H5a2 2 0 002 2v10a2 2 0 002 2H7a2 2 0 002 2V7a2 2 0 00-2 2v10a2 2 0 002 2H7a2 2 0 002 2V7a2 2 0 012 2h2a2 2 0 014 12H0c0 3.042 1.135 5.824 3.7.938l3-2.647z" />
+        </svg>
+      ),
+      FileText: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2 2V5a2 2 0 012 2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2v10a2 2 0 002 2H7a2 2 0 012 2h2a2 2 0 014 12H0c0 3.042 1.135 5.824 3.7.938l3-2.647z" />
+        </svg>
+      ),
+      Calculator: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 7h3m-4h3m6 4h01M9 17h.01M15 11h.01M12 11h.01M7 21h10a2 2 0 002 2V5a2 2 0 012 2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2v10a2 2 0 002 2H7a2 2 0 002 2V7a2 2 0 00-2 2v14a2 2 0 002 2H7a2 2 0 012 2h2a2 2 0 014 12H0c0 3.042 1.135 5.824 3.7.938l3-2.647z" />
+        </svg>
+      ),
+      PieChart: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+        </svg>
+      ),
+      Settings: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c-.996.608 2.296.07 2.572c-.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.724 1.724 0.001.065 2.572c.996.608 2.296.07 2.572c.94 3.31-.826 2.37a1.7 HeaderProps> = ({
+  children,
+  currentPage = 'dashboard',
+  onPageChange,
+}) => {
+
+          ))
+        </nav>
+      </div>
+    </header>

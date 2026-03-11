@@ -1,0 +1,10 @@
+{
+  "session_id": "adaf4d7f-2d92-4a41-a702-7dfe07d45000",
+  "prompts": [
+    "/plan \"in the apps/plugin project, we should have an account setting to enable/disable automatic enrichment when a property gets          \n  imported, set the default value to true. Make sure we follow the setting when we import a property.\"",
+    "/implement specs/auto-enrich-on-import-setting.md",
+    "update docs and push updated files to git",
+    "/plan we need to add to the posting options configuration a location filter. it should be a type of location : City, Neighbourhood, Address, School, Postal Code. We should use a google autocomplete in the edit posting options or the add posting options in the plugin to select the location. We will send that data to the home-search-ca filter."
+  ],
+  "agent_name": "Vesper"
+}

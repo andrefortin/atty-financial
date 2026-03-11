@@ -1,0 +1,9 @@
+{
+  "session_id": "7dc9735c-6cb9-4ef8-bffb-989d2a2c41b0",
+  "prompts": [
+    "/prime_app backend",
+    "we are not seeing any backend api call logs in the console or the logger, are we hiding them or simply not getting them?",
+    "yes"
+  ],
+  "agent_name": "Vesper"
+}

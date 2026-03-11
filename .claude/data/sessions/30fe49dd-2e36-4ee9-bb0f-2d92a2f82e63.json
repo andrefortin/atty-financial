@@ -1,0 +1,12 @@
+{
+  "session_id": "30fe49dd-2e36-4ee9-bb0f-2d92a2f82e63",
+  "prompts": [
+    "/plan \"in the apps/plugin application create the missing feature to scrape a property option similar to how we scrape a saved property listing by using a content script and passing messages. Read the manifest.json file to find the name of the content script for the 'homesearchcanada.ca' website which is the site we will be using to get the property card overview details that we scrape and add to the saved properties list. The page to scrape for this is 'https://homesearchcanada.ca' and a sample html page is available at 'apps/plugin/docs/hsc-01.html'. a sample property card html snippet is available at 'apps/plugin/docs/hsc-property-card-01.html'. Pagination is not not limited to 50 pages unlinke realtor.ca. the amount of listings per page is limitied at 20 per page however it may contain property cards that do not show the details but show a message that the user needs to login to get the details.\"",
+    "update the plan to include The toolbar in the page where we need to specify the search filter options will be at the top of the page. Here is a sample html snippet that we can use to figure out how to set the search options: 'apps/plugin/docs/hsc-toolbar-search-filter.html'\"",
+    "/implement specs/homesearchcanada-property-scraping-feature.md",
+    "the searhing url for the 'home-search-canada' will actually be 'https://www.homesearchcanada.ca/mapsearchapp/search/'",
+    "when we click the scrap now button for the posted options page, the website doesn't open up in the browser to scrape",
+    "update docs and push to git"
+  ],
+  "agent_name": "Vesper"
+}

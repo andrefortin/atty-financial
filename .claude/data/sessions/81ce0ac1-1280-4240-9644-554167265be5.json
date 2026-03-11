@@ -1,0 +1,11 @@
+{
+  "session_id": "81ce0ac1-1280-4240-9644-554167265be5",
+  "prompts": [
+    "/prime_app --refresh plugin",
+    "/plan \"in the plugin app, add a new setting in the developer options to enable loading property details from a file instead of from the property details url. Add a button to the my properties listing cards to link a file to process instead of the property details url. store the data with the property info in a metadata section of the json data. if a property has a linked file, then when we click enrich on the card details we need to load that file and process it instead ideally into the browser. At the very least, use this sample property details file to figure out how to parse the data from the live page. here is a sample file to use : apps/plugin/docs/ realtor-ca_real-estate_29266301_1105-1180-ohio-street-ottawa-4601-billings-bridge.html\nimplement the plan once it is ready.",
+    "The plugin error may need some backend updates as well : [PropFlow Analytics] Flush failed: Error: HTTP 404\nContext\nsidepanel.html\nStack Trace\nsidepanel.js:25300 (flush)",
+    "only update the status to enriched if the enrichment succeeds. We should be able to run enrichment more than once on a property. Add debug logging and tracking for the file based enrichment process.",
+    "/plan \"we need to be able to see the logging from the offescreen.js file that should be assisting with processing the property details listing, maybe we should be using the same injected script that we plan on using to scrape the live file. Either way, we need to get the logging back so we can troubleshoot the scraping process\""
+  ],
+  "agent_name": "Vesper"
+}

@@ -1,0 +1,8 @@
+{
+  "session_id": "fc838e2c-b993-49be-b1da-cfef50568ddd",
+  "prompts": [
+    "/plan \"we need to fix the form fill for adding photos. We should be able to user our call to the google cloud function to get the image, which we create in the form and then transfer into the add photos drag and drop control which should be the this <label><input accept=\"image/*,image/heif,image/heic\" class=\"x1s85apg\" multiple=\"\" type=\"file\"></label>",
+    "/implement specs/photo-and-video-upload-fix.md"
+  ],
+  "agent_name": "Vesper"
+}

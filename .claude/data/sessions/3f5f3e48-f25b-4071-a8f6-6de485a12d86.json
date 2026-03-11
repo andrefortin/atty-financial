@@ -1,0 +1,8 @@
+{
+  "session_id": "3f5f3e48-f25b-4071-a8f6-6de485a12d86",
+  "prompts": [
+    "/plan \"in the apps/plugin we need to update the image upload for facebook\"",
+    "/implement specs/fix-facebook-marketplace-image-upload.md"
+  ],
+  "agent_name": "Vesper"
+}

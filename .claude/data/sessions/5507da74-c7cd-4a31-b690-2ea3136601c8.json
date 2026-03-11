@@ -1,0 +1,8 @@
+{
+  "session_id": "5507da74-c7cd-4a31-b690-2ea3136601c8",
+  "prompts": [
+    "/implement specs/ai-image-anonymization-and-test-features.md",
+    "The checkbox selection for ai reference image is hidden by the photo, either make it appear on top of the photo or to the left of the photo."
+  ],
+  "agent_name": "Vesper"
+}

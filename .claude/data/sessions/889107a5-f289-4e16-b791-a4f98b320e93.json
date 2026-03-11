@@ -1,0 +1,8 @@
+{
+  "session_id": "889107a5-f289-4e16-b791-a4f98b320e93",
+  "prompts": [
+    "/prime_app 'consolidata'",
+    "we need to create an agent template we can use for coding user interfaces with shadcn and the other ui libraries that we are using in the consolidata app. this will be the agent that gets used when we need to do any UI development. Make this amazing."
+  ],
+  "agent_name": "Vesper"
+}

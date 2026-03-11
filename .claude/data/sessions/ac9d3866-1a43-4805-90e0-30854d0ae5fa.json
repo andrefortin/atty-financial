@@ -1,0 +1,17 @@
+{
+  "session_id": "ac9d3866-1a43-4805-90e0-30854d0ae5fa",
+  "prompts": [
+    "<ide_opened_file>The user opened the file /home/andre/geo-ranker-api/.env in the IDE. This may or may not be related to the current task.</ide_opened_file>\ncontinue",
+    "proceed forward with the AMQP updates",
+    "<ide_opened_file>The user opened the file /home/andre/geo-ranker-api/backend/src/queue/amqp-queue.service.ts in the IDE. This may or may not be related to the current task.</ide_opened_file>\ncontinue",
+    "start the backend api developement",
+    "run a test search and show me the results",
+    "verify if we have any workers started",
+    "<ide_opened_file>The user opened the file /temp/readonly/Bash tool output (fwdo8u) in the IDE. This may or may not be related to the current task.</ide_opened_file>\nThere's a minor unrelated issue with the Proxy entity metadata,",
+    "run the production app",
+    "update documentation and push updates to git",
+    "are both servers running? What is the url to point the ai agents to look at for the docs? is the an example implementation included in the documentation? is the documentation up to date for the developers and ai agents? are we running an mcp?",
+    "create a spec file for the recommendations"
+  ],
+  "agent_name": "Vesper"
+}

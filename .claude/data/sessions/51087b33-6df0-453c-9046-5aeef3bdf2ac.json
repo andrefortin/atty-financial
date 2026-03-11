@@ -1,0 +1,14 @@
+{
+  "session_id": "51087b33-6df0-453c-9046-5aeef3bdf2ac",
+  "prompts": [
+    "/prime ",
+    "update README.md files for the apps and the project",
+    "rename the worker folder to just 'worker' and update the imports and scripts and README.md to reflect the change",
+    "we need a apps/mcp-server/README.md file",
+    "add updated and new files to git and then push to git",
+    "add all the *.sh file to git and the push",
+    "/plan \"unable to build the backend app : andre@pop-os:~/batcave/geo-ranker-api$ ./restart-backend-development.sh\n$ nest build\nnode_modules/@cloudamqp/amqp-client/src/amqp-view.ts:445:14 - error TS2345: Argument of type 'Field' is not assignable to parameter of type 'never'.\n  Type 'undefined' is not assignable to type 'never'.\n\n445       v.push(field)\n                 ~~~~~\nnode_modules/cheerio/src/api/attributes.ts:14:3 - error TS2578: Unused '@ts-expect-error' directive.\n\n14   // @ts-expect-error `hasOwn` is a standard object method\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nnode_modules/cheerio/src/api/attributes.ts:243:7 - error TS2578: Unused '@ts-expect-error' directive.\n\n243     ? // @ts-expect-error TS doesn't like us accessing the value directly here.\n          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nnode_modules/cheerio/src/api/attributes.ts:261:5 - error TS2578: Unused '@ts-expect-error' directive.\n\n261     // @ts-expect-error Overriding value\n        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nnode_modules/cheerio/src/api/traversing.ts:278:20 - error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.\n\n278       matched.push(elem.parent as Element);\n                       ~~~~~~~~~~~~~~~~~~~~~~\nnode_modules/cheerio/src/api/traversing.ts:426:35 - error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.\n\n426     if (isTag(elem)) matched.push(elem);\n                                      ~~~~\nnode_modules/cheerio/src/api/traversing.ts:504:35 - error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.\n\n504     if (isTag(elem)) matched.push(elem);\n                                      ~~~~\n\nFound 7 error(s).\n\nerror: script \"build\" exited with code 1\nStarting GeoRanker API in development mode...\nPort: 3301\nDatabase: db.vkdymrbbehznqrjesgvr.supabase.co:5432/postgres\nEnvironment: development\nStarting server...\nDB connect: {\n  host: \"db.vkdymrbbehznqrjesgvr.supabase.co\",\n  port: 5432,\n  user: \"postgres\",\n  password: \"5Yl^ig39Kt2uffdV\",\n  database: \"postgres\",\n}\"",
+    "continue"
+  ],
+  "agent_name": "Vesper"
+}

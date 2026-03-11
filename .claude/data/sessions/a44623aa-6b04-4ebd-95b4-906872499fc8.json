@@ -1,0 +1,8 @@
+{
+  "session_id": "a44623aa-6b04-4ebd-95b4-906872499fc8",
+  "prompts": [
+    "This is the selector for the container of the list of marketplace items : div[role=\"main\"] > div > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > span > div > div\\\n\\\nWhen we sync the marketplace items return and show the amount of items found.",
+    "The UI displays the count but does not list the items in the tracked properties page, instead it navigates to the home page after sync."
+  ],
+  "agent_name": "Vesper"
+}

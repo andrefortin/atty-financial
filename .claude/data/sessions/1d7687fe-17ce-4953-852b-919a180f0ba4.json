@@ -1,0 +1,8 @@
+{
+  "session_id": "1d7687fe-17ce-4953-852b-919a180f0ba4",
+  "prompts": [
+    "the /search/geo-grid/<geo-grid-search-id>/full results need to return null instead of 0 if there is not reviews :                 {\n                    \"lat\": 45.1393103,\n                    \"lng\": -76.1454081,\n                    \"name\": \"Foundry Coffee Bar\",\n                    \"rank\": 4,\n                    \"phone\": \"\",\n                    \"rating\": null,\n                    \"address\": \"\",\n                    \"reviews\": 0,\n                    \"website\": \"\",\n                    \"place_id\": \"0x4cd20ff2b947e4a9:0xaecc87a640cae53b\",\n                    \"photo_url\": null,\n                    \"categories\": [],\n                    \"place_link\": \"https://www.google.com/maps/place/Foundry+Coffee+Bar/data=!4m7!3m6!1s0x4cd20ff2b947e4a9:0xaecc87a640cae53b!8m2!3d45.1393103!4d-76.1454081!16s%2Fg%2F11t9h9mfx3!19sChIJqeRHufIP0kwRO-XKQKaHzK4?authuser=0&hl=en&rclk=1\"\n                },",
+    "Starting GeoRanker API in development mode...\nPort: 3301\nDatabase: db.vkdymrbbehznqrjesgvr.supabase.co:5432/postgres\nEnvironment: development\n./start-development.sh: line 70: cd: /home/andre/batcave/geo-ranker-api/backend/backend: No such file or directory\nStarting server..."
+  ],
+  "agent_name": "Vesper"
+}

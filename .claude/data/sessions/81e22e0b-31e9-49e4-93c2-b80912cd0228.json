@@ -1,0 +1,19 @@
+{
+  "session_id": "81e22e0b-31e9-49e4-93c2-b80912cd0228",
+  "prompts": [
+    "update docs and push to git",
+    "/implement specs/sidepanel-consistent-headers-plan.md",
+    "we have the values 'brochure', 'photo', 'video', 'map'",
+    "and the 'moreInfo'",
+    "Where is all the updated search features for the my properties page and the update action icons with hover/tooltips. Where did all that go?",
+    "We are supposed to have other action icons in the 'my properties' page for each card: (view, enrich, ai description, post to fb, delete). They should have the icon and hover/tooltip text. The search at the top of the page should search by title or mls number or price. I want filter button for the different states of the listing cards ('all', 'enriched', 'ai description'), also by rental or for-sale. ",
+    "Use the emoji or icon '\u2728' for enriched, we want a floppy disk for save, a brain for ai description which is now called 'ai ad'",
+    "The action buttons for the property cards need to be updated. The enriched icon, the missing 'AI Ad Builder', the missing 'post to fb'",
+    "The property listing cards in the 'my properties' page are still missing the action buttons at the bottom.",
+    "The post now needs to let us queue or post immediately to the external platform at this time it just happens to be only Facebook.",
+    "isn't there an svg icon we can use for a robot head or brain instead of a monitor",
+    "That is no robot head, try again.",
+    "/plan \"in the plugin app ensure the saved searches page resizes when the sidepanel resizes\""
+  ],
+  "agent_name": "Vesper"
+}

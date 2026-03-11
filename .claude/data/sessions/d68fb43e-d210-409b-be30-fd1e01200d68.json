@@ -1,0 +1,8 @@
+{
+  "session_id": "d68fb43e-d210-409b-be30-fd1e01200d68",
+  "prompts": [
+    "/plan \"The plugin app is throwing an error i nthe 'ai ad configuration' page when we click the 'test ai instructions] button : messages.ts:489 [PropFlow] Failed to generate AI description: Error: AI service error: 401 - Unauthorized\n    at handleGenerateAiDescription (messages.ts:475:13)\n    at async handleMessage (messages.ts:183:16)\nhandleGenerateAiDescription    @    messages.ts:489\\\n\\\nWe should be running the test with the selected property description and LLM provider.\"",
+    "update the plan to fix the error  when we click the 'post to fb' button on the 'my properties page, when the dialog pops up and we click a button [post immediately] or [queue for later], we get a sylte property error : react-dom.development.js:86 Warning: Removing a style property during rerender (borderColor) when a conflicting property is set (border) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values.\n    at button\n    at div\n    at div\n    at div\n    at PostNowDialog (chrome-extension://loakdahkiaeahheliehjjmhkmdfcdpoj/sidepanel.js:33081:3)\n    at div\n    at AppContent (chrome-extension://loakdahkiaeahheliehjjmhkmdfcdpoj/sidepanel.js:34446:76)\n    at ErrorBoundary (chrome-extension://loakdahkiaeahheliehjjmhkmdfcdpoj/sidepanel.js:24655:5)\n    at App"
+  ],
+  "agent_name": "Vesper"
+}

@@ -1,0 +1,14 @@
+{
+  "session_id": "6da88e8a-44de-40b4-851b-b09494399774",
+  "prompts": [
+    "/prime_app landing",
+    "/prime_app --refresh landing",
+    "/plan \"Redesign the entire apps/landing project website. It looks horrible. it does not look like it would encourange any real estate agent to install or purchase are fb real estate marketplace agent. Here is the screen shot of the page.\"",
+    "/implement specs/landing-page-redesign-modern-zen-conversion.md",
+    "The svg icons need a height restriction of 60px in the landing page. Create an extra css we can add custom css rules into. We still have no images, not backgrounds no styling for links, or lists. Did you mean to do that?",
+    "give the svg icons only a height of 40px in the landing page project",
+    "fix the layout we seem to have some bad css in the landing app.",
+    "we have a client_secret.json file that we need for google authentication in the plugin folder"
+  ],
+  "agent_name": "Vesper"
+}

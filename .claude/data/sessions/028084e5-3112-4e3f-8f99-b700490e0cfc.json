@@ -1,0 +1,9 @@
+{
+  "session_id": "028084e5-3112-4e3f-8f99-b700490e0cfc",
+  "prompts": [
+    "/prime",
+    "git pull",
+    "<ide_opened_file>The user opened the file /temp/readonly/Bash tool output (3v87st) in the IDE. This may or may not be related to the current task.</ide_opened_file>\ncompact"
+  ],
+  "agent_name": "Vesper"
+}

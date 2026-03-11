@@ -1,0 +1,10 @@
+{
+  "session_id": "3fd6d731-fe86-4c81-8fe7-8539b39e2a17",
+  "prompts": [
+    "is our worker caching data to the redis because we seem to be looking up every geo-point request even if we did it within the last 24 hours (the lat/long coords)",
+    "ensure that redis is running",
+    "yes, adjust the cache key for the geo point also make sure we have a cache key for storing retreiving the google place_id with 24 hour invalidation",
+    "the following endpoint url is not returning any results in the points object: http://localhost:3301/search/geo-grid/89ca52da-d931-4754-9ca1-64391278b3d6/full"
+  ],
+  "agent_name": "Vesper"
+}

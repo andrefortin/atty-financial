@@ -1,0 +1,21 @@
+{
+  "session_id": "78c7d2f1-5bee-42b3-8bbd-46ba42081237",
+  "prompts": [
+    "/implement specs/plugin-my-properties-view.md",
+    "I'm suggesting that because I think of the property like a state machine, we have the basic information, but need to enrich it before being able to queue it to post, enriching it would include all the real estate property details and the ai generated description, and the real estate listing photos and videos. Once it is enriched we can queue it to post by first making a draft in the facebook marketplace. We should have a scheudling feature that posts the listings based on a schedule with a max amount per day, staggered throughout the day, and before we post it, we need to verify it is still unsold in the mls system by checking the mls listing page from the site we scraped it from.",
+    "so update the plan or make a new plan to include the above items.",
+    "Make sure analytics is included, we want to know how the app is being used, how often, by whom, when, and other relevant data.",
+    "start the implementation",
+    "continue",
+    "continue",
+    "continue",
+    "update docs, don't revert files, and push to git",
+    "continue",
+    "continue",
+    "continue",
+    "continue",
+    "continue",
+    "continue"
+  ],
+  "agent_name": "Vesper"
+}

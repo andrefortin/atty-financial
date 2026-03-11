@@ -1,0 +1,9 @@
+{
+  "session_id": "ed0fb3d6-e5b5-41e6-9eea-2099a387b487",
+  "prompts": [
+    "/prime_app plugin",
+    "/implement specs/plugin-add-realtor-api-monitoring.md ",
+    "in the api monitoring section, have an option to view the results as cards similar to the property listings we have in the search results extract section."
+  ],
+  "agent_name": "Vesper"
+}

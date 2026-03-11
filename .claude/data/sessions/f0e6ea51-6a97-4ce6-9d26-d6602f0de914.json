@@ -1,0 +1,17 @@
+{
+  "session_id": "f0e6ea51-6a97-4ce6-9d26-d6602f0de914",
+  "prompts": [
+    "/prime",
+    "/build_in_parallel  specs/ai-agent-integration-enhancement-spec.md",
+    "<ide_opened_file>The user opened the file /home/andre/geo-ranker-api/backend/src/guards/ai-agent-rate-limit.guard.ts in the IDE. This may or may not be related to the current task.</ide_opened_file>\ncontinue",
+    "<ide_opened_file>The user opened the file /home/andre/geo-ranker-api/frontend/src/components/AIAgentAnalytics.tsx in the IDE. This may or may not be related to the current task.</ide_opened_file>\ncontinue",
+    "<ide_opened_file>The user opened the file /home/andre/geo-ranker-api/scripts/deploy-mcp-server.sh in the IDE. This may or may not be related to the current task.</ide_opened_file>\nrestart the apps",
+    "restart the servers",
+    "restart the 2 servers",
+    "restart production server using bun just like we do with the dev server",
+    "add more copious logging to find out why the geo-search requests are failing and what is the cause",
+    "<ide_opened_file>The user opened the file /home/andre/geo-ranker-api/backend/src/middleware/request-logging.middleware.ts in the IDE. This may or may not be related to the current task.</ide_opened_file>\ncheck to backend production logs for errors and analyse the errors and product a report.",
+    "read the detailed report at /docsproduction-error-analysis-report.md and create spec file to fix the errors."
+  ],
+  "agent_name": "Vesper"
+}

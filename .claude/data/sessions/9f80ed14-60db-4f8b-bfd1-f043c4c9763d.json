@@ -1,0 +1,11 @@
+{
+  "session_id": "9f80ed14-60db-4f8b-bfd1-f043c4c9763d",
+  "prompts": [
+    "start the standalone worker",
+    "use the grid-processing queue as defined in the backend project here so the definitions are consistent and start the redis docker image",
+    "run test",
+    "yes fix it all",
+    "yes"
+  ],
+  "agent_name": "Vesper"
+}

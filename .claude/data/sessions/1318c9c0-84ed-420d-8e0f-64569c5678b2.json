@@ -1,0 +1,16 @@
+{
+  "session_id": "1318c9c0-84ed-420d-8e0f-64569c5678b2",
+  "prompts": [
+    "/prime",
+    "<ide_opened_file>The user opened the file /temp/readonly/Bash tool output (k188zl) in the IDE. This may or may not be related to the current task.</ide_opened_file>\nWe are expecting that when a geo-grid search api is made to the backend api, that the backend pushes that message into the queue, a worker reads the job from the queue and creates as many geo-point jobs it needs to successfully complete the search and pushes each job into the queue. A worker reads a geo-point job from the queue and performs the work and puts the results back into the database. When all the geo-point jobs are done, the job either triggers a webhook callback with all the results or if the job did not have a callback specified, simply updates the job status with completed. When the api gets the endpoint request to retreive a job by id, it gets all the results so far completed along with the status like 'pending' or 'completed', etc. What process do we have now, and what do we need to do to have the workers use puppeteer to execute the geo-point searches?",
+    "implement all the recommendations",
+    "<ide_opened_file>The user opened the file /home/andre/geo-ranker-api/scripts/start-backend-with-workers.sh in the IDE. This may or may not be related to the current task.</ide_opened_file>\npush updates to git",
+    "start backend in dev mode",
+    "dev mode runs port 3301 production runs port 3300. fix this, update docs and push to git",
+    "start dev mode",
+    "update docs and push to git",
+    "/plan `let's fix the issues we have with amqp starting and connecting properly to lavinmq message server on cloudamqp`",
+    "git pull"
+  ],
+  "agent_name": "Vesper"
+}

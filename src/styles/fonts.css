@@ -1,0 +1,65 @@
+/**
+ * Font Loading - ATTY Financial
+ *
+ * Optimized loading strategy for Lato font family
+ *
+ * Loading Strategy:
+ * 1. Preconnect hints for faster DNS resolution and TCP handshake
+ * 2. font-display: swap for visible content immediately
+ * 3. Limited weights (400, 500, 600, 700) for performance
+ * 4. Proper fallback stack for when fonts fail to load
+ *
+ * @see https://web.dev/font-best-practices/
+ * @see https://web.dev/rel-preconnect/
+ */
+
+/**
+ * Lato Font Family
+ *
+ * Weights:
+ * - 400 (Regular) - Body text, standard content
+ * - 500 (Medium) - Labels, buttons, emphasized text
+ * - 600 (Semibold) - Subheadings, UI elements
+ * - 700 (Bold) - Headlines, strong emphasis
+ *
+ * font-display: swap ensures text is visible immediately
+ * even before the font finishes loading
+ *
+ * Note: Font is loaded via HTML link tag in index.html
+ * to avoid CSS @import parsing issues
+ */
+
+
+
+/**
+ * Font Family Definitions with Fallbacks
+ *
+ * Primary Stack: Lato → System UI Fonts → Sans-serif
+ * Heading Stack: Same as primary (brand uses Lato for both)
+ * Mono Stack: Courier New → Monospace
+ */
+
+:root {
+  /* Base font family for body text and UI elements */
+  --font-family-base: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+
+  /* Heading font family (Lato for all headings) */
+  --font-family-heading: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+
+  /* Monospace font family for code and numbers */
+  --font-family-mono: 'Courier New', monospace;
+}
+
+/**
+ * System Font Fallback Stack
+ *
+ * The fallback stack ensures fonts load gracefully on all platforms:
+ *
+ * - apple-system: San Francisco on macOS/iOS
+ * - BlinkMacSystemFont: Chrome on macOS/iOS
+ * - 'Segoe UI': Windows
+ * - Roboto: Android
+ * - Oxygen: KDE
+ * - Ubuntu: Ubuntu/Linux
+ * - sans-serif: Generic fallback
+ */

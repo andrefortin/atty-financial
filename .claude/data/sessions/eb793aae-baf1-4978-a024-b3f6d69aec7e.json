@@ -1,0 +1,11 @@
+{
+  "session_id": "eb793aae-baf1-4978-a024-b3f6d69aec7e",
+  "prompts": [
+    "/prime_app leadcarrot",
+    "/plan 'add a system config for the system_agency_id and the system_location_id. Set the system_agency_id to the agency id of the 'Lead Carrot' agency. Set the system_location_id to the 'Lead Carrot' location in the 'Lead Carrot' agency.'",
+    "add to the plan a 'default_location_id' that is set to the 'Lead Carrot' agency's 'Lead Carrot' location id.",
+    "implement the system-agency-location-config plan",
+    "does the build command use agents or subagents to implement the plan, does it orchestrate the building of the plan?"
+  ],
+  "agent_name": "Vesper"
+}

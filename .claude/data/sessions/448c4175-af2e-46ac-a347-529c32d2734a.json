@@ -1,0 +1,7 @@
+{
+  "session_id": "448c4175-af2e-46ac-a347-529c32d2734a",
+  "prompts": [
+    "scrape the url https://docs.astral.sh/uv/guides/scripts/ and cache it locally in this folder"
+  ],
+  "agent_name": "Vesper"
+}

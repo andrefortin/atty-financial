@@ -1,0 +1,9 @@
+{
+  "session_id": "466d18dd-a917-4918-bbc6-bee2419773d2",
+  "prompts": [
+    "fix this conten_security_policy from a google chrome extension version 3 :   \"content_security_policy\": {\n    \"extension_pages\": \"script-src 'self' 'wasm-unsafe-eval' http://localhost https://apis.google.com https://www.gstatic.com https://www.googleapis.com https://securetoken.googleapis.com; object-src 'self';\"\n  },",
+    "The Content-Security-Policy directive name ''wasm-unsafe-eval'' contains one or more invalid characters. Only ASCII alphanumeric characters or dashes '-' are allowed in directive names.",
+    "yes"
+  ],
+  "agent_name": "Vesper"
+}

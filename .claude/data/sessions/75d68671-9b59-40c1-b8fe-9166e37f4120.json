@@ -1,0 +1,11 @@
+{
+  "session_id": "75d68671-9b59-40c1-b8fe-9166e37f4120",
+  "prompts": [
+    "/prime ",
+    "/plan \"  1. Add logging to OpenWebNinja module initialization to see if it's being attempted\n  2. Check for circular dependencies between OpenWebNinjaModule and QueueModule\n  3. Verify TypeORM entities are properly configured - GeoGridJob and GeoPointSearch\"",
+    "/build_in_parallel specs/openwebninja-module-debug-and-validation.md",
+    "update docs and push to git",
+    "/prime "
+  ],
+  "agent_name": "Vesper"
+}

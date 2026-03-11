@@ -1,0 +1,12 @@
+{
+  "session_id": "568883fb-8e98-42d3-9e69-bc4c9337cc84",
+  "prompts": [
+    "/prime_app --refresh plugin",
+    "Rebuild a new completed README.md file for the plugin project. Make it useful for both a human developer and an AI Agent.",
+    "refactor files greater than 1000 lines",
+    "/prime_app --refresh plugin",
+    "provide the bash command to delete the old files",
+    "should the file realtor-ca.ts.bak be deleted?"
+  ],
+  "agent_name": "Vesper"
+}

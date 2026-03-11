@@ -1,0 +1,10 @@
+{
+  "session_id": "71087382-b017-4e9a-b15a-fd4bf7e6d09a",
+  "prompts": [
+    "/prime ",
+    "/plan \"review this url to see how we can use the stealth and anti-detection \nfeatures: https://www.webshare.io/academy-article/puppeteer-extra#8-puppeteer-extra-plugin-user-preferences\"",
+    "/build_in_parallel specs/puppeteer-extra-stealth-anti-detection.md",
+    "update docs and push to git"
+  ],
+  "agent_name": "Vesper"
+}

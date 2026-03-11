@@ -1,0 +1,7 @@
+{
+  "session_id": "18d317fe-1a19-4f06-a8a9-514ab3e71bd8",
+  "prompts": [
+    "the `/prime_app` command expects an argument or param passed in, however the provided param in the user interface, never makes it to the claude cli."
+  ],
+  "agent_name": "Axiom"
+}

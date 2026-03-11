@@ -1,0 +1,523 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ============================================
+    // Production Security Rules
+    // ============================================
+    // These rules are optimized for production with:
+    // - Tightened access control
+    // - Rate limiting via Cloud Functions
+    // - Data validation
+    // - Audit logging
+    // - Multi-tenant isolation
+    // ============================================
+
+    // ============================================
+    // Helper Functions
+    // ============================================
+
+    // Check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Check if user's account is not disabled
+    function isAccountActive() {
+      return isAuthenticated() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.status != 'Disabled';
+    }
+
+    // Check if user belongs to a firm
+    function isMemberOfFirm(firmId) {
+      return isAuthenticated() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.firmId == firmId;
+    }
+
+    // Check if user has admin role
+    function isAdmin() {
+      return isAuthenticated() &&
+             isAccountActive() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'Admin';
+    }
+
+    // Check if user has Accountant role or higher
+    function isAccountantOrHigher() {
+      return isAuthenticated() &&
+             isAccountActive() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['Admin', 'Accountant', 'System'];
+    }
+
+    // Check if user has Attorney role or higher
+    function isAttorneyOrHigher() {
+      return isAuthenticated() &&
+             isAccountActive() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['Admin', 'Accountant', 'Attorney', 'System'];
+    }
+
+    // Check if user is a system account (Cloud Functions)
+    function isSystemAccount() {
+      return isAuthenticated() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'System';
+    }
+
+    // Check if user can read firm data
+    function canReadFirm(firmId) {
+      return isAuthenticated() &&
+             isMemberOfFirm(firmId) &&
+             isAccountActive();
+    }
+
+    // Check if user can write firm data
+    function canWriteFirm(firmId) {
+      return isAuthenticated() &&
+             isMemberOfFirm(firmId) &&
+             isAccountActive();
+    }
+
+    // Validate email format
+    function isValidEmail(email) {
+      return email.matches('.+@.+\\..+');
+    }
+
+    // Validate phone format (simple validation)
+    function isValidPhone(phone) {
+      return phone.matches('^\\+?[0-9\\-\\(\\)\\s]+$');
+    }
+
+    // Validate matter ID format
+    function isValidMatterId(matterId) {
+      return matterId.matches('^[A-Za-z0-9\\-_]{1,50}$');
+    }
+
+    // Validate amount is positive
+    function isValidAmount(amount) {
+      return amount is number && amount >= 0;
+    }
+
+    // Validate date is not in the future (for most operations)
+    function isNotFutureDate(date) {
+      return date <= request.time;
+    }
+
+    // Check if document exists
+    function documentExists(path) {
+      return exists(/databases/$(database)/documents/$(path));
+    }
+
+    // Check if user owns the document
+    function isDocumentOwner(docPath, userIdField) {
+      return isAuthenticated() &&
+             get(/databases/$(database)/documents/$(docPath)).data[userIdField] == request.auth.uid;
+    }
+
+    // ============================================
+    // Rate Limiting (via Cloud Functions)
+    // ============================================
+    // Note: Actual rate limiting is implemented in Cloud Functions
+    // These rules validate the rate limit metadata
+
+    function checkRateLimit(action, limit) {
+      // This function is used in conjunction with Cloud Functions
+      // to enforce rate limits
+      return true; // Actual enforcement is done server-side
+    }
+
+    // ============================================
+    // Data Validation Helpers
+    // ============================================
+
+    // Validate user data
+    function validateUserData() {
+      return request.resource.data.keys().hasAll([
+        'email',
+        'name',
+        'role',
+        'firmId',
+        'status',
+        'createdAt',
+        'updatedAt'
+      ]) &&
+      isValidEmail(request.resource.data.email) &&
+      request.resource.data.role in ['Admin', 'Accountant', 'Attorney', 'Viewer', 'System'] &&
+      request.resource.data.status in ['Active', 'Disabled', 'Pending'] &&
+      request.resource.data.email == request.auth.token.email;
+    }
+
+    // Validate matter data
+    function validateMatterData() {
+      return isValidMatterId(request.resource.data.matterId) &&
+             request.resource.data.clientName.size() >= 2 &&
+             request.resource.data.clientName.size() <= 200 &&
+             request.resource.data.status in ['Active', 'Closed', 'Archive'] &&
+             isValidAmount(request.resource.data.principalBalance) &&
+             isValidAmount(request.resource.data.interestOwed) &&
+             isNotFutureDate(request.resource.data.openedDate);
+    }
+
+    // Validate transaction data
+    function validateTransactionData() {
+      return request.resource.data.type in ['Draw', 'Principal Payment', 'Interest Autodraft'] &&
+             request.resource.data.category.size() > 0 &&
+             isValidAmount(request.resource.data.amount) &&
+             isNotFutureDate(request.resource.data.date);
+    }
+
+    // Validate rate entry data
+    function validateRateEntryData() {
+      return isValidAmount(request.resource.data.primeRate) &&
+             isValidAmount(request.resource.data.modifier) &&
+             isValidAmount(request.resource.data.effectiveRate) &&
+             isNotFutureDate(request.resource.data.effectiveDate);
+    }
+
+    // ============================================
+    // Audit Logging (via Cloud Functions)
+    // ============================================
+    // Note: Actual audit logging is done by Cloud Functions
+    // These rules ensure audit logs can only be created by system
+
+    function logAudit(action, collection, documentId, details) {
+      // This function is called by Cloud Functions to create audit logs
+      return true;
+    }
+
+    // ============================================
+    // Users Collection
+    // ============================================
+    match /users/{userId} {
+      // Users can read their own data
+      // Admins can read all users in their firm
+      allow read: if isAuthenticated() &&
+                    isAccountActive() &&
+                    (request.auth.uid == userId ||
+                     (isAdmin() &&
+                      isMemberOfFirm(get(/databases/$(database)/documents/users/$(userId)).data.firmId)));
+
+      // Users can update their own data (restricted fields)
+      // Admins can create/update users in their firm
+      // System account can create users
+      allow create: if (isAdmin() || isSystemAccount()) &&
+                     validateUserData() &&
+                     canWriteFirm(request.resource.data.firmId);
+
+      allow update: if isAuthenticated() &&
+                      isAccountActive() &&
+                      ((request.auth.uid == userId &&
+                        // Users can only update these fields
+                        !request.resource.data.diff(resource.data).affectedKeys()
+                          .hasAny(['role', 'firmId', 'createdAt', 'status'])) ||
+                       (isAdmin() &&
+                        // Admins can update more fields but not all
+                        !request.resource.data.diff(resource.data).affectedKeys()
+                          .hasAny(['createdAt', 'createdBy']))) ||
+                       isSystemAccount());
+
+      // Only system account can delete users (for compliance)
+      allow delete: if isSystemAccount();
+    }
+
+    // ============================================
+    // Firms Collection
+    // ============================================
+    match /firms/{firmId} {
+      // Firm members can read firm data
+      allow read: if canReadFirm(firmId);
+
+      // Only system account can create firms
+      // Admins can update firm settings (restricted)
+      // System account can update firms
+      allow create: if isSystemAccount() &&
+                     request.resource.data.keys().hasAll([
+                       'name',
+                       'address',
+                       'contactEmail',
+                       'contactPhone',
+                       'taxId',
+                       'createdAt',
+                       'updatedAt'
+                     ]);
+
+      allow update: if (isAdmin() || isSystemAccount()) &&
+                      isMemberOfFirm(firmId) &&
+                      // Prevent changing firm ID
+                      !request.resource.data.diff(resource.data).affectedKeys()
+                        .hasAny(['firmId', 'createdAt']);
+
+      // Only system account can delete firms (with cleanup)
+      allow delete: if isSystemAccount();
+    }
+
+    // ============================================
+    // Matters Collection
+    // ============================================
+    match /matters/{matterId} {
+      // Firm members can read matters belonging to their firm
+      allow read: if canReadFirm(resource.data.firmId);
+
+      // Accountants and higher can create matters
+      // Only Accountants and higher can update matters
+      // Only Admins can delete matters
+      allow create: if isAccountantOrHigher() &&
+                     canWriteFirm(request.resource.data.firmId) &&
+                     validateMatterData() &&
+                     request.resource.data.firmId != null &&
+                     request.resource.data.matterId != null;
+
+      allow update: if isAccountantOrHigher() &&
+                      canWriteFirm(resource.data.firmId) &&
+                      // Prevent changing matter ID or firm ID
+                      !request.resource.data.diff(resource.data).affectedKeys()
+                        .hasAny(['matterId', 'firmId', 'openedDate', 'openedBy']) &&
+                      // Validate status transitions
+                      (resource.data.status == 'Active' && request.resource.data.status in ['Active', 'Closed'] ||
+                       resource.data.status == 'Closed' && request.resource.data.status in ['Closed', 'Archive'] ||
+                       resource.data.status == 'Archive');
+
+      allow delete: if isAdmin() &&
+                      canWriteFirm(resource.data.firmId) &&
+                      // Only allow deletion of archived matters
+                      resource.data.status == 'Archive';
+    }
+
+    // ============================================
+    // Transactions Collection
+    // ============================================
+    match /transactions/{transactionId} {
+      // Firm members can read transactions belonging to their firm
+      allow read: if canReadFirm(resource.data.firmId);
+
+      // Accountants and higher can create transactions
+      // Only Accountants and higher can update transactions
+      // Only Accountants and higher can delete transactions
+      allow create: if isAccountantOrHigher() &&
+                     canWriteFirm(request.resource.data.firmId) &&
+                     validateTransactionData() &&
+                     // If assigned to matter, matter must exist and belong to firm
+                     (request.resource.data.matterId == null ||
+                      (documentExists('matters/$(request.resource.data.matterId)') &&
+                       get(/databases/$(database)/documents/matters/$(request.resource.data.matterId)).data.firmId == request.resource.data.firmId));
+
+      allow update: if isAccountantOrHigher() &&
+                      canWriteFirm(resource.data.firmId) &&
+                      // Prevent changing transaction ID or creation date
+                      !request.resource.data.diff(resource.data).affectedKeys()
+                        .hasAny(['transactionId', 'firmId', 'date', 'createdBy']);
+
+      allow delete: if isAccountantOrHigher() &&
+                      canWriteFirm(resource.data.firmId) &&
+                      // Only allow deletion before allocation
+                      resource.data.allocationId == null;
+    }
+
+    // ============================================
+    // Rate Entries Collection
+    // ============================================
+    match /rateEntries/{entryId} {
+      // Firm members can read rate entries
+      // If entry is firm-specific, only firm members can read
+      // If entry is global (no firmId), all users can read
+      allow read: if isAuthenticated() &&
+                    isAccountActive() &&
+                    (!resource.data.firmId ||
+                     isMemberOfFirm(resource.data.firmId));
+
+      // Only Admins can create rate entries
+      allow create: if isAdmin() &&
+                     validateRateEntryData() &&
+                     (!request.resource.data.firmId ||
+                      isMemberOfFirm(request.resource.data.firmId));
+
+      // Only Admins can update rate entries
+      // Only future or current rates can be updated
+      allow update: if isAdmin() &&
+                      (!resource.data.firmId ||
+                       isMemberOfFirm(resource.data.firmId)) &&
+                      resource.data.effectiveDate >= request.time;
+
+      // Only Admins can delete rate entries
+      // Only future rates can be deleted
+      allow delete: if isAdmin() &&
+                      resource.data.effectiveDate > request.time;
+    }
+
+    // ============================================
+    // Daily Balances Collection
+    // ============================================
+    match /dailyBalances/{balanceId} {
+      // Firm members can read daily balances for their firm
+      allow read: if canReadFirm(resource.data.firmId);
+
+      // System account only (for generated records)
+      // Cloud Functions generate these records
+      allow create: if isSystemAccount() &&
+                     documentExists('matters/$(request.resource.data.matterId)') &&
+                     isMemberOfFirm(get(/databases/$(database)/documents/matters/$(request.resource.data.matterId)).data.firmId);
+
+      // System account can update (recalculation)
+      allow update: if isSystemAccount();
+
+      // System account can delete (recalculation)
+      allow delete: if isSystemAccount();
+    }
+
+    // ============================================
+    // Interest Allocations Collection
+    // ============================================
+    match /interestAllocations/{allocationId} {
+      // Firm members can read allocations for their firm
+      allow read: if canReadFirm(resource.data.firmId);
+
+      // Accountants and higher can create allocations
+      allow create: if isAccountantOrHigher() &&
+                     canWriteFirm(request.resource.data.firmId) &&
+                     request.resource.data.autodraftTransactionId != null &&
+                     documentExists('transactions/$(request.resource.data.autodraftTransactionId)') &&
+                     get(/databases/$(database)/documents/transactions/$(request.resource.data.autodraftTransactionId)).data.firmId == request.resource.data.firmId;
+
+      // Only Admins can update allocations (for finalization)
+      allow update: if isAdmin() &&
+                      canWriteFirm(resource.data.firmId) &&
+                      // Prevent changing period or autodraft transaction
+                      !request.resource.data.diff(resource.data).affectedKeys()
+                        .hasAny(['allocationId', 'firmId', 'periodStart', 'periodEnd', 'autodraftTransactionId', 'createdBy']);
+
+      // Only Admins can delete allocations
+      allow delete: if isAdmin() &&
+                      canWriteFirm(resource.data.firmId) &&
+                      resource.data.status in ['Draft', 'Draft'];
+    }
+
+    // ============================================
+    // Audit Logs Collection
+    // ============================================
+    match /auditLogs/{logId} {
+      // Firm members can read audit logs for their firm
+      // Admins can read all audit logs in their firm
+      allow read: if isAuthenticated() &&
+                    isAccountActive() &&
+                    isAdmin() &&
+                    isMemberOfFirm(resource.data.firmId);
+
+      // System account and Admins can create audit logs
+      // Audit logs are typically created by Cloud Functions or system triggers
+      allow create: if isAuthenticated() &&
+                     isAccountActive() &&
+                     (isSystemAccount() || isAdmin()) &&
+                     validateUserData() &&
+                     request.resource.data.action != null &&
+                     request.resource.data.collection != null &&
+                     request.resource.data.documentId != null;
+
+      // No updates or deletes allowed (immutable audit trail)
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    // ============================================
+    // Bank Feeds Collection
+    // ============================================
+    match /bankFeeds/{feedId} {
+      // Firm members can read bank feeds for their firm
+      allow read: if canReadFirm(resource.data.firmId);
+
+      // System account creates bank feeds
+      // Cloud Functions sync from BankJoy API
+      allow create: if isSystemAccount() &&
+                     request.resource.data.firmId != null &&
+                     request.resource.data.source in ['BankJoy', 'Plaid', 'Manual', 'OFX'];
+
+      // Accountants and higher can update (match/unmatch)
+      allow update: if isAccountantOrHigher() &&
+                      canWriteFirm(resource.data.firmId) &&
+                      // Only allow updating match-related fields
+                      !request.resource.data.diff(resource.data).affectedKeys()
+                        .hasAny(['feedId', 'firmId', 'source', 'date', 'createdBy']);
+
+      // Only Admins can delete
+      allow delete: if isAdmin() &&
+                      canWriteFirm(resource.data.firmId);
+    }
+
+    // ============================================
+    // Reports Collection
+    // ============================================
+    match /reports/{reportId} {
+      // Users can read their own reports
+      // Firm members can read reports for their firm
+      allow read: if isAuthenticated() &&
+                    isAccountActive() &&
+                    (resource.data.generatedBy == request.auth.uid ||
+                     isMemberOfFirm(resource.data.firmId));
+
+      // All authenticated users can create reports
+      allow create: if isAuthenticated() &&
+                     isAccountActive() &&
+                     canWriteFirm(request.resource.data.firmId) &&
+                     request.resource.data.reportType in ['Funding', 'Payoff', 'FinanceCharge', 'Transaction', 'Custom'];
+
+      // Report generator can update status
+      allow update: if isAuthenticated() &&
+                      isAccountActive() &&
+                      (request.auth.uid == resource.data.generatedBy ||
+                       isAdmin()) &&
+                      // Only allow updating status and related fields
+                      !request.resource.data.diff(resource.data).affectedKeys()
+                        .hasAny(['reportId', 'firmId', 'generatedBy', 'reportDate', 'createdAt']);
+
+      // Users can delete their own reports
+      // Admins can delete any report
+      allow delete: if isAuthenticated() &&
+                    isAccountActive() &&
+                    (request.auth.uid == resource.data.generatedBy ||
+                     isAdmin());
+    }
+
+    // ============================================
+    // Notifications Collection
+    // ============================================
+    match /notifications/{notificationId} {
+      // Users can only read their own notifications
+      allow read: if isAuthenticated() &&
+                    isAccountActive() &&
+                    resource.data.userId == request.auth.uid;
+
+      // System account creates notifications
+      allow create: if isSystemAccount() &&
+                     request.resource.data.userId != null &&
+                     request.resource.data.type != null;
+
+      // Users can update their own notifications (mark as read)
+      allow update: if isAuthenticated() &&
+                      isAccountActive() &&
+                      request.auth.uid == resource.data.userId &&
+                      // Only allow updating status and readAt
+                      !request.resource.data.diff(resource.data).affectedKeys()
+                        .hasAny(['notificationId', 'userId', 'type', 'title', 'message', 'priority', 'createdAt']);
+
+      // Users can delete their own notifications
+      allow delete: if isAuthenticated() &&
+                    isAccountActive() &&
+                    request.auth.uid == resource.data.userId;
+    }
+
+    // ============================================
+    // System Configuration (production only)
+    // ============================================
+    match /systemConfig/{configId} {
+      // Only system account can read system config
+      allow read: if isSystemAccount();
+
+      // Only system account can write system config
+      allow write: if isSystemAccount();
+    }
+
+    // ============================================
+    // Connection Test Collection (DISABLED IN PRODUCTION)
+    // ============================================
+    match /_connection_test/{docId} {
+      // Disabled in production
+      allow read, write: if false;
+    }
+  }
+}

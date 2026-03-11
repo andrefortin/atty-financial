@@ -1,0 +1,8 @@
+{
+  "session_id": "038df1b2-8cb9-4950-9738-dcd8bff7d537",
+  "prompts": [
+    "/prime_app landing",
+    "/plan \"let's make plans to fix the know issues:   Known Issues\n\n  1. Dashboard routing: All CTAs link to /dashboard but no route configuration exists - will 404 without Next.js rewrites or proper domain routing\n  2. Analytics: PostHog installed but not tracking anything\n  3. Animations: Framer Motion installed but unused\n  4. TypeScript: Strict mode disabled (strict: false)\\\n\\\nNow let's also make plans based on the 'apps/landing/APP_ANALYSIS.md' file and make a list on the next things we need to do and create plans for those. Then create the master plan for all the new plans which we can implement\""
+  ],
+  "agent_name": "Nexus"
+}

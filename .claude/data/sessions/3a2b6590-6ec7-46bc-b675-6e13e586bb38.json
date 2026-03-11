@@ -1,0 +1,7 @@
+{
+  "session_id": "3a2b6590-6ec7-46bc-b675-6e13e586bb38",
+  "prompts": [
+    "Our message passing into the frontend api may be broken. When we send a message from the orchestartor, those messages are always the same session id, if a session id exists. We use this to assemble the streamed responses from the api and when that streamed response is \"done\" or \"complete\", we update the Orchestator chat area. Ideally, we keep updating the chat bubble until we get the last part of the streamed message, and then display it. First fix the streaming messages consolidation for the orchestrator chats. next plan how to implement the changes, then implement the changes. Use the orchestrator and sub-agent framework setup to make these things happen,."
+  ],
+  "agent_name": "Vesper"
+}

@@ -1,0 +1,8 @@
+{
+  "session_id": "a27356f0-8703-4284-a1df-1d8c3137ebcb",
+  "prompts": [
+    "/plan \"the apps/plugin application needs to be able to trigger a property enrichment for the 'home-search-canada' property'. A sample page of html is here: 'apps/plugin/docs/home-search-ca-prop-details.html'.\"",
+    "/implement specs/home-search-canada-property-enrichment.md"
+  ],
+  "agent_name": "Vesper"
+}

@@ -3,6 +3,44 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
+  "performance": {
+    "enabled": true,
+    "settings": {
+      "maxTraceEntries": 50,
+      "traceSamplingRate": 0.1,
+      "memoryMaxMB": 256
+    },
+    "customTraces": [
+      {
+        "name": "app_load",
+        "sampling": 1.0,
+        "screens": ["/dashboard", "/matters", "/transactions"]
+      },
+      {
+        "name": "api_call",
+        "sampling": 0.25,
+        "endpoints": ["/api/matters", "/api/transactions", "/api/allocations"]
+      },
+      {
+        "name": "navigation",
+        "sampling": 0.1,
+        "pages": ["/dashboard", "/matters", "/transactions", "/reports"]
+      },
+      {
+        "name": "user_interaction",
+        "sampling": 0.05,
+        "events": ["click", "submit", "focus", "blur"]
+      }
+    ],
+    "alerts": {
+      "slowRequestThreshold": 3000,
+      "slowNavigationThreshold": 2000,
+      "errorRateThreshold": 10,
+      "errorRateWindowMs": 60000,
+      "apiFailureThreshold": 3,
+      "performanceDegradationThreshold": 5000
+    }
+  },
   "functions": [
     {
       "source": "functions",
@@ -25,11 +63,333 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "headers": [
+      {
+        "source": "**/*.@(js|css)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(jpg|jpeg|png|gif|webp|svg|ico)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          },
+          {
+            "key": "Content-Security-Policy",
+            "value": "default-src 'self'; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com; img-src 'self' data: blob: https://*.attfinancial.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; object-src 'none'; frame-src 'none'; base-uri 'self'; manifest-src 'self'; worker-src 'self' blob:; form-action 'self';"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(woff|woff2|ttf|eot|otf)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "**/*.json",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=3600"
+          }
+        ]
+      },
+      {
+        "source": "index.html",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          }
+        ]
+      },
+      {
+        "source": "/sw.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=0, must-revalidate"
+          },
+          {
+            "key": "Service-Worker-Allowed",
+            "value": "/"
+          }
+        ]
+      },
+      {
+        "source": "/manifest.json",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=3600"
+          }
+        ]
+      },
+      {
+        "source": "/robots.txt",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=86400"
+          }
+        ]
+      },
+      {
+        "source": "/sitemap.xml",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=86400"
+          }
+        ]
+      },
+      {
+        "source": "/api/**",
+        "headers": [
+          {
+            "key": "X-RateLimit-Limit",
+            "value": "1000"
+          },
+          {
+            "key": "X-RateLimit-Window",
+            "value": "3600"
+          },
+          {
+            "key": "X-RateLimit-Remaining",
+            "value": "1000"
+          },
+          {
+            "key": "X-RateLimit-Reset",
+            "value": "3600"
+          },
+          {
+            "key": "X-RateLimit-Tier",
+            "value": "standard"
+          },
+          {
+            "key": "X-DDoS-Protection",
+            "value": "enabled"
+          }
+        ]
+      },
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          },
+          {
+            "key": "X-Frame-Options",
+            "value": "SAMEORIGIN"
+          },
+          {
+            "key": "X-XSS-Protection",
+            "value": "1; mode=block"
+          },
+          {
+            "key": "Referrer-Policy",
+            "value": "strict-origin-when-cross-origin"
+          },
+          {
+            "key": "Permissions-Policy",
+            "value": "geolocation=(), microphone=(), camera=()"
+          },
+          {
+            "key": "Strict-Transport-Security",
+            "value": "max-age=31536000; includeSubDomains; preload"
+          },
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "https://attyfinancial.com"
+          },
+          {
+            "key": "Access-Control-Allow-Methods",
+            "value": "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+          },
+          {
+            "key": "Access-Control-Allow-Headers",
+            "value": "Content-Type, Authorization, X-RateLimit-Limit, X-DDoS-Protection"
+          },
+          {
+            "key": "Access-Control-Allow-Credentials",
+            "value": "true"
+          },
+          {
+            "key": "Access-Control-Max-Age",
+            "value": "86400"
+          },
+          {
+            "key": "Access-Control-Expose-Headers",
+            "value": "X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-RateLimit-Tier, X-DDoS-Protection, X-DDoS-Reason"
+          },
+          {
+            "key": "Timing-Allow-Origin",
+            "value": "https://attyfinancial.com"
+          },
+          {
+            "key": "Server-Timing",
+            "value": "app-load-time, api-response-time, rate-limit-time, ddos-check-time, render-time"
+          }
+        ]
+      }
+    ],
     "rewrites": [
+      {
+        "source": "/api/**",
+        "function": "api"
+      },
       {
         "source": "**",
         "destination": "/index.html"
       }
-    ]
+    ],
+    "trailingSlash": true,
+    "cleanUrls": true
+  },
+  "rateLimit": {
+    "enabled": true,
+    "defaultStrategy": "token_bucket",
+    "defaultStorage": "memory",
+    "defaultTiers": {
+      "free": {
+        "requests": 100,
+        "window": 3600,
+        "burst": 10,
+        "burstWindow": 60
+      },
+      "standard": {
+        "requests": 1000,
+        "window": 3600,
+        "burst": 50,
+        "burstWindow": 60
+      },
+      "professional": {
+        "requests": 10000,
+        "window": 3600,
+        "burst": 200,
+        "burstWindow": 60
+      },
+      "enterprise": {
+        "requests": 100000,
+        "window": 3600,
+        "burst": 1000,
+        "burstWindow": 60
+      }
+    },
+    "byTier": {
+      "free": {
+        "enabled": true,
+        "strategy": "token_bucket"
+      },
+      "standard": {
+        "enabled": true,
+        "strategy": "token_bucket"
+      },
+      "professional": {
+        "enabled": true,
+        "strategy": "token_bucket"
+      },
+      "enterprise": {
+        "enabled": true,
+        "strategy": "token_bucket"
+      }
+    },
+    "byEndpoint": {
+      "/api/matters": {
+        "requests": 1000,
+        "window": 3600
+      },
+      "/api/transactions": {
+        "requests": 2000,
+        "window": 3600
+      },
+      "/api/allocations": {
+        "requests": 100,
+        "window": 3600
+      },
+      "/api/reports": {
+        "requests": 100,
+        "window": 3600
+      },
+      "/api/auth": {
+        "requests": 10,
+        "window": 60
+      }
+    }
+  },
+  "ddos": {
+    "enabled": true,
+    "rateLimiting": true,
+    "ipBlacklist": {
+      "enabled": true,
+      "provider": "firestore",
+      "collection": "blacklistedIPs"
+    },
+    "ipWhitelist": {
+      "enabled": true,
+      "ips": []
+    },
+    "suspiciousActivity": {
+      "enabled": true,
+      "threshold": 10,
+      "window": 3600
+    },
+    "geoblocking": {
+      "enabled": false,
+      "blockedCountries": [],
+      "blockedRegions": []
+    },
+    "maxConcurrentRequests": 100,
+    "requestTimeout": 30,
+    "alertThreshold": 100
+  },
+  "security": {
+    "enabled": true,
+    "xssProtection": {
+      "enabled": true,
+      "mode": "block"
+    },
+    "csrfProtection": {
+      "enabled": true,
+      "tokenLength": 32,
+      "tokenExpiry": 3600
+    },
+    "inputValidation": {
+      "enabled": true,
+      "strictMode": false,
+      "sanitizeHTML": true,
+      "sanitizeJSON": true
+    },
+    "contentSecurityPolicy": {
+      "enabled": true,
+      "reportOnly": false,
+      "enforced": true
+    },
+    "httpStrictTransportSecurity": {
+      "enabled": true,
+      "includeSubDomains": true,
+      "preload": true,
+      "maxAge": 63072000
+    },
+    "permissionsPolicy": {
+      "enabled": true,
+      "restrictions": {
+        "geolocation": [],
+        "microphone": [],
+        "camera": [],
+        "notifications": []
+      }
+    }
   }
 }

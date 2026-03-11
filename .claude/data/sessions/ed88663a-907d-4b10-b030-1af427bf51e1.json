@@ -1,0 +1,8 @@
+{
+  "session_id": "ed88663a-907d-4b10-b030-1af427bf51e1",
+  "prompts": [
+    "create the startup script to start the worker",
+    "kill the worker on port 3311"
+  ],
+  "agent_name": "Vesper"
+}

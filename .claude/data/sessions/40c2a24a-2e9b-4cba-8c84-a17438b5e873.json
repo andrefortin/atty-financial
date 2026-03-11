@@ -1,0 +1,12 @@
+{
+  "session_id": "40c2a24a-2e9b-4cba-8c84-a17438b5e873",
+  "prompts": [
+    "/implement specs/realtor-ca-detection-and-map-page-support.md",
+    "/prime_app plugin",
+    "/implement specs/realtor-ca-detection-and-map-page-support.md",
+    "update docs and push to git",
+    "/plan \"in the plugin application always use the icon 'apps/plugin/assets/icons/logo_realtor_ca.png' whenever you need to show the icon for Realtor.ca\"",
+    "/implement specs/realtor-ca-icon-update.md"
+  ],
+  "agent_name": "Vesper"
+}

@@ -1,0 +1,16 @@
+{
+  "session_id": "bb869004-db91-4305-a6f7-0db0f400349e",
+  "prompts": [
+    "/implement specs/fix-fb-marketplace-scrape-missing-fields.md",
+    "We need a bulk delete action with confirmation dialog for the tracked properties",
+    "This bulk delete is for the tracked properties that we want",
+    "implement it similar to the imported properties for select all / unselect all",
+    "the green and the red background colors for the action buttons are not showing up maybe the css isn't imported",
+    "update the ai auto-reply toggle switch with these css options and make the background-color when it is enabled or true set to green :     height\nSpecifies the height of the content area, padding area or border area (depending on 'box-sizing') of certain boxes.\n\nWidely available across major browsers (Baseline since January 2018)\nLearn more\n\nDon't show\n: 18px;\n    width: 26px;\n    padding-top: 1px;\n    padding-left: 1px;\n    background-color: gray;",
+    "the button in the toggle switch needs to move 10px to the right when enabled or true",
+    "move 8px instead of 10px",
+    "We the toggle state changes don't redraw the entire list",
+    "/plan \"We didn't get the price or status or posted date when we scraped the fb marketplace listing, add more comprehensive logging we can trace to help debugging. Also check out this html snippet contained in this file that has 17 listings, this is what we need to extract from : apps/plugin/docs/fb-marketplace-listings.html\""
+  ],
+  "agent_name": "Axiom"
+}

@@ -1,0 +1,9 @@
+{
+  "session_id": "bfc6eb04-1dd2-4f41-8967-d623c8041355",
+  "prompts": [
+    "what is the webhook url",
+    "/prime ",
+    "/question \"how do we start the app in dev mode\""
+  ],
+  "agent_name": "Vesper"
+}

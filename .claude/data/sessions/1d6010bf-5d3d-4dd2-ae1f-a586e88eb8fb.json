@@ -1,0 +1,17 @@
+{
+  "session_id": "1d6010bf-5d3d-4dd2-ae1f-a586e88eb8fb",
+  "prompts": [
+    "/implspecs/llm-provider-api-endpoint-fix.md",
+    "/implement specs/llm-provider-api-endpoint-fix.md",
+    "in the account settings -> llm configuration, the enabled/disabled toggle should appear after the [primary llm] button. The [primary llm] button should be renamed to 'Set as Primary LLM'",
+    "Move the [Primary LLM] badge to display to the left of the enable/disable toggle switch, where we would see the  'set as primary llm' button",
+    "Change the 'save key' button text to just 'Save'",
+    "update all the toggle/switch buttons on the account settings page to look and animate like the toggle/switch buttons on the llm configuration",
+    "The toggle button for account settings -> posting preferences needs the toggle switch style and animation update, it also needs to show the 'Select Video' button to the left of the toggle/switch. The posting preferences panel show have padding to the left of the options like in the llm configuration options. Also the same padding on the left and right for the display preferences, the import preferences, the data management, the notifications, the inbox settings, the ai content settings, the developer options.",
+    "have all the account settings panels expanded except for the developer options by default. Remember the collapsed/expanded state between page loads.",
+    "the 'ad ad configuration' page's 'test ai instructions' button does not show as a green button",
+    "on the 'ai ad configuration page' the 'Reasoning' panel should show by default as collapsed, and the 'Generated Description' should show by default as expanded. The text for the 'Anonymize listing' should show 'Anonymize listing (remove address / realtor info / broker info)'. When we have this option checked, the additional instructions should be included to actually ensure we don't include the street address / street number / or Apt #, or Unit #, or Suite number in the listing at all.",
+    "update docs, push new and updated files to git"
+  ],
+  "agent_name": "Vesper"
+}

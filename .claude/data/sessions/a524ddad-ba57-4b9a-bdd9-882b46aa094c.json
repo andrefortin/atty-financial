@@ -1,0 +1,20 @@
+{
+  "session_id": "a524ddad-ba57-4b9a-bdd9-882b46aa094c",
+  "prompts": [
+    "/plan \"the plugin app is getting an error when trying to test with the selected llm key to generate a description using the currently selected property details, we need to feature completed and overcome this weird error : [PropFlow] Failed to generate AI description: Error: AI service error: Unauthorized. Also, after saving the ai add settings the state should move forward and be at the AI Ad state which unlocks the Post to FB option.\"",
+    "/implement specs/fix-ai-description-unauthorized-and-state-transition.md",
+    "/plan \"in the plugin app, when the My Properties list is empty, the button to goto saved searches needs to goto that page.\"",
+    "/implement pecs/fix-empty-state-saved-searches-button.md",
+    "/implement specs/fix-empty-state-saved-searches-button.md",
+    "give the close button a red background",
+    "The plugin is not able to create the ai description, we are getting a 401 error trying to do so. Let's find the issue and fix it.",
+    "When we call the llm to create the listing we need to include our AI system prompt instructions. We need to create a system prompt that as a facebook marketplace and real estate expert at writing compeling content to get users to click and engage, will  take the JSON object containing the listing, ignore any references to the images or video as it is not necessary for the prompt and with the AI Template with place holders, and any specific AI instructions create the most amazing property listing description that will compel the view to reply to the listing. We can use emojis and other structural layouts like lists as we deem necessary. Additionally feel free to create an even better system prompt for me to send to the LLM to get amazing results like we outlined.",
+    "update the docs and push to git",
+    "\u25cf I found the bug! Looking at the logs:\n\n  [RoleFormFinder] Available options: (11) ['Save draft', 'Add photosor drag and drop', ..., 'Apartment', 'House', 'Townhouse']\n  [RoleFormFinder] \u2713 Found matching option: \"\"\n  [RoleFormFinder] \u2713 Selected dropdown option: \"Apartment\" (matched as \"\")\n\n  The issue is that selectDropdownOption is matching an empty string instead of \"Apartment\". Looking at the code:\n\n  if (optionText === value ||  // This matches \"\" === \"\" which is TRUE!\n      optionText.toLowerCase() === value.toLowerCase() ||\n      optionText.includes(value) ||\n      value.includes(optionText)) {\n\n  When optionText is empty string and value is \"Apartment\", the check optionText.includes(value) will match because every string includes an empty string!\n\n  Let me fix this and also the navigateToBranch function which is NOT being called at all - the logs show it's going straight to \"FILLING RENTAL FORM FIELDS\" without first calling navigateToBranch.\n\n  Critical issue: navigateToBranch is never called in the form filling flow. Looking at the logs, there's no log from navigateToBranch at all - just jumps straight to filling fields.",
+    "update docs and push to git",
+    "/plan \"in the plugin app, we are still not setting the first combobox 'Home for Sale or Rent' with is the listing type (rental or for sale). Don't rely on the page url '/marketplace/create/rental' because it is the same url for BOTH rental and for sale property listing\"",
+    "/implement specs/fix-home-for-sale-or-rent-combobox-setting.md",
+    "update docs and push to git"
+  ],
+  "agent_name": "Vesper"
+}

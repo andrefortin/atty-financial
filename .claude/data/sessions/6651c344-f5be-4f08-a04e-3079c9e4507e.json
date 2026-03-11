@@ -1,0 +1,7 @@
+{
+  "session_id": "6651c344-f5be-4f08-a04e-3079c9e4507e",
+  "prompts": [
+    "<ide_opened_file>The user opened the file /home/andre/geo-ranker-api/compiled/amqp-queue-enhanced.service.js in the IDE. This may or may not be related to the current task.</ide_opened_file>\ncreate a new spec file to handle the next steps."
+  ],
+  "agent_name": "Vesper"
+}

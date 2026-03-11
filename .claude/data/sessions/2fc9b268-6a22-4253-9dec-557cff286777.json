@@ -1,0 +1,10 @@
+{
+  "session_id": "2fc9b268-6a22-4253-9dec-557cff286777",
+  "prompts": [
+    "/plan \"fix the ai generation error in the apps/plugin project. use the lastest version of the llm model for each llm provider if it is the default or preferred. : aiGeneration.ts:453 [PropFlow AI] Failed to generate AI description: Error: GLM-4 API error: 400 - {\"error\":{\"code\":\"1211\",\"message\":\"Unknown Model, please check the model code.\"}}\n    at callGLM4Direct (aiGeneration.ts:329:11)\n    at async executeAiGeneration (aiGeneration.ts:352:12)\n    at async generateAiDescription (aiGeneration.ts:438:25)\n    at async handleGenerateAiDescription (messages.ts:570:18)\n    at async handleMessage (messages.ts:314:16)\"",
+    "/implement specs/fix-llm-model-codes-to-latest-versions.md",
+    "update docs and push to git",
+    "/plan \"fix the ai description generation : [PropFlow AI] Trying GLM model: glm-4.7\nnetwork.ts:90 [PropFlow] Network status updated: online\nanalyticsService.ts:270 [PropFlow Analytics] Flush failed: Unable to reach analytics service (offline or no connection)\naiGeneration.ts:338 [PropFlow AI] GLM model glm-4.7 succeeded\naiGeneration.ts:460 [PropFlow AI] AI description generated \n{propertyId: '29282717', templateId: undefined, isAutomaticFlow: undefined, descriptionLength: 0}\ndescriptionLength\n: \n0\nisAutomaticFlow\n: \nundefined\npropertyId\n: \n\"29282717\"\ntemplateId\n: \nundefined\n[[Prototype]]\n: \nObject\""
+  ],
+  "agent_name": "Vesper"
+}

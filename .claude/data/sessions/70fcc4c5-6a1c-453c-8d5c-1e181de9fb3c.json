@@ -1,0 +1,10 @@
+{
+  "session_id": "70fcc4c5-6a1c-453c-8d5c-1e181de9fb3c",
+  "prompts": [
+    "/prime ",
+    "add the logs folder to the '.gitignore'",
+    "write commit message and push to git",
+    "add all new and updated files not in the '.gitignore' to git, write new commit and push"
+  ],
+  "agent_name": "Vesper"
+}

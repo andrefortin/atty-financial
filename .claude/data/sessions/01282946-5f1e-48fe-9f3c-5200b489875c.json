@@ -1,0 +1,14 @@
+{
+  "session_id": "01282946-5f1e-48fe-9f3c-5200b489875c",
+  "prompts": [
+    "/plan 'in the apps/plugin project, on the 'ai ad configuration' page, change the 'save configuration' button to 'save' and add an icon for save to the button. Display toast notification for success or failure when we click 'save'",
+    "/implement specs/ai-ad-config-save-button-improvements.md",
+    "update docs and push new and updated docs to git",
+    "if we are using anonymized options, do not go so broad as to say the state/provice or country. The most general location will be city, ideally, we will use the neighborhood.",
+    "green background is not showing for the button, use inline style",
+    "/plan \"in the apps/plugin project, ensure if we are using a different llm than 'z.ai', such as openai, or anthropic, that the api calls are using the correcct base url, correct endpoints, and parsing the results correctly.",
+    "update plan, in the account settings, make the enabled/disabled status a toggle switch with incline green background when enabled, and inline red background when enabled like the toggle switch from the tracked properties, with a similar css style for dimensions and toggle animation. add a tooltip for it.",
+    "update plan to also  change the 'remove' button on the account settings -> llm configuration to be a red icon button, update to be an icon button, and add to be an icon button. Change the 'set preffered' option to be the [primary llm] option. update code that backs up and restores the account settings, and the code that reads the default llm and model to use the new name. Also set a default value for each llm provider to use the most recent llm model as its default, that is to automatically set the default llm model when we add a key to a llm provider automatically after adding the key, and save the settings."
+  ],
+  "agent_name": "Vesper"
+}

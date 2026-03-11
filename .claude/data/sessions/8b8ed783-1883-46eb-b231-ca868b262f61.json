@@ -1,0 +1,9 @@
+{
+  "session_id": "8b8ed783-1883-46eb-b231-ca868b262f61",
+  "prompts": [
+    "/implement specs/fix-aiadview-mediaordering-crash.md",
+    "/plan \"in the apps/plugin project, we need to form fill the 'location' value in the home-search-ca page. here is the html\n  snippet for the search filter: apps/plugin/docs/hsc-toolbar-search-filter.html\"",
+    "/implement specs/hsc-location-form-fill.md"
+  ],
+  "agent_name": "Axiom"
+}

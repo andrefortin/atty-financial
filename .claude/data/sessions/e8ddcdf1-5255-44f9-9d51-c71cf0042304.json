@@ -1,0 +1,9 @@
+{
+  "session_id": "e8ddcdf1-5255-44f9-9d51-c71cf0042304",
+  "prompts": [
+    "/implement plan-backend-master-development-roadmap",
+    "/plan \"ensure all the projects in the apps folder each have a README.md file and that it is updated.\"",
+    "/implement specs/plan-create-readme-for-all-apps.md"
+  ],
+  "agent_name": "Vesper"
+}

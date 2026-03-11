@@ -1,0 +1,9 @@
+{
+  "session_id": "fdb5a52f-03b4-4cea-93de-6949215fffe4",
+  "prompts": [
+    "/prime ",
+    "/plan \"analyze and fix the root problem causing an error trying to run the openwebninja tests: andre@pop-os:~/batcave/geo-ranker-api/backend$ bun run build\n$ nest build\nandre@pop-os:~/batcave/geo-ranker-api/backend$ npm run test:openwebninja:report\n\n> geo-ranker-api@0.0.1 test:openwebninja:report\n> ts-node test/scripts/generate-openwebninja-report.ts\n\n\ud83e\uddea Running OpenWebNinja tests...\n\n\ud83d\udccb Executing Jest test suite...\n\u25cf Validation Error:\n\n  Module test/setup.ts in the setupFilesAfterEnv option was not found.\n         <rootDir> is: /home/andre/batcave/geo-ranker-api/backend\n\n  Configuration Documentation:\n  https://jestjs.io/docs/configuration\n\n\u26a0\ufe0f  Tests completed with failures\n\n\ud83d\udcca Parsing test results...\n\u274c Failed to read test results: Error: ENOENT: no such file or directory, open '/home/andre/batcave/geo-ranker-api/backend/test-results/openwebninja/test-results.json'\n    at async open (node:internal/fs/promises:639:25)\n    at async Object.readFile (node:internal/fs/promises:1246:14)\n    at async main (/home/andre/batcave/geo-ranker-api/backend/test/scripts/generate-openwebninja-report.ts:91:25) {\n  errno: -2,\n  code: 'ENOENT',\n  syscall: 'open',\n  path: '/home/andre/batcave/geo-ranker-api/backend/test-results/openwebninja/test-results.json'\n}\nandre@pop-os:~/batcave/geo-ranker-api/backend$\"",
+    "/build_in_parallel specs/openwebninja-jest-path-resolution-fix.md"
+  ],
+  "agent_name": "Vesper"
+}

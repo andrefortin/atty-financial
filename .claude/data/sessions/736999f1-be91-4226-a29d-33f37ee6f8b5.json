@@ -1,0 +1,7 @@
+{
+  "session_id": "736999f1-be91-4226-a29d-33f37ee6f8b5",
+  "prompts": [
+    "/plan \"in the plugin script, When we click the 'scrape all' button we need to open the page first to scrape it. : [PropFlow]                  \n    [waitForContentScript] Timeout waiting for content script in tab 1607632808                                                                   \n    Context                                                                                                                                       \n    sidepanel.html                                                                                                                                \n    Stack Trace                                                                                                                                   \n    sidepanel.js:26374 (warn)                                                                                                                     \n    sidepanel.js:27350 (waitForContentScript)\"  "
+  ],
+  "agent_name": "Vesper"
+}

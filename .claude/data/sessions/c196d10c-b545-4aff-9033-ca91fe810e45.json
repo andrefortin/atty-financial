@@ -1,0 +1,7 @@
+{
+  "session_id": "c196d10c-b545-4aff-9033-ca91fe810e45",
+  "prompts": [
+    "ensure that our streamed responses to the orchestrator commands shows up in a single bubble not multiple bubbles."
+  ],
+  "agent_name": "Vesper"
+}

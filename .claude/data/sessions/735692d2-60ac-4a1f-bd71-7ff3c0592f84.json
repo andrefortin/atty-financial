@@ -1,0 +1,9 @@
+{
+  "session_id": "735692d2-60ac-4a1f-bd71-7ff3c0592f84",
+  "prompts": [
+    "/prime ",
+    "call the openwebninja search on the dev server for a scan grid and verify the output.",
+    "we also need to test the sync version"
+  ],
+  "agent_name": "Vesper"
+}

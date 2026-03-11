@@ -1,0 +1,7 @@
+{
+  "session_id": "7b3524c6-a89e-4c86-a6b2-9af5d7f171e2",
+  "prompts": [
+    "fix install depency issues with bun : andre@pop-os:~/batcave/fb-re-agent$ bun install\nbun install v1.3.5 (1e86cebd)\nerror: No version matching \"^17.0.0\" found for specifier \"@types/express\" (but package exists)\n\nerror: GET https://registry.npmjs.org/@radix-ui%2freact-heatmap - 404\nerror: @radix-ui/react-heatmap@^1.0.0 failed to resolve\nerror: @types/express@^17.0.0 failed to resolve\nandre@pop-os:~/batcave/fb-re-agent$ "
+  ],
+  "agent_name": "Vesper"
+}

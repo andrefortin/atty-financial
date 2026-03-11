@@ -1,0 +1,17 @@
+{
+  "session_id": "ae8e5e0e-4e73-4423-9ceb-884d6feef8a5",
+  "prompts": [
+    "/prime_app plugin",
+    "Yes, create the plan.",
+    "you can include data from this plan as well : specs/facebook-marketplace-posting-implementation.md",
+    "We can update the fb dom to upload images by using a backend url to upload the file, like using a cloud function or edge function, look at our reference implementation for details.",
+    "/implement specs/facebook-marketplace-posting-plan.md",
+    "continue",
+    "continue",
+    "continue",
+    "push updates to git",
+    "Do we have the ai created description based on the listing and template?",
+    "look at this image for config options."
+  ],
+  "agent_name": "Vesper"
+}

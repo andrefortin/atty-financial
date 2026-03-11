@@ -1,0 +1,9 @@
+{
+  "session_id": "1bb09f42-6b30-4522-80cd-038128c24f4c",
+  "prompts": [
+    "/prime_app landing",
+    "/prime_app --refresh landing",
+    "/plan \"let's create a plan to complete the Remaining Todo:\n  1. Add production image domains to next.config.js\n  2. Optional: FAQ section, testimonials, demo content\\\n\\\nConvex should have some kind of image hosting we could potentially use.\""
+  ],
+  "agent_name": "Vesper"
+}

@@ -1,0 +1,12 @@
+{
+  "session_id": "d47864be-f70a-4305-8ed0-bb1307c22043",
+  "prompts": [
+    "/prime ",
+    "create a comprehensive README.md file for the frontend project.",
+    "/build_in_parallel specs/admin-navigation-and-route-structure-review.md",
+    "start the frontend",
+    "all the page routes in the frontend display the dashboard.",
+    "/plan `create a auth page to require username and password to login to the app. add a route gaurd, create a default user of andre@fortinmedia.net with a password of 'jkl;jkl;' in the system as the authorized user. setup a proper auth system for the system admin (me) taht let's me reset the password. protect all pages from unauthorized access.`"
+  ],
+  "agent_name": "Vesper"
+}

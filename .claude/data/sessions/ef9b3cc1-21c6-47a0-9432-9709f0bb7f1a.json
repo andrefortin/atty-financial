@@ -1,0 +1,8 @@
+{
+  "session_id": "ef9b3cc1-21c6-47a0-9432-9709f0bb7f1a",
+  "prompts": [
+    "/prime ",
+    "/plan \"ensure full compatibility with all the endpoints, both the query paramaters and body and the responses, to allow users to switch seamlessly over to our new openwebninja compatibility endpoints. The documentation for the openwebninja api is here: 'https://www.openwebninja.com/api/local-rank-tracker/docs'. All the endpoints need full swagger documentation.\""
+  ],
+  "agent_name": "Vesper"
+}

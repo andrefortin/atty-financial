@@ -1,0 +1,8 @@
+{
+  "session_id": "54001c28-a3ff-478c-9a09-53e6e54a4fff",
+  "prompts": [
+    "/plan \"in the apps/plugin project, in the conversations page, we have the recent conversations panel. We want to update the message scraping code to get the file names of the attachements and include that as the message.\". We also want the document and image attachements to be included in the message, and the filename/link as meta data for the message.\"",
+    "show the file name an link in the UI with the message."
+  ],
+  "agent_name": "Vesper"
+}

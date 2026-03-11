@@ -1,0 +1,14 @@
+{
+  "session_id": "6f0109fe-1b03-4643-9d68-a4bab2a2f210",
+  "prompts": [
+    "/plan \"in the plugin app ensure the saved searches page resizes when the sidepanel resizes\"",
+    "/implement specs/saved-searches-sidepanel-resize-fix.md",
+    "/plan \"fix the plugin error in the 'my properties page: Warning: Invalid DOM property `%s`. Did you mean `%s`?%s stroke-width strokeWidth\"",
+    "/implement specs/saved-search-cards-resize-fix.md",
+    "error in the plugin app in the index file : \"const currentCards = extractAllVisibleCards(request.userId);\" error uncaught reference error: request is not defined.",
+    "yes fix that as well, Addtionally, we want the the plugin app to use a remote message queue using lavinmq to receive notifications and messages as well as pass message back and forth to the backend server. We are using a lavinmq message broker. The details are in the '.env' file.",
+    "/plan \"update the plugin settings page, replace the 'default template' option with a new option that is toggle to enable AI auto selection to choose a template for the user of manual selection is required. Also when we click the ai template button in  'my properties' page we should open a new page that has a back button that follows the other page templates. We should have ai ad page that is similar to the manage templates page that at the top of the page we have a template chooser and we should have a text area to enter in the ai instructions to use when creating the ad listing, a place to arraing the order of the images and videos, a toggle option to add our own images and videos (the files and locations should be save to our settings) to the images and videos list where we can set the position it appears in (1st, n-th from 1st, last, nth from last) and remember those settings as defaults for all other listings of that type, we want a preview the ai description. Here is our old configuration page for the posting, make sure we cover all the options on the page. ",
+    "Additionally, we need a place where the user can add their own LLM key for claude or GLM or OpenAI or Gemini"
+  ],
+  "agent_name": "Vesper"
+}

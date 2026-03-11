@@ -1,0 +1,8 @@
+{
+  "session_id": "77892d5c-fe77-4269-98d8-f8ad2e18f971",
+  "prompts": [
+    "/plan \"in the apps/plugin project, all the areas in the application that have ai instructions that we can save the changes to or reset to defaults must have toast notifications to inform the user that the save completed successfully or not, and a confirmation dialog before we reset to default the instructions. If we confirm reseting to defaults, we must still show a toast notification with the status of the reset.\"",
+    "/implement specs/ai-instructions-toast-notifications-and-confirmation-dialogs.md"
+  ],
+  "agent_name": "Vesper"
+}

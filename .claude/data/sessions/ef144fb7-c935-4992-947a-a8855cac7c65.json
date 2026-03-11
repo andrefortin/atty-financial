@@ -1,0 +1,15 @@
+{
+  "session_id": "ef144fb7-c935-4992-947a-a8855cac7c65",
+  "prompts": [
+    "/plan \"in the apps/plugin project, when we are scraping the tracked properties, we have a log message of '[PropFlow FB Selling] Found 0 div(s) with role=\"menu\" and class=\"html-div\" and aria-label' We should not be trying to scrape for that anymore, only for the elements that are a[role=\"menuitem][href] from which we are trying to extract the listing if from the url",
+    "/implement specs/remove-obsolete-menu-div-scraping-from-tracked-properties.md",
+    "The code for the facebook marketplace scrape",
+    "/plan \"in the apps/plugin project we need to update the script for the home-search-ca site to include a button to manualy scrape the data from a detail listing for a property and send it into the plugin. any url like 'https://www.homesearchcanada.ca/<province_code_uppercase>/<city_name_lowercase>/<postal_code_lowercase>/<id_of_property>'",
+    "/implement specs/add-manual-scrape-button-for-hsc-detail-pages.md",
+    "We don't see the floating button to scrape the data",
+    "Uncaught ReferenceError: LocationType is not defined",
+    "The [test ai instructions] is not working in the [ai ad configuration] page",
+    "'when clicking the test ai instrution we are seeing the reasoning appear in the preview element. Instead add a reasoning preview element to show the reasoning, and a response preview element to show the response for the ai description that is generated. update the 'main instructions' to the model to be the following: 'Things to mention in the description:\n- amount of bedrooms and bathrooms at the beginning of the listing\n- details about utilities if any\n- details about amenities if any\n- any deposits needed\n- do not include the MLS number\n- do not include the street number'"
+  ],
+  "agent_name": "Vesper"
+}

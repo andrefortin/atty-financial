@@ -1,0 +1,14 @@
+{
+  "session_id": "adb59fa8-c854-4955-96fa-0223d97ac895",
+  "prompts": [
+    "/plan \"in the apps/plugin project, add an option to the 'posting options' object and in the UI to configure the change, that will let us choose the specific template to use with all the property listings created and enriched from this posting options object. We will need to include that data in the listing object so we know what to use when we create the property description. Also allow us to set a specific ai person to use for the listings created with this posting object. ensure we update any data we need to save/restore and pass around our application to maintain this new knowledge.\"",
+    "/implement specs/posting-options-template-and-persona-selection.md",
+    "The error appears at run-time : [PropFlow] Failed to load templates/personas: TypeError: BUILTIN_TEMPLATES2 is not iterable\nContext\nsidepanel.html\nStack Trace\nsidepanel.js:41043 (loadTemplatesAndPersonas)\\\n\\\nWe should also see all the existing templates in the drop-down listbox  in the 'content settings' -> 'template'",
+    "[PropFlow] Failed to load templates/personas: TypeError: BUILTIN_TEMPLATES2 is not iterable\nContext\nsidepanel.html\nStack Trace\nsidepanel.js:41043 (loadTemplatesAndPersonas)",
+    "Still no love, its broken",
+    "The toggle/switch in th UI for the conversations -> recent conversations list items should use green instead of purple for active values. Use the same styling including colors for all the other toggle/switch ui elements in the plugin app.",
+    "update application wide the UI styleing for ALL toggle/switch controls in the UI",
+    "Well done. Now update the toggle/switch controls on the: - account settings page, - your listings page "
+  ],
+  "agent_name": "Vesper"
+}

@@ -1,0 +1,10 @@
+{
+  "session_id": "4355b96b-6705-47f6-a03a-fd708808047c",
+  "prompts": [
+    "/prime_app frontend",
+    "/plan \"create environments files and ensure we load them in the app\"",
+    "/build_in_parallel specs/plan-environment-files-setup.md",
+    "add all .env.example files in the project"
+  ],
+  "agent_name": "Vesper"
+}

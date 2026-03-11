@@ -1,0 +1,14 @@
+{
+  "session_id": "0dcde539-065a-476e-874a-b3bfc33778a4",
+  "prompts": [
+    "/prime_app leadcarrot",
+    "/parallel_subagents is running\u2026 'in leadcarrot project, Fix the navigation and separation of concerns for the app. 1- If a user has a system role then show a button in the app header to goto the system dashboard. 2- If a user has an agency role then show a button in the app header to goto the agency dashboard. 3- Only show the Agency nav menu in the nav app sidebar when we are on the agency route. 4- Only show the System nav menu in the nav app sidebar when we are on the system route' 5",
+    "when using the parallel_subagents command to make code changes we should always be working in a new git branch, and after our validator has completed successfully we should commit that branch and do a pr to merge into main.",
+    "push to git",
+    "/parallel_subagents ",
+    "/parallel_subagents 'a validated user who has the system role should be able to work in any agency without being a member of that agency. From the system agency management page we should have an action icon to goto that agency to manage it and it should set our agency_id to that agency's id and we should operate in the agency with the role of agency admin' 4",
+    "push changes to leadcarrot to git",
+    "git pull"
+  ],
+  "agent_name": "Vesper"
+}

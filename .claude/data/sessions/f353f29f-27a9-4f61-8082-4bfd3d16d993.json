@@ -1,0 +1,11 @@
+{
+  "session_id": "f353f29f-27a9-4f61-8082-4bfd3d16d993",
+  "prompts": [
+    "<ide_opened_file>The user opened the file /home/andre/batcave/mao-og/apps/geo-ranker-api/backend/src/README.md in the IDE. This may or may not be related to the current task.</ide_opened_file>\nwhat was the last thing we were doing?",
+    "continue with the Geo-Ranker API setup and deployment and ssl",
+    "<ide_selection>The user selected the lines 183 to 183 from /home/andre/batcave/mao-og/apps/geo-ranker-api/backend/README.md:\n/search/geo-grid/{id}\n\nThis may or may not be related to the current task.</ide_selection>\ntest the api",
+    "<ide_opened_file>The user opened the file /temp/readonly/Bash tool output (vs90tk) in the IDE. This may or may not be related to the current task.</ide_opened_file>\nupdate docs, update git, fix the missing modules, ensure we are using headless puppeteer.",
+    "<ide_opened_file>The user opened the file /tmp/gmb-rank-dev.conf in the IDE. This may or may not be related to the current task.</ide_opened_file>\ncontinue"
+  ],
+  "agent_name": "Vesper"
+}

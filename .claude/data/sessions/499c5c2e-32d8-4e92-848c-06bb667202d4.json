@@ -1,0 +1,8 @@
+{
+  "session_id": "499c5c2e-32d8-4e92-848c-06bb667202d4",
+  "prompts": [
+    "/prime_app plugin",
+    "/plan \"we need a README.md file. Also include reference to the 'app/_fb-re-poster' project which is the original javascript version of the chrome extension for fb real estate poster. Then lets do create plans to implment solve the \n  Incomplete:\n  - Side panel UI is placeholder (TODO comments)\n  - Convex auth not implemented\n  - Site-specific CSS selectors need verification\n  - Error handling needs improvement\n\n  Technical Debt:\n  - Duplicate content script implementations (content-script/ vs src/content-script/)\n  - Estimated selectors that need real-world testing\\\n\\\nThen create a master plan for the plugin that will run the other plans\""
+  ],
+  "agent_name": "Vesper"
+}

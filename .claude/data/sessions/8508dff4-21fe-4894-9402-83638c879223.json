@@ -1,0 +1,9 @@
+{
+  "session_id": "8508dff4-21fe-4894-9402-83638c879223",
+  "prompts": [
+    "/prime_app apps/plugin",
+    "/prime_app --refresh plugin",
+    "update docs and push to git"
+  ],
+  "agent_name": "Axiom"
+}

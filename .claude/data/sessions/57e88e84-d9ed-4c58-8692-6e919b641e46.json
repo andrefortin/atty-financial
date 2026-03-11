@@ -1,0 +1,7 @@
+{
+  "session_id": "57e88e84-d9ed-4c58-8692-6e919b641e46",
+  "prompts": [
+    "scrape the url https://docs.astral.sh/uv/guides/projects/#managing-dependencies and cache it locally in this folder"
+  ],
+  "agent_name": "Vesper"
+}

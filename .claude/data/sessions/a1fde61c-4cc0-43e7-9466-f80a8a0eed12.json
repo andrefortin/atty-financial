@@ -1,0 +1,8 @@
+{
+  "session_id": "a1fde61c-4cc0-43e7-9466-f80a8a0eed12",
+  "prompts": [
+    "/prime ",
+    "/plan \"lets make a series of tests for all the '/search/' endpoints and ensure that the code and the documentation and the expected output match. We can use the swagger documentation which must be updated to reflect how the endpoints actually work, the 'openwebninja' compatiblity endpoints must also be added with complete swagger documentation and tested. Ensure our plan has review and testing and that we keep fixing until it works as expected. Ask me questions if you need help, refer to our internal documentation and README.md files, and the 'docs' folder. We can use the development environment for all this work, use the local development server for testing and the local development worker as well. impress me\""
+  ],
+  "agent_name": "Vesper"
+}

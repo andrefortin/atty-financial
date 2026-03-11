@@ -1,0 +1,11 @@
+{
+  "session_id": "55844d1f-c224-4dea-88eb-63a8a9b7441f",
+  "prompts": [
+    "/plan \"in the apps/plugin app, We have an account settings option that allows us to add a video to each posting, let's also add an option to ad an image to each posting, this will always add it as the last image.\"",
+    "/implement specs/add-default-image-to-posting-settings.md",
+    "Failed to load extension\nFile\n~/batcave/fb-re-agent/apps/plugin/dist\nError\nCould not load javascript 'messenger-marketplace.js' for script.\nCould not load manifest.",
+    "Change the account settings -> 'Auto-upload Video' to 'Default Posting Video' to match the 'Default Posting Image' setting.",
+    "Update the video settings in the code and saved settings to make it consistent like the 'default posting image' setting."
+  ],
+  "agent_name": "Vesper"
+}

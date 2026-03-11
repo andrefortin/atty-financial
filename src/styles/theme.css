@@ -1,0 +1,279 @@
+/* Theme CSS - ATTY Financial Brand Guidelines */
+
+:root {
+  /* ========================================
+     PRIMARY COLORS
+     ======================================== */
+  --color-primary-black: #000000;
+  --color-primary-black-rgb: 0, 0, 0;
+  --color-primary-black-hover: #1a1a1a;
+  --color-primary-black-active: #333333;
+
+  --color-primary-sand: #F6F0E4;
+  --color-primary-sand-rgb: 246, 240, 228;
+  --color-primary-sand-dark: #E8E2D6;
+  --color-primary-sand-light: #FAF7F0;
+
+  --color-primary-white: #FFFFFF;
+  --color-primary-white-rgb: 255, 255, 255;
+  --color-primary-white-off: #F8F8F8;
+
+  --color-primary-gray: #BBBBBB;
+  --color-primary-gray-rgb: 187, 187, 187;
+  --color-primary-gray-light: #E5E5E5;
+  --color-primary-gray-dark: #999999;
+
+  /* ========================================
+     SECONDARY COLORS
+     ======================================== */
+  --color-secondary-green: #86BF9E;
+  --color-secondary-green-rgb: 134, 191, 158;
+  --color-secondary-green-hover: #76AD8E;
+  --color-secondary-green-light: #A8D4B6;
+  --color-secondary-green-bg: #E8F5ED;
+
+  --color-secondary-periwinkle: #CEDBFA;
+  --color-secondary-periwinkle-rgb: 206, 219, 250;
+  --color-secondary-periwinkle-hover: #BEC9E8;
+  --color-secondary-periwinkle-light: #E3E9FC;
+  --color-secondary-periwinkle-bg: #F0F4FF;
+
+  --color-secondary-melon: #FDE276;
+  --color-secondary-melon-rgb: 253, 226, 118;
+  --color-secondary-melon-hover: #EDD466;
+  --color-secondary-melon-light: #FEEB9E;
+  --color-secondary-melon-bg: #FEF8E8;
+
+  --color-secondary-yellow: #F1F698;
+  --color-secondary-yellow-rgb: 241, 246, 152;
+  --color-secondary-yellow-hover: #E1E688;
+  --color-secondary-yellow-light: #F7FAB8;
+  --color-secondary-yellow-bg: #FBFDE8;
+
+  /* ========================================
+     SEMANTIC COLORS
+     ======================================== */
+  --color-success: var(--color-secondary-green);
+  --color-success-light: var(--color-secondary-green-light);
+  --color-success-bg: var(--color-secondary-green-bg);
+
+  --color-info: var(--color-secondary-periwinkle);
+  --color-info-light: var(--color-secondary-periwinkle-light);
+  --color-info-bg: var(--color-secondary-periwinkle-bg);
+
+  --color-warning: var(--color-secondary-melon);
+  --color-warning-light: var(--color-secondary-melon-light);
+  --color-warning-bg: var(--color-secondary-melon-bg);
+
+  --color-accent: var(--color-secondary-yellow);
+  --color-accent-light: var(--color-secondary-yellow-light);
+  --color-accent-bg: var(--color-secondary-yellow-bg);
+
+  --color-error: #EF4444;
+  --color-error-light: #FEB2B2;
+  --color-error-bg: #FEE2E2;
+  --color-error-dark: #DC2626;
+
+  /* ========================================
+     LEGACY COLOR ALIASES
+     (For backward compatibility during migration)
+     ======================================== */
+  --color-primary: var(--color-primary-black);
+  --color-primary-light: var(--color-primary-sand);
+  --color-primary-dark: #1a1a1a;
+
+  --color-secondary: var(--color-secondary-periwinkle);
+  --color-secondary-light: var(--color-secondary-periwinkle-light);
+
+  /* ========================================
+     NEUTRAL COLORS
+     ======================================== */
+  --color-gray-50: #F7FAFC;
+  --color-gray-100: #EDF2F7;
+  --color-gray-200: #E2E8F0;
+  --color-gray-300: #CBD5E0;
+  --color-gray-400: #A0AEC0;
+  --color-gray-500: #718096;
+  --color-gray-600: #4A5568;
+  --color-gray-700: #2D3748;
+  --color-gray-800: #1A202C;
+  --color-gray-900: #111827;
+
+  /* ========================================
+     TYPOGRAPHY
+     ======================================== */
+  --font-family-base: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  --font-family-heading: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  --font-family-mono: 'Courier New', monospace;
+
+  /* Font Sizes - Major Third (1.25) Scale */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 2;
+
+  /* Letter Spacing */
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+
+  /* ========================================
+     SPACING
+     ======================================== */
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+
+  /* ========================================
+     BORDER RADIUS
+     ======================================== */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
+
+  /* ========================================
+     SHADOWS
+     ======================================== */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+  /* ========================================
+     TRANSITIONS
+     ======================================== */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  /* ========================================
+     Z-INDEX SCALE
+     ======================================== */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+
+  /* ========================================
+     COMPONENT-SPECIFIC VARIABLES
+     ======================================== */
+
+  /* Button */
+  --button-height: 2.5rem;
+  --button-padding: 0.5rem 1rem;
+  --button-font-size: 0.875rem;
+  --button-font-weight: 500;
+
+  /* Input */
+  --input-height: 2.5rem;
+  --input-padding: 0.5rem 0.75rem;
+  --input-font-size: 0.875rem;
+  --input-border-color: var(--color-primary-gray);
+  --input-border-color-focus: var(--color-secondary-periwinkle);
+
+  /* Card */
+  --card-padding: 1.5rem;
+  --card-border-radius: 0.5rem;
+  --card-shadow: var(--shadow-md);
+
+  /* Table */
+  --table-header-bg: var(--color-primary-sand);
+  --table-row-hover-bg: var(--color-primary-sand-light);
+  --table-border-color: var(--color-primary-gray);
+  --table-cell-padding: 0.75rem 1rem;
+
+  /* Badge */
+  --badge-padding: 0.25rem 0.75rem;
+  --badge-font-size: 0.75rem;
+  --badge-font-weight: 500;
+  --badge-border-radius: 9999px;
+
+  /* Modal */
+  --modal-padding: 1.5rem;
+  --modal-border-radius: 0.75rem;
+  --modal-max-width: 32rem;
+  --modal-max-width-lg: 48rem;
+
+  /* Sidebar */
+  --sidebar-width: 16rem;
+  --sidebar-bg: var(--color-primary-black);
+  --sidebar-text-color: var(--color-primary-white);
+  --sidebar-border-color: rgba(255, 255, 255, 0.1);
+
+  /* Header */
+  --header-height: 4rem;
+  --header-bg: var(--color-primary-white);
+  --header-border-color: var(--color-primary-gray);
+
+  /* Status Colors */
+  --status-active-bg: var(--color-success-bg);
+  --status-active-text: var(--color-primary-black);
+  --status-closed-bg: var(--color-warning-bg);
+  --status-closed-text: var(--color-primary-black);
+  --status-archive-bg: var(--color-gray-200);
+  --status-archive-text: var(--color-gray-700);
+  --status-unassigned-bg: var(--color-error-bg);
+  --status-unassigned-text: var(--color-error-dark);
+  --status-assigned-bg: var(--color-info-bg);
+  --status-assigned-text: var(--color-primary-black);
+  --status-allocated-bg: var(--color-success-bg);
+  --status-allocated-text: var(--color-primary-black);
+  --status-warning-bg: var(--color-warning-bg);
+  --status-warning-text: var(--color-primary-black);
+  --status-error-bg: var(--color-error-bg);
+  --status-error-text: var(--color-error-dark);
+
+  /* Alert Thresholds */
+  --alert-warning-threshold: 20 days;
+  --alert-error-threshold: 30 days;
+}
+
+/* Print Styles */
+@media print {
+  --color-primary-black: #000000;
+  --color-primary-sand: #F6F0E4;
+  --color-secondary-periwinkle: #CEDBFA;
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-xl: none;
+}

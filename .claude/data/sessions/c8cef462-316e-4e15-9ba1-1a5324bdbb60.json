@@ -1,0 +1,10 @@
+{
+  "session_id": "c8cef462-316e-4e15-9ba1-1a5324bdbb60",
+  "prompts": [
+    "/prime_app plugin and backend",
+    "/plan \"the plugin still has alot of logs being generated in the console log. Are these necessary and are we running properly? If they are not\n  necessary, suppress them. Also solve for the plugin and backend connecting issue :: Scrape error: Error: Could not establish connection.\n  Receiving end does not exist. Error - Content script not ready. Please refresh the Realtor.ca page and try again.\"",
+    "/implement specs/plugin-console-cleanup-and-connection-fix.md",
+    "continue\n/plan \"in the plugin script, When we click the 'scrape all' button we need to open the page first to scrape it. : [PropFlow] [waitForContentScript] Timeout waiting for content script in tab 1607632808\nContext\nsidepanel.html\nStack Trace\nsidepanel.js:26374 (warn)\nsidepanel.js:27350 (waitForContentScript)\"\n/clear"
+  ],
+  "agent_name": "Vesper"
+}

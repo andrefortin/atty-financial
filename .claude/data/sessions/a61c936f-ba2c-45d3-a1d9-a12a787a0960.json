@@ -1,0 +1,13 @@
+{
+  "session_id": "a61c936f-ba2c-45d3-a1d9-a12a787a0960",
+  "prompts": [
+    "/plan \"in the apps/plugin application, we are click the 'scrape now' button for a 'posting option', not all the posting configurations are being updated in the 'home-search-ca' page. The Property Type, Home Styles, are not making it. We acutally left off the option Listing Type in both the posting options configuration as well. The options come from this html snippet: <ul data-v-2efabfbd=\"\" class=\"dropdown-menu show\" style=\"width: 318px;\"><li data-v-2efabfbd=\"\" class=\"item active\"><a data-v-2efabfbd=\"\" class=\"option Sale\"><span data-v-2efabfbd=\"\" class=\"icon\"></span>Sale </a></li><li data-v-2efabfbd=\"\" class=\"item\"><a data-v-2efabfbd=\"\" class=\"option Sold\"><span data-v-2efabfbd=\"\" class=\"icon\"></span>Sold </a></li><li data-v-2efabfbd=\"\" class=\"item active\"><a data-v-2efabfbd=\"\" class=\"option Rent\"><span data-v-2efabfbd=\"\" class=\"icon\"></span>Rent </a></li><!----><li data-v-2efabfbd=\"\" class=\"item\"><a data-v-2efabfbd=\"\" class=\"option Rented\"><span data-v-2efabfbd=\"\" class=\"icon\"></span>Rented </a></li><!----></ul>",
+    "/implement specs/fix-hsc-multiselect-filters.md",
+    "update docs and push updated file to git",
+    "update docs and push updated file to git",
+    "/plan \"in the apps/plugin, when we attempt to scrape the posting option from home-search-ca we are not getting the properties cards scraped from the page automatically, the page will open but not scrape the visible cards and send them to the imported properties. We can however do it manually and that works. We do want to skip the vip cards as they don't contain a listing, or any listing that doesn't include a price.\"",
+    "/implement specs/hsc-auto-scrape-after-filters.md",
+    "Then make a plan to set the filter for  the 'home type' properly in the home-search-ca page."
+  ],
+  "agent_name": "Vesper"
+}

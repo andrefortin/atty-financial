@@ -1,0 +1,11 @@
+{
+  "session_id": "53ba4b5e-ce35-4223-afe1-ca07f27f99f4",
+  "prompts": [
+    "/plan \"make the Google Login Button look like most other Sign in with Google Buttons : https://developers.google.com/identity/branding-guidelines in the plugin app\"",
+    "/implement specs/google-sign-in-button-branding-compliance.md",
+    "update docs and push to git",
+    "/plan \"continue to fix the plugin app's authentication system. We need to allow the authentication flow : Sign Up, Sign In, Reset Password. Here is the error in the google chrome extension console errors : [PropFlow] Failed to fetch user info: 401\n[PropFlow] Chrome Identity sign-in error: Error: Failed to fetch user information from Google\n[useAuth] Sign-in error: Failed to fetch user information from Google\n[useAuth] Sign in failed: Failed to fetch user information from Google\nWarning: %s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values.%s Removing borderColor border",
+    "/implement specs/fix-plugin-firebase-authentication-flows.md"
+  ],
+  "agent_name": "Vesper"
+}

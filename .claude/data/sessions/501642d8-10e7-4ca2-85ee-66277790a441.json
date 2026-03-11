@@ -1,0 +1,9 @@
+{
+  "session_id": "501642d8-10e7-4ca2-85ee-66277790a441",
+  "prompts": [
+    "/prime_app plugin",
+    "/plan \"Expected behavior: click on extension icon THEN if the user is not logged in or authenticated we show the popup ELSE the user is\n  authenticated and we toggle the sidebar visibility (open or close). There should be a user profile icon or gear icon in the top right corner of the panel we can use to get a drop-down menu to logout of plugin and then the sidepanel should close because we are not authenticated. Since we are in a Google Chrome extension with manifest version 3 make sure we are following the guidelines as the context of running in a browser are different. We use message passing between the ui components of popup and sidepanel and the service worker. We use script injection. The manifest defines script injection (we may or may not need to manually do it as well) when one of the tabs has a page open for the selected real estate sites or facebook messenger.\"",
+    "/implement specs/fix-extension-action-click-and-popup-routing.md"
+  ],
+  "agent_name": "Vesper"
+}

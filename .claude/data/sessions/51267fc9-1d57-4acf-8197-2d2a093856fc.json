@@ -1,0 +1,11 @@
+{
+  "session_id": "51267fc9-1d57-4acf-8197-2d2a093856fc",
+  "prompts": [
+    "/plan \"in the plugin app, even if there is no database connection, we should continue to work regardless, the database connection is there to help sync the values and for other system wide uses.\"",
+    "/implement specs/backend-independent-plugin-operations.md",
+    "update docs and push to git",
+    "/plan \"in the plugin app, in the 'my properties' page, the state is overlaid on top of the image like 'saved', 'enriched', or 'ai add'. The state 'ai add' should have a background set like the 'saved', and 'enriched' state displays do., Also the state filters for 'Saved Only', 'Enriched', do not filter for only that value, however 'ai add' does.",
+    "/implement specs/fix-property-state-badge-and-filter-issues.md"
+  ],
+  "agent_name": "Axiom"
+}

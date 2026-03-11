@@ -1,0 +1,11 @@
+{
+  "session_id": "620c6f97-61d1-4652-83ba-4c63464a5ae5",
+  "prompts": [
+    "we are going to work specifically on the frontend app. The frontend app must use shadcn and tailwind.",
+    "The frontend should be available on the admin.saasmode.com subdomain",
+    "create a spec file for next steps",
+    "/build_in_parallel specs/admin-frontend-next-steps.md 4",
+    "continue"
+  ],
+  "agent_name": "Vesper"
+}

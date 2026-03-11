@@ -1,0 +1,16 @@
+{
+  "session_id": "c18395fd-fb63-490c-9261-641f73c2cc92",
+  "prompts": [
+    "/prime_app plugin",
+    "/prime_app --refresh plugin",
+    "implement fixes",
+    "/plan \"plugin app needs to fix the authentication : Loading the script 'https://apis.google.com/js/api.js?onload=__iframefcb421664' violates the following Content Security Policy directive: \"script-src 'self'\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.\nLoading the script 'https://apis.google.com/js/api.js?onload=__iframefcb421664' violates the following Content Security Policy directive: \"script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.\n[PropFlow Offscreen] Sign-in error: FirebaseError: Firebase: Error (auth/internal-error).\n[PropFlow Offscreen] Error details: [object Object]\n[firebaseAuth] Google sign-in error: Error: Firebase: Error (auth/internal-error). Details: Firebase Auth Error: auth/internal-error\n[useAuth] Sign in failed: Firebase: Error (auth/internal-error). Details: Firebase Auth Error: auth/internal-error\"",
+    "/implement specs/fix-plugin-firebase-csp-violation.md",
+    "push updates to git",
+    "/plan \"fix the error opening the side panel in the panel :: [PropFlow] Error toggling sidepanel: Error: `sidePanel.open()` may only be called in response to a user gesture.\nContext\nservice-worker.js\nStack Trace\nservice-worker.js:147 (anonymous function)\n\"",
+    "/implement specs/fix-plugin-sidepanel-user-gesture-error.md",
+    "/plan \"fix the plugin app. There is an error in the service-worker. There is an error toggling the sidepanel :: [PropFlow] Error toggling sidepanel: Error: `sidePanel.open()` may only be called in response to a user gesture.\"",
+    "/implement specs/fix-plugin-service-worker-sidepanel-user-gesture-error.md"
+  ],
+  "agent_name": "Vesper"
+}

@@ -1,0 +1,13 @@
+{
+  "session_id": "f902b0df-30d9-4860-b701-f9d44997e4cd",
+  "prompts": [
+    "/prime ",
+    "/prime_app leadcarrot",
+    "Save this summary for use later when we use the /prime_app command on the leadcarrot app",
+    "how would we reference this when running the command",
+    "does the command `/prime_app leadcarrot` reference the app readme as well, or was that incorporated into the app reference and is not beneficial",
+    "/prime_app leadcarrot -refresh",
+    "/prime_app --refresh leadcarrot"
+  ],
+  "agent_name": "Vesper"
+}

@@ -1,0 +1,9 @@
+{
+  "session_id": "eb84dbe8-dd77-4a82-aa36-4bb7a932a225",
+  "prompts": [
+    "/prime_app --refresh plugin",
+    "/plan \"fix error in app/plugin where we get the following browser log : api.ts:382 [PropFlow] Scrape listing error: TypeError: Failed to fetch\n    at fetchWithTimeout (api.ts:191:28)\n    at handleScrapeListing (api.ts:293:28)\n    at async handleMessage (messages.ts:192:16)\"",
+    "/implement specs/fix-scrape-listing-fetch-error.md"
+  ],
+  "agent_name": "Vesper"
+}

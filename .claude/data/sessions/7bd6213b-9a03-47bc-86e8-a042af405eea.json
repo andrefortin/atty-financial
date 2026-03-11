@@ -1,0 +1,11 @@
+{
+  "session_id": "7bd6213b-9a03-47bc-86e8-a042af405eea",
+  "prompts": [
+    "/prime_app plugin",
+    "/implement specs/fix-extension-action-click-and-popup-routing.md",
+    "/plan \"the plugin has no user feedback for errors to the user. We just had the create new user account fail and the only indication something was wrong was in the browser console. We need to redesign and make a beautiful user interface that is clean and sexy, has micro animations and other pleasant things including a way to notify users of errors in a way that non-technical people can understand (make messages human friendly). we also provided a sample login page for inspiration but use your judgement. Update the plugin logo image to use 'assets/images/logo_fb-real-estate-poster-128px.png\". Here is the console log :: service-worker.ts:1170 [PropFlow] Service worker initializing\nservice-worker.ts:1030 [PropFlow] Auth state listener initialized\nservice-worker.ts:1181 [PropFlow] Service worker initialized\nservice-worker.ts:262 [PropFlow] Extension installed/updated: update\nservice-worker.ts:273 [PropFlow] Extension updated to version: 1.0.0\nservice-worker.ts:303 [PropFlow] Migrating from version 1.0.0\nservice-worker.ts:1149 [PropFlow] Network status: online\nservice-worker.ts:386 [PropFlow] Extension icon clicked\nservice-worker.ts:401 [PropFlow] Auth state: ObjectisAuthenticated: false[[Prototype]]: Object\nservice-worker.ts:343 [PropFlow] Opened auth popup\nservice-worker.ts:425 [PropFlow] Received message: PROPFLOW_SIGN_UP Object\nservice-worker.ts:1063 [PropFlow] Sign up error: TypeError: Failed to fetch\n    at signUpUser (service-worker.ts:1046:28)\n    at async handleMessage (service-worker.ts:480:14)\nsignUpUser @ service-worker.ts:1063\n\"",
+    "/implement specs/redesign-plugin-auth-ui-with-error-feedback.md",
+    "when the plugin popup opens it should be centered in the page"
+  ],
+  "agent_name": "Vesper"
+}

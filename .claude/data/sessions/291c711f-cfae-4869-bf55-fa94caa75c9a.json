@@ -1,0 +1,17 @@
+{
+  "session_id": "291c711f-cfae-4869-bf55-fa94caa75c9a",
+  "prompts": [
+    "/prime ",
+    "does the build command orchestrate the implementation of a plan spec with agents and subagents?",
+    "what would happen if I send a the output of the plan command which is a spec file to the command orch_plan_w_scouts_build_review? Would it make a new plan based on the spec and build it out?",
+    "so should  we create a spec first with the plan command or simply send the task description straight to the orch_plan_w_scouts_build_review command?",
+    "show me how all the commands that use an $adw parameter are connected together and how a process would flow with a diagram and an explanation.",
+    "save this to a markdown file in the root folder of mao_og so it can be reviewed",
+    "read the README.md file in the ai_docs folder and scrape and cache in the ai_docs folder all the urls listed",
+    "look at all the claude commands we have and create a summary document that we can let the the ai agents use to figure out which command to use for what purpose, what are the workflows for the commands and what are the use cases for the commands or work flows. Create a mermaid diagram to show us how all the tools are inter related for work flows. ",
+    "read and analyse the prime and the prime_app command and update the documents to include when to use one or the other or both",
+    "in the following use case how do we use claude code and ensure that the we know which commands or agents to use to have an effective software development experience. Use-Case: you are a developer working on the application 'leadcarrot' which is found inside the /apps/leadcarrot directory. we have started claude code from the mao-og folder which contains the apps folder. We want claude code to be able to know which processes we should run to achieve a given output for example, we are starting a new session of claude code to fix an issue where we need to add some custom fields to the database to allow properly loading the branding for an agency in our leadcarrot app.",
+    "who can I ensure we are using the agent orchestration to maximize our use of time and get the best results for our development?"
+  ],
+  "agent_name": "Vesper"
+}

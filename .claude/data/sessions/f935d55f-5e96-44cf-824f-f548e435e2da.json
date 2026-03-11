@@ -1,0 +1,12 @@
+{
+  "session_id": "f935d55f-5e96-44cf-824f-f548e435e2da",
+  "prompts": [
+    "/implement specs/plugin-template-creation-editing.md",
+    "Error in creating new template : Unknown placeholders found: {lotSize}}, {address}}. Valid placeholders: {title}, {price}, {address}, {beds}, {baths}, {sqft}, {lotSize}, {yearBuilt}, {propertyType}, {listingUrl}, {agentName}, {agentPhone}, {description}",
+    "The templates should apply to either [For Sale] or [For Rental] marketplace listings, we need a default option for each one. Categories to group the templates should be Built-In, Team, Personal. We should also have a list view that can expand to get more details that will show the name, category, and an icon if it is a default.",
+    "when we resize the sidepanel, the content should also resize.",
+    "update docs and push to git",
+    "/plan \"if the plugin has saved properties to the 'my properties' list which should save the properties to the chrome extension storage and try to sync with the database, why don't we see them in the 'my properties' page lists?\""
+  ],
+  "agent_name": "Vesper"
+}

@@ -1,0 +1,7 @@
+{
+  "session_id": "a0003c79-d9ae-4937-b166-a0e4758c4a99",
+  "prompts": [
+    "scrape the url https://docs.claude.com/en/api/agent-sdk/agent-sdk/cost-tracking cache it locally in this folder"
+  ],
+  "agent_name": "Vesper"
+}

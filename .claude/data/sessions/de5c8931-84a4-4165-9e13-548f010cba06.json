@@ -1,0 +1,9 @@
+{
+  "session_id": "de5c8931-84a4-4165-9e13-548f010cba06",
+  "prompts": [
+    "/plan \"in the apps/plugin application, when clicking the test ai instrution we are seeing the reasoning appear in the preview element. Instead add a reasoning preview element to show the reasoning, and a response preview element to show the response for the ai description that is generated. update the 'main instructions' to the model to be the following: 'Things to mention in the description:\n- amount of bedrooms and bathrooms at the beginning of the listing\n- details about utilities if any\n- details about amenities if any\n- any deposits needed\n- do not include the MLS number\n- do not include the street number'",
+    "/plan \"in the apps/plugin application, when clicking the test ai instrution we are seeing the reasoning appear in the preview element. Instead add a reasoning preview element to show the reasoning, and a response preview element to show the response for the ai description that is generated. update the 'main instructions' to the model to be the following: 'Things to mention in the description:\n- amount of bedrooms and bathrooms at the beginning of the listing\n- details about utilities if any\n- details about amenities if any\n- any deposits needed\n- do not include the MLS number\n- do not include the street number or name\\\n- do include the neighbourhood or the area if its included'",
+    "/implement specs/ai-instruction-reasoning-response-preview-split.md"
+  ],
+  "agent_name": "Vesper"
+}

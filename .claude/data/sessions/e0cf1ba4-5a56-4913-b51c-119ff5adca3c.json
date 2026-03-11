@@ -1,0 +1,10 @@
+{
+  "session_id": "e0cf1ba4-5a56-4913-b51c-119ff5adca3c",
+  "prompts": [
+    "/prime_app leadcarrot",
+    "/plan `When running the app using 'bun run dev' and using the localhost domain our code should realize we are running on a dev domain. We are logged in with the user 'andre@fortinmedia.net' with a system admin role. The side nav-bar is not showing the actual sidebar menu items for the current agency/location we are logged in as OR the menu links are not going to the correct location because of the dev domain localhost.`",
+    "/build_in_parallel specs/fix-localhost-navigation-issues.md",
+    "continue"
+  ],
+  "agent_name": "Vesper"
+}

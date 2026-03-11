@@ -1,0 +1,9 @@
+{
+  "session_id": "31969149-3dd3-4bc9-83d0-a1c620269883",
+  "prompts": [
+    "continue",
+    "/build_in_parallel specs/admin-navigation-and-route-structure-review.md ",
+    "turn recommendations into a spec"
+  ],
+  "agent_name": "Vesper"
+}

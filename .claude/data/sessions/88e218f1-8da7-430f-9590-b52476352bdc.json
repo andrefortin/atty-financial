@@ -1,0 +1,7 @@
+{
+  "session_id": "88e218f1-8da7-430f-9590-b52476352bdc",
+  "prompts": [
+    "the front end created a bunch of separate orchestrator messages while the data was streaming the output from the claude cli. This should continue to stream the data into a single orchestrator message bubble with each additional stream output for this command response added. not a separate bubble for each steamed output.\n use agents to solve this."
+  ],
+  "agent_name": "Vesper"
+}

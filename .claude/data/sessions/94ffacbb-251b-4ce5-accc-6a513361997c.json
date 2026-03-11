@@ -1,0 +1,7 @@
+{
+  "session_id": "94ffacbb-251b-4ce5-accc-6a513361997c",
+  "prompts": [
+    "\u273b Updating worker to save HTML to Redis\u2026 (esc to interrupt \u00b7 ctrl+t to hide todos \u00b7 32m 49s \u00b7 \u2191 8.1k tokens)\n  \u23bf  \u2610 Update worker to save HTML to Redis when DEBUG_SNAPSHOTS is enabled\n     \u2610 Add extractBusinessesFromHtml() method to backend search service\n     \u2610 Add reprocessPointWithSavedHtml() method to backend search service\n     \u2610 Add POST /search/points/:pointId/reprocess endpoint to controller\n     \u2610 Rebuild backend and worker\n     \u2610 Test endpoint with saved HTML content"
+  ],
+  "agent_name": "Vesper"
+}

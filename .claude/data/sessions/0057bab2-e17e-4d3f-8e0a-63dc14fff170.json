@@ -1,0 +1,10 @@
+{
+  "session_id": "0057bab2-e17e-4d3f-8e0a-63dc14fff170",
+  "prompts": [
+    "prime_app plugin",
+    "/prime_app --refresh plugin",
+    "/plan \"fix the plugin service worker registration error. : Service worker registration failed. Status code: 15\nUncaught SyntaxError: Cannot use 'import.meta' outside a module\"",
+    "/implement specs/service-worker-registration-fix.md"
+  ],
+  "agent_name": "Vesper"
+}

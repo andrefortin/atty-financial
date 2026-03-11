@@ -1,0 +1,10 @@
+{
+  "session_id": "3312b78a-2e3e-4b0a-a6c0-8e42e7b420d0",
+  "prompts": [
+    "/prime ",
+    "the /prime_app command expects an argument or param passed in, however the provided param in the user interface, never makes it to the claude cli.\n",
+    "/prime_app lead-carrot",
+    "/prime_app lead-carrot"
+  ],
+  "agent_name": "Vesper"
+}

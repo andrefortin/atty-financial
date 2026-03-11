@@ -1,0 +1,8 @@
+{
+  "session_id": "925e17c1-9709-49be-bdab-b49ce5494fd1",
+  "prompts": [
+    "/orchestrate status leadcarrot \"all\" \"--detailed\"",
+    "what do the leadcarrot agents do?"
+  ],
+  "agent_name": "Vesper"
+}

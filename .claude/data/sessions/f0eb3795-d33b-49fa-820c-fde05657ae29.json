@@ -1,0 +1,7 @@
+{
+  "session_id": "f0eb3795-d33b-49fa-820c-fde05657ae29",
+  "prompts": [
+    "/prime_app --refresh frontend"
+  ],
+  "agent_name": "Vesper"
+}

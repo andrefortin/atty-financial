@@ -1,0 +1,9 @@
+{
+  "session_id": "dab1f049-a2fa-4d28-9769-2676e9b49a94",
+  "prompts": [
+    "what compatible software for cricut cutters",
+    "/plan \"in the apps/plugin application, all the [save instructions] and [reset to default] buttons should have toast notifications and possibly a confirmation dialog, however none of them do.\"",
+    "/implement specs/add-toast-notifications-to-save-and-reset-buttons.md"
+  ],
+  "agent_name": "Vesper"
+}

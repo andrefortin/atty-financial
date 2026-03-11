@@ -1,0 +1,10 @@
+{
+  "session_id": "1648bf19-ac02-40ae-b0ce-1cb9c0d2325c",
+  "prompts": [
+    "update docs and push to git",
+    "When we click [save] on the 'ai ad configuration' page, we should not be creating an AI Image",
+    "We tested the code, and it should have created an AI Image as the account configuration has the options turned on to only add the first image and to make it an AI anonymized image and ai anonymized description. Plan and fix the problem.",
+    "update docs and push to git"
+  ],
+  "agent_name": "Vesper"
+}

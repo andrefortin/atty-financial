@@ -1,0 +1,9 @@
+{
+  "session_id": "10099781-1a6a-495d-a5d9-b048c6f9b03f",
+  "prompts": [
+    "/prime ",
+    "/plan \"We need to add a useragent module into our app. We have another typescript codebase at `/home/andre/batcave/outrankai-api` that has a useragent module that will scrape current user agents from the web save them to the database and allow use to load and export them. We are actually using the same database for both projects. Build that same useragent feature into this codebase.\"",
+    "/build_in_parallel specs/useragent-module-implementation.md"
+  ],
+  "agent_name": "Vesper"
+}

@@ -1,0 +1,14 @@
+{
+  "session_id": "95b55c5c-258e-4de9-9b10-27a4ddcbeeef",
+  "prompts": [
+    "/implement rebuild-anonymize-photo-selection-ui.md",
+    "/implement rebuild-anonymize-photo-selection-ui.md",
+    "The [SAVE INSTRUCTIONS] buttons are not working at all.",
+    "fix the error : Gemini Image API error: 400 - {\"error\":{\"code\":400,\"message\":\"Invalid JSON payload received. Unknown name \\\"aspectRatio\\\" at 'generation_config': Cannot find field.\",\"status\":\"INVALID_ARGUMENT\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.BadRequest\",\"fieldViolations\":[{\"field\":\"generation_config\",\"description\":\"Invalid JSON payload received. Unknown name \\\"aspectRatio\\\" at 'generation_config': Cannot find field.\"}]}]}}\n\n",
+    "Gemini Image API error: 400 - {\"error\":{\"code\":400,\"message\":\"* GenerateContentRequest.generation_config.response_mime_type: allowed mimetypes are `text/plain`, `application/json`, `application/xml`, `application/yaml` and `text/x.enum`.\\n\",\"status\":\"INVALID_ARGUMENT\"}}\n\n",
+    "When the anonymize image is selected we need to use the anonymize image instructions, not the regular instructions",
+    "update the default value for the 'ai image instructions' to the contents of the file apps/plugin/docs/ai-image-instructions.md. Update the default value for the 'ai image anonymize instructions' to apps/plugin/docs/ai-image-anonymize-instructions.md. Update the default value for the 'ai anonymize instructions' to the file apps/plugin/docs/ai-anonymize-instructions.md",
+    "/plan \"We need to update the ai ad configuration page to have a grid view of cards for the listing images that has a layout similar to the 'imported properties' page that must include the checkbox on top of the image for selecting which images will be sent to the draft. When an image is selected to be sent to the draft, it should also show up in another grid view of images with selectors as well, that will show which of those images will be anonymized. By default any image selected to include in the posting will also be selected to be anonymized. When we post this listing to fb, we should only send the selected images and only after anonymizing those images selected to be anonymized. We need to update the 'imported properties' to remember which images are to be sent, in which order, and which ones have to be anonymized. By default, the first 5 images are selected, and only the 1st image is anonymized.\""
+  ],
+  "agent_name": "Axiom"
+}

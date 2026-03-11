@@ -1,0 +1,8 @@
+{
+  "session_id": "174580fa-0ecd-4bbb-8137-a3086519b32a",
+  "prompts": [
+    "/build_in_parallel specs/openwebninja-swagger-documentation.md",
+    "update docs and push to git"
+  ],
+  "agent_name": "Vesper"
+}

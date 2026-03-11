@@ -1,0 +1,7 @@
+{
+  "session_id": "c7e14c4d-7639-4cbc-8e80-8b6cc2cd0827",
+  "prompts": [
+    "create a new claude command named `/prime_app` that we can send the name of an app in the `apps` folder. This claude command will run a similar `/prime` command but for our specific app so we can then target our whole agentic workflow process on that specific app. Save the new claude command in the `.claude/commands` folder when you are done. Impress me!"
+  ],
+  "agent_name": "Vesper"
+}

@@ -1,0 +1,11 @@
+{
+  "session_id": "d83ce03e-6afe-4d5b-95e7-e4221adb6c72",
+  "prompts": [
+    "/plan \"use the layout and icons for from the plugin's my properties listing cards for the (bed, bath, sqft) on the scrape listings cards. Use the scraped site logo and name from the scrape listing cards on the my properties cards. include the ability to select the cards on the my properties page to perform bulk actions just like we do on the scrapped listing page with the checkbox in the top right corner. We also need to add an action button to 'enrich' (which is really just scraping the property details page on the my properties page for individual cards and as a bulk action.\"",
+    "/implement specs/my-properties-enhancement-plan.md",
+    "do not revert",
+    "leave the files alone",
+    "update docs and push to git"
+  ],
+  "agent_name": "Vesper"
+}

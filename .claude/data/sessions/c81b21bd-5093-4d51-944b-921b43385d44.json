@@ -1,0 +1,14 @@
+{
+  "session_id": "c81b21bd-5093-4d51-944b-921b43385d44",
+  "prompts": [
+    "/prime_app --refresh plugin",
+    "/plan 'let's create the features that will post the enriched listing to facebook marketplace as a draft in the the real estate section under the correct type of rental or for sale.'",
+    "/plan \" create the enrichment feature for the real estate listing\"",
+    "We are not scraping from the backend, we must do it from the browser and the chrome extension.",
+    "/implement specs/real-estate-listing-enrichment-feature.md",
+    "update docs and push to git",
+    "continue",
+    "1"
+  ],
+  "agent_name": "Vesper"
+}

@@ -1,0 +1,8 @@
+{
+  "session_id": "e4e8ec0a-f1a8-4fa4-9577-4fbaa6f33922",
+  "prompts": [
+    "update the plan 'specs/add-list-view-bulk-actions-to-posting-options.md' to use the logo logo_home_search_canada.png and the name 'HOME-SEARCH-CA' as the name. When we scrape properties from this list.",
+    "/clear\nupdate the plan 'specs/add-list-view-bulk-actions-to-posting-options.md' to use the logo logo_home_search_canada.png and the name              \n  'HOME-SEARCH-CA' as the name. When we scrape properties from this list."
+  ],
+  "agent_name": "Aurora"
+}

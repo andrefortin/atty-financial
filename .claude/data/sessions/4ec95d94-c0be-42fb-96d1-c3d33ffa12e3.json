@@ -1,0 +1,14 @@
+{
+  "session_id": "4ec95d94-c0be-42fb-96d1-c3d33ffa12e3",
+  "prompts": [
+    "/prime_app leadcarrot",
+    "/build_in_parallel specs/plan-8a9f2c1d-7e4b-4a3d-9c5f-6e8d1a2b3c4f-system-agency-location-config.md",
+    "how do we run the migration from our linux console?",
+    "install the supabase cli locally or system wide?",
+    "we are running claude code in a folder 'mao-og' that contains it's own github repo and project. It also contains the folder 'apps/leadcarrot' which has a different git repo. we are working on the lead carrot project in the apps/leadcarrot repo. with that in mind install the supabase and use it from the command line. if we need some supabase special token or apikey let me know.",
+    "ok it is all setup.",
+    "sbp_46329f635e18304d02d424726d30c6e2294356b5",
+    "remember that if you need to write some scripts to get some work done make sure to use ES Modules"
+  ],
+  "agent_name": "Vesper"
+}

@@ -1,0 +1,8 @@
+{
+  "session_id": "e2a8e31b-de36-4132-bbdc-9dbf1b161c30",
+  "prompts": [
+    "/prime_app apps/plugin",
+    "/plan \"we need to monitor the marektplace inbox 'https://www.facebook.com/marketplace/inbox' and notify the user (in the plugin) about a new message. Each listing that has been synced should have a value auto-reply (on/off) or (enabled/disabled) with a toggle switch we can use to set the value. By default have them all turned off. Include a bulk action to enable disable the (ai auto-reply). Make sure we can check all/uncheck all for the synced marketplace listings\""
+  ],
+  "agent_name": "Axiom"
+}

@@ -1,0 +1,10 @@
+{
+  "session_id": "75230e74-61e4-42ec-9de3-48286a49feea",
+  "prompts": [
+    "update the  plan at specs/ai-description-generation-plan.md with config options for the ai from the image ",
+    "/implement specs/ai-description-generation-plan.md",
+    "/implement specs/fix-login-auto-open-sidepanel.md",
+    "/plan \"when we click the extension icon it should show the sidepanel if we are logged in or show the popup if we are not authenticated\""
+  ],
+  "agent_name": "Vesper"
+}

@@ -1,0 +1,23 @@
+{
+  "session_id": "9bcfbed0-4404-42f6-953a-a216b3d85f89",
+  "prompts": [
+    "/plan \"in the apps/plugin project, the extraction from a marketplace messenger conversation is working well, except for 2 things: - We are not scrolling up in the conversation to get more messages (latest messages appear at the bottom), - We are not extracting messages that have attachements or are only attachements (like images or documents).  Here is an html snippet of a conversation to test against. The last 2 messages have attachements and are user messages.\"",
+    "in the conversations page, move the sellers only button show up immediately after the AI Auot-reply toggle/switch, make it look similar to the AI Auto-Reply toggle/switch, and remove the extra icon after it.",
+    "continue",
+    "/implement specs/fix-messenger-attachment-extraction.md",
+    "in the conversations page, move the sellers only button show up immediately after the AI Auot-reply toggle/switch, make it look similar to the AI Auto-Reply toggle/switch, and remove the extra icon after it.",
+    "The seller only toggle is not on the conversations page",
+    "This should be on the conversation page",
+    "put the seller only  toggle after the ai auto-reply, and remove the star svg icon from the ai auto-reply",
+    "in the header",
+    "Change [Start Monitoring] to a toggle/switch as well simply labeled [Monitor]",
+    "This image of the UI doesn't match what you are telling me is there.",
+    "The image shows no [Seller ONly] toggle, an a [Start Monitoring] button not a [Monitor] button.",
+    "it's been rebuilt, but the seller only toggle is not visible. the seller only toggle should appear after the ai auto-reply in the header.",
+    "the coversastions page still doesn't have the seller only toggle in the header",
+    "The 'Conversations' page is the one we should keep, it doesn't have the [seller only] toggle on it. Also remove the other page.",
+    "Where is my conversations page !",
+    "Ok, now move the toggle/switch for the [seller only] immediately after [ai auto-reply]."
+  ],
+  "agent_name": "Vesper"
+}

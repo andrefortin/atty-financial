@@ -1,0 +1,19 @@
+{
+  "session_id": "dc8e9b49-3067-47ee-aa18-02d9dcc5928a",
+  "prompts": [
+    "/plan \"in the apps/plugin project, on the 'ai ad configuration' page, there are no instructions listed in the 'ai image instructino' input area. Maybe we are reading from the wrong account settings?\"",
+    "/implement specs/fix-ai-image-instructions-default-value-bug.md",
+    "change DEFAULT_PHOTO_ANONYMIZE_INSTRUCTIONS TO DEFAULT_AI_IMAGE_ANONYMIZE_INSTRUCTIONS. Also ensure the 2 values are configurable in the 'AI AD CONFIGURATION' page.",
+    "on the 'ai ad configuration' page, when the checkbox option for 'anonymize photos' is toggled we should see the 'AI Image Anonymize Instructions' collapseable container and the 'AI Image Instructions' container should be hidden. Ensure we have the correct AI image prompt for each one.",
+    "The panel that shows the 'AI Image Anonymize Instructions' has in the incorrect label.",
+    "make the default height of the AI Image Anonymize Instructions text area 4x taller.",
+    "make both ai instructions text areas 192px tall.",
+    "On the 'ai ad configuration' page the 'Max photos to anonymize' value needs to come from the account settings value.",
+    "This is incorrect, the 'Max photos to anonymize' from the account settings is 1, where the 'Max photos to anonymize' in the 'ai ad configuration' is 5. It should be 1 like the account settings has specified. Addtionallyl, the height of our 'AI Image Instructions' and 'AI Image Anonymize Instructions' on both the 'AI Ad Configuration' page and the account settings page do not have the correct 192px height. Use the code from the 'AI Ad Configuration' page that sets the height of the System Prompt text area as a reference and fix it.",
+    "on the 'ai ad configuration' page, We are not toggling between the 2 AI Image prompts. The value of the image instructions stays the same.",
+    "on the 'ai ad configuration' page, We are not toggling between the 2 AI Image prompts. The value of the image instructions stays the same.",
+    "The correct panel  the ai image anonymize is working, but not the correct set of instructions",
+    "/plan \"in the apps/plugin project, the selection of the reference image for the anonymize photo is broken, no visual indicators, the images have no borders or spacing inside their container, no messages on clicking to indicate selection. Rebuild this entire part\""
+  ],
+  "agent_name": "Vesper"
+}

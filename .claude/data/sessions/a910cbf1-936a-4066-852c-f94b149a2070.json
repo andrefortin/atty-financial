@@ -1,0 +1,13 @@
+{
+  "session_id": "a910cbf1-936a-4066-852c-f94b149a2070",
+  "prompts": [
+    "how do we start our application ",
+    "run the application localy without docker",
+    "yes",
+    "how to start the frontend or run a test to see if it is working",
+    "Yes, and also create a frontend start script",
+    "yes",
+    "The backend received a post request to perform a search and saved the data to the db and should have posted it to the message queue, this is running in dev mode on the 3301 port"
+  ],
+  "agent_name": "Vesper"
+}

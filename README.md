@@ -2,6 +2,11 @@
 
 A modern web application for law firms to track case cost line of credit draws, calculate daily interest at the client/matter level, and manage allocations across legal matters.
 
+[![CI Pipeline](https://github.com/your-org/atty-financial/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/atty-financial/actions/workflows/ci.yml)
+[![Staging Deployment](https://github.com/your-org/atty-financial/actions/workflows/deploy-staging.yml/badge.svg)](https://github.com/your-org/atty-financial/actions/workflows/deploy-staging.yml)
+[![Production Deployment](https://github.com/your-org/atty-financial/actions/workflows/deploy.yml/badge.svg)](https://github.com/your-org/atty-financial/actions/workflows/deploy.yml)
+[![codecov](https://codecov.io/gh/your-org/atty-financial/branch/main/graph/badge.svg)](https://codecov.io/gh/your-org/atty-financial)
+
 ## 🚀 Project Overview
 
 ATTY Financial helps law firms specializing in personal injury and tort law manage their case cost line of credit by:

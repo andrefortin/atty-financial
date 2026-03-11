@@ -1,0 +1,8 @@
+{
+  "session_id": "0dff8834-80f0-43b1-abc0-fb2ed5c4b337",
+  "prompts": [
+    "/plan \"in the apps/plugin project, We need to update the posting options to include a super long url for the 'home-search-ca' site as the base url for the search we will scrape from. So we need to load that specific url, instead of navigating to the standard search url for 'home-search-ca' and then apply any extra filters'. Ideally give me a drop-zone / input field to drag a url link into or some text.\"",
+    "/implement specs/add-custom-hsc-url-field-to-posting-options.md"
+  ],
+  "agent_name": "Vesper"
+}

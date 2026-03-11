@@ -1,0 +1,9 @@
+{
+  "session_id": "bfdc98ad-13ce-41bd-8025-9ac85930e610",
+  "prompts": [
+    "/prime ",
+    "<command-message>prime is running\u2026</command-message>\n<command-name>/prime</command-name>\n# Prime\nExecute the `Run`, `Read` and `Report` sections to understand the codebase then summarize your understanding.\n\n## Run\ngit ls-files\n\n## Read\nREADME.md\ndocs/*.md (if exists)\nbackend/README.md (if exists)\nfrontend/README.md (if exists)\nbackend/docs/*.md\nfrontend/docs/*.md (if exists)\nai_docs/*.md (if exists)\ndocuments/*.md (if exists)\n\n## Report\nSummarize your understanding of the codebase.",
+    "/plan \"if we are running a 3x3 grid, 9 geopoints, and some fail, we need to identify why it failed to see if it is a recoverable error or not. A recoverable error would be a captcha which we could solve with a 3rd party service or a timeout which means we could simply retry with exponential backoff. We need to implement integration with a captcha sovlving service that we can use to recover from an error, and as a backup for non-recoverable errors, call the google places api.\""
+  ],
+  "agent_name": "Vesper"
+}

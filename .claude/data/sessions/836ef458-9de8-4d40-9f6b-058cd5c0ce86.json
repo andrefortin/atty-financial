@@ -1,0 +1,9 @@
+{
+  "session_id": "836ef458-9de8-4d40-9f6b-058cd5c0ce86",
+  "prompts": [
+    "/implement specs/fix-facebook-marketplace-form-field-mapping.md",
+    "have the plugin output the facebook form fill values to the log as an JSON object",
+    "we also need the 'Date available' in the json object of form fill values."
+  ],
+  "agent_name": "Vesper"
+}

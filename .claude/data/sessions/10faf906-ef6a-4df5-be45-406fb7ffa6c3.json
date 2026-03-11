@@ -1,0 +1,9 @@
+{
+  "session_id": "10faf906-ef6a-4df5-be45-406fb7ffa6c3",
+  "prompts": [
+    "/prime_app frontend",
+    "/prime_app --refresh frontend",
+    "/plan \"let's implement plans to solve the   Critical TODOs\n\n  1. Implement Convex auth (useConvexAuth.ts:13)\n  2. Replace placeholder data with Convex queries\n  3. Build out 4 placeholder pages (Templates, Team, Settings, Onboarding)\n  4. Consolidate duplicate AuthGuard components\\\n\\\nThen a master plan to implement the other frontend plans\""
+  ],
+  "agent_name": "Vesper"
+}

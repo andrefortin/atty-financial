@@ -1,0 +1,10 @@
+{
+  "session_id": "b00607a9-f142-47e7-9033-842226c96467",
+  "prompts": [
+    "/prime_app --refresh plugin",
+    "/implement debug-saved-searches-url-opening.md",
+    "update docs and push to git",
+    "Fix the plugin warning message \"You are offline. Some features may not work.\""
+  ],
+  "agent_name": "Vesper"
+}

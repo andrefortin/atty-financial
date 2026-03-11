@@ -1,0 +1,10 @@
+{
+  "session_id": "95f7e8b1-c0c3-407a-b88c-d2c371ea9893",
+  "prompts": [
+    "/prime ",
+    "/plan \"I need to make the same api endpoints available with the same same params and output as the one provided here:\n  https://www.openwebninja.com/api/local-rank-tracker/docs#tag/default/get/calculate-grid-coordinates\"",
+    "/build_in_parallel specs/openwebninja-compatible-api-endpoints.md",
+    "continue"
+  ],
+  "agent_name": "Vesper"
+}

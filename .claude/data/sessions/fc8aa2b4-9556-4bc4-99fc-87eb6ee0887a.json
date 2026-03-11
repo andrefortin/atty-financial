@@ -1,0 +1,8 @@
+{
+  "session_id": "fc8aa2b4-9556-4bc4-99fc-87eb6ee0887a",
+  "prompts": [
+    "/plan \"fix the google sign-in error in the plugin app : [firebaseAuth] Google sign-in error: TypeError: Error in invocation of offscreen.createDocument(offscreen.CreateParameters parameters, function callback): Error at parameter 'parameters': Error at property 'reasons': Error at index 0: Value must be one of AUDIO_PLAYBACK, BATTERY_STATUS, BLOBS, CLIPBOARD, DISPLAY_MEDIA, DOM_PARSER, DOM_SCRAPING, GEOLOCATION, IFRAME_SCRIPTING, LOCAL_STORAGE, MATCH_MEDIA, TESTING, USER_MEDIA, WEB_RTC, WORKERS.\n[useAuth] Sign in failed: Error in invocation of offscreen.createDocument(offscreen.CreateParameters parameters, function callback): Error at parameter 'parameters': Error at property 'reasons': Error at index 0: Value must be one of AUDIO_PLAYBACK, BATTERY_STATUS, BLOBS, CLIPBOARD, DISPLAY_MEDIA, DOM_PARSER, DOM_SCRAPING, GEOLOCATION, IFRAME_SCRIPTING, LOCAL_STORAGE, MATCH_MEDIA, TESTING, USER_MEDIA, WEB_RTC, WORKERS.\"",
+    "/plan specs/fix-plugin-offscreen-document-invalid-reason-parameter.md"
+  ],
+  "agent_name": "Vesper"
+}

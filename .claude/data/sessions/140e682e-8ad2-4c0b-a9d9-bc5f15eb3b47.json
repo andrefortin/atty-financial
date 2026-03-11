@@ -1,0 +1,9 @@
+{
+  "session_id": "140e682e-8ad2-4c0b-a9d9-bc5f15eb3b47",
+  "prompts": [
+    "let's go and get the claude skill for frontend design and add it into our existing .claude folder",
+    "/prime_app frontend",
+    "/plan \"rebuild a better user interface for the frontend application. We need our login flow with password reset (we use convex for auth) all the additional pages that are part of the app, if we have unimplemented or stubbed pages them implement the missing page and functionality. Create a master implement plan for the frontend for functionality and user interface\""
+  ],
+  "agent_name": "Axiom"
+}

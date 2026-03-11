@@ -1,0 +1,8 @@
+{
+  "session_id": "52dc30c7-5011-49ea-982c-5e55aa938738",
+  "prompts": [
+    "/plan \"fix the useragent feature, the dto didn't finish building\"",
+    "/build_in_parallel specs/useragent-dto-fix.md"
+  ],
+  "agent_name": "Vesper"
+}

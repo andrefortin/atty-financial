@@ -1,0 +1,14 @@
+{
+  "session_id": "0380ac36-0938-465b-87f9-6ad52f208597",
+  "prompts": [
+    "/prime_app plugin",
+    "/plan \"the google chrome extension manifest version 3 plugin has special considerations as it runs in the context of the browser. We are getting an error inthe popup when we clicked the view side panel button. First, we should not be able to see the sidepanel unless we are logged in. If we are not logged in, clicking the extension icon in the browser should open the login popup, otherwise it should open the sidepanel. Here is the console error we got :   const handleOpenSidePanel = async () => {\n    const [currentWindow] = await chrome.windows.getCurrent({ populate: false });\n    await chrome.sidePanel.open({ windowId: currentWindow.id });\n    window.close();\n  };\"",
+    "We also need a signup option as we have no users yet at all.",
+    "/implement specs/fix-extension-popup-auth-redirect-and-sidepanel-access.md",
+    "/plan \"we still have an issue with the popup and sidepanel, the extension loads in to chrome, clicking the extension icon does not show either the popup or the sidepanel and does not give an error. Are there any chrome extension hooks we need to be using, function calls, or something else. There are no errors in the service worker log : [PropFlow] Service worker initializing\nservice-worker.ts:910 [PropFlow] Auth state listener initialized\nservice-worker.ts:967 [PropFlow] Service worker initialized\nservice-worker.ts:258 [PropFlow] Extension installed/updated: update\nservice-worker.ts:269 [PropFlow] Extension updated to version: 1.0.0\nservice-worker.ts:299 [PropFlow] Migrating from version 1.0.0\nservice-worker.ts:935 [PropFlow] Network status: online\"",
+    "We also need a separate content-script for each site: 'realtor_ca.ts', 'realtor_com.'ts', and 'fb_marketplace.ts', as scraping each of these is very different and would make a single giant content-script which would not be focused on a single thing.",
+    "Most actions need to take place in the service worker because it lives as long as the extension is enabled. So we should be passing work from the popup and sidepanel into the service worker by using messages. Use listen for message and push messages back and forth according to the google chrome extension documentation",
+    "/implement specs/fix-extension-action-click-and-popup-routing.md"
+  ],
+  "agent_name": "Vesper"
+}

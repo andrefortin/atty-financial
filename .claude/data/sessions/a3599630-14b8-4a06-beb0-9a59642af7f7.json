@@ -1,0 +1,7 @@
+{
+  "session_id": "a3599630-14b8-4a06-beb0-9a59642af7f7",
+  "prompts": [
+    "First fix the streaming messages consolidation for the orchestrator chats. next plan how to implement the changes, then implement the changes. Use the orchestrator and sub-agent framework setup to make these things happen,."
+  ],
+  "agent_name": "Vesper"
+}
