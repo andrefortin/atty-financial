@@ -7,20 +7,32 @@
  * @module hooks/realtime
  */
 
-import { useEffect, useState, useCallback, useRef } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { OptimisticUpdateHelper, OptimisticUpdateStatus, OptimisticUpdateOptions, OptimisticUpdate, OptimisticUpdateResult, OptimisticUpdatePriority } from '@/services/realtime';
+import { useState, useCallback, useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { OptimisticUpdateHelper, OptimisticUpdateStatus, OptimisticUpdateOptions, OptimisticUpdateResult, OptimisticUpdatePriority } from '@/services/realtime';
 
 // ============================================
 // Types
 // ============================================
 
 /**
+ * Generic input type with optional common fields
+ */
+interface OptimisticInputData {
+  id?: string;
+  priority?: OptimisticUpdatePriority;
+  isUrgent?: boolean;
+  important?: boolean;
+  status?: string;
+  [key: string]: unknown;
+}
+
+/**
  * Optimistic update hook parameters
  */
-export interface UseOptimisticUpdateParams {
+export interface UseOptimisticUpdateParams<TInput = unknown, TResult = unknown> {
   /** Update executor function */
-  executor: (data: any) => Promise<any>;
+  executor: (data: TInput) => Promise<TResult>;
   /** Operation options */
   options?: {
     collection: string;
@@ -34,11 +46,11 @@ export interface UseOptimisticUpdateParams {
 /**
  * Optimistic update hook return value
  */
-export interface UseOptimisticUpdateResult {
+export interface UseOptimisticUpdateResult<TInput = unknown, TResult = unknown> {
   /** Execute function */
-  execute: (data: any) => Promise<OptimisticUpdateResult<any>>;
+  execute: (data: TInput) => Promise<OptimisticUpdateResult<TResult>>;
   /** Batch execute function */
-  executeBatch: (items: Array<any>) => Promise<OptimisticUpdateResult<any>[]>;
+  executeBatch: (items: TInput[]) => Promise<OptimisticUpdateResult<TResult>[]>;
   /** Pending updates count */
   pendingCount: number;
   /** Failed updates count */
@@ -51,6 +63,8 @@ export interface UseOptimisticUpdateResult {
   clearAll: () => void;
   /** Rollback all function */
   rollbackAll: () => Promise<number>;
+  /** Refetch counts */
+  refetch: () => Promise<void>;
 }
 
 // ============================================
@@ -64,14 +78,15 @@ export interface UseOptimisticUpdateResult {
  * on failure. Integrates with TanStack Query for UI updates
  * and OptimisticUpdateHelper for sync with conflict resolution.
  */
-export function useOptimisticUpdate(params: UseOptimisticUpdateParams): UseOptimisticUpdateResult {
+export function useOptimisticUpdate<TInput = unknown, TResult = unknown>(
+  params: UseOptimisticUpdateParams<TInput, TResult>
+): UseOptimisticUpdateResult<TInput, TResult> {
   const {
     executor,
     options,
     optimisticOptions,
   } = params;
 
-  const queryClient = useQueryClient();
   const optimisticHelperRef = useRef<OptimisticUpdateHelper | null>(null);
 
   // Get or create optimistic helper
@@ -85,6 +100,7 @@ export function useOptimisticUpdate(params: UseOptimisticUpdateParams): UseOptim
   const {
     data: pendingData,
     isLoading: pendingLoading,
+    refetch: pendingRefetch,
   } = useQuery<number>({
     queryKey: ['optimistic-pending-count'],
     queryFn: async () => optimisticHelper.getPendingCount(),
@@ -96,6 +112,7 @@ export function useOptimisticUpdate(params: UseOptimisticUpdateParams): UseOptim
   const {
     data: failedData,
     isLoading: failedLoading,
+    refetch: failedRefetch,
   } = useQuery<number>({
     queryKey: ['optimistic-failed-count'],
     queryFn: async () => {
@@ -110,7 +127,7 @@ export function useOptimisticUpdate(params: UseOptimisticUpdateParams): UseOptim
   const [isOptimistic, setIsOptimistic] = useState(false);
 
   // Execute single update
-  const execute = useCallback(async (data: any) => {
+  const execute = useCallback(async (data: TInput) => {
     if (!options) {
       throw new Error('Options are required for optimistic update');
     }
@@ -125,15 +142,15 @@ export function useOptimisticUpdate(params: UseOptimisticUpdateParams): UseOptim
         ? await fetchOriginalData(collection, documentId)
         : undefined;
 
-      const result = await optimisticHelper.execute(
+      const result = await optimisticHelper.execute<TResult>(
         collection,
         operation,
         data,
-        async (update) => {
+        async () => {
           return executor(data);
         },
         {
-          priority: getPriority(data),
+          priority: getPriority(data as OptimisticInputData),
           original: originalData,
         }
       );
@@ -148,7 +165,7 @@ export function useOptimisticUpdate(params: UseOptimisticUpdateParams): UseOptim
   }, [optimisticHelper, executor, options, setIsOptimistic]);
 
   // Batch execute
-  const executeBatch = useCallback(async (items: Array<any>) => {
+  const executeBatch = useCallback(async (items: TInput[]) => {
     if (!options) {
       throw new Error('Options are required for optimistic batch update');
     }
@@ -158,15 +175,18 @@ export function useOptimisticUpdate(params: UseOptimisticUpdateParams): UseOptim
     setIsOptimistic(true);
 
     try {
-      const batchItems = items.map(data => ({
-        data,
-        operation,
-        collection,
-        documentId: (data as any).id,
-        executor,
-      }));
+      const batchItems = items.map(data => {
+        const inputData = data as OptimisticInputData;
+        return {
+          data,
+          operation,
+          collection,
+          documentId: inputData.id,
+          executor,
+        };
+      });
 
-      const results = await optimisticHelper.executeBatch(batchItems);
+      const results = await optimisticHelper.executeBatch<TResult>(batchItems);
 
       setIsOptimistic(false);
 
@@ -222,7 +242,11 @@ export function useOptimisticUpdate(params: UseOptimisticUpdateParams): UseOptim
 /**
  * Fetch original data for rollback
  */
-async function fetchOriginalData(collection: string, documentId: string): Promise<any> {
+async function fetchOriginalData(collection: string, documentId?: string): Promise<Record<string, unknown> | undefined> {
+  if (!documentId) {
+    return undefined;
+  }
+
   const { getDoc, doc } = await import('firebase/firestore');
   const { db } = await import('@/lib/firebase');
 
@@ -230,16 +254,16 @@ async function fetchOriginalData(collection: string, documentId: string): Promis
   const snapshot = await getDoc(docRef);
 
   if (!snapshot.exists()) {
-    return null;
+    return undefined;
   }
 
-  return snapshot.data();
+  return snapshot.data() as Record<string, unknown>;
 }
 
 /**
  * Get update priority based on data
  */
-function getPriority(data: any): OptimisticUpdatePriority {
+function getPriority(data: OptimisticInputData): OptimisticUpdatePriority {
   // Check if data has priority flag
   if (data.priority) {
     return data.priority;
