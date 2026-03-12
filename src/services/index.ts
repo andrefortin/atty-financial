@@ -120,3 +120,6 @@ export type {
 
 // Real-time services
 export * from './realtime';
+
+// Auth service
+export * from './auth/authService';

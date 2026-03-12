@@ -1,123 +1,124 @@
 /**
  * Transactions Service
  *
- * Provides CRUD operations and workflow management for the transactions collection.
+ * CRUD operations for transactions in Firestore.
+ * Includes allocation management and real-time listeners.
  *
- * @module services/firebase/transactions.service
+ * Features:
+ * - CRUD operations for transactions
+ * - Allocation management
+ * - Real-time updates with listeners
+ * - Data validation
+ * - Error handling
+ * - Loading states
  */
 
 import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
   query,
   where,
   orderBy,
-  QueryConstraint,
+  limit,
+  onSnapshot,
+  type QueryConstraint,
+  type DocumentData,
 } from 'firebase/firestore';
-import {
-  createDocument,
-  createDocumentWithId,
-  getDocument,
-  updateDocument,
-  deleteDocument,
-  queryDocuments,
-  queryDocumentsPaginated,
-  subscribeToDocument,
-  subscribeToQuery,
-  type OperationResult,
-  type FirestoreDocument,
-  type PaginatedResult,
-  type PaginationOptions,
-} from './firestore.service';
-import type {
-  FirestoreTransaction,
-  FirestoreTransactionData,
-} from '@/types/firestore';
-import { COLLECTION_NAMES } from '@/types/firestore';
+import { getFirebaseDB } from '../..';
+import type { Transaction, CreateTransactionInput } from '../../types';
 
 // ============================================
 // Types
 // ============================================
 
-/**
- * Transaction creation input
- */
-export interface CreateTransactionInput {
+export interface TransactionQueryOptions {
   matterId?: string;
-  firmId: string;
-  type: FirestoreTransactionData['type'];
-  amount: number;
-  date?: number;
-  description?: string;
-  reference?: string;
-  category?: string;
-  bankFeedId?: string;
+  type?: string;
+  status?: string;
+  startDate?: Date;
+  endDate?: Date;
+  limit?: number;
+  orderBy?: string;
+  orderDirection?: 'asc' | 'desc';
 }
 
-/**
- * Transaction update input
- */
-export interface UpdateTransactionInput {
+export interface TransactionListenerOptions {
   matterId?: string;
-  type?: FirestoreTransactionData['type'];
-  amount?: number;
-  description?: string;
-  reference?: string;
-  status?: FirestoreTransactionData['status'];
-  category?: string;
-  isReconciled?: boolean;
-  postedBy?: string;
-  approvedBy?: string;
-  approvedAt?: number;
+  onUpdate?: (transactions: Transaction[]) => void;
+  onError?: (error: Error) => void;
 }
 
-/**
- * Transaction query filters
- */
-export interface TransactionFilters {
-  firmId: string;
-  matterId?: string;
-  type?: FirestoreTransactionData['type'];
-  status?: FirestoreTransactionData['status'];
-  category?: string;
-  dateFrom?: number;
-  dateTo?: number;
-  allocationId?: string;
-  bankFeedId?: string;
-  isReconciled?: boolean;
-  search?: string;
+export interface CreateTransactionResult {
+  success: boolean;
+  transaction?: Transaction;
+  error?: string;
 }
 
-/**
- * Transaction sort options
- */
-export interface TransactionSortOptions {
-  field: 'date' | 'amount' | 'type' | 'status' | 'createdAt';
-  direction: 'asc' | 'desc';
+export interface UpdateTransactionResult {
+  success: boolean;
+  transaction?: Transaction;
+  error?: string;
 }
 
-/**
- * Transaction status workflow
- */
-export type TransactionStatusWorkflow =
-  | 'pending'
-  | 'posted'
-  | 'matched'
-  | 'allocated'
-  | 'reconciled'
-  | 'void';
+export interface DeleteTransactionResult {
+  success: boolean;
+  error?: string;
+}
+
+// ============================================
+// Constants
+// ============================================
+
+const TRANSACTIONS_COLLECTION = 'transactions';
+
+// ============================================
+// Helper Functions
+// ============================================
 
 /**
- * Status transitions map
+ * Convert Firestore document to Transaction type
  */
-export const STATUS_TRANSITIONS: Record<
-  FirestoreTransactionData['status'],
-  FirestoreTransactionData['status'][]
-> = {
-  pending: ['posted', 'void'],
-  posted: ['matched', 'allocated', 'reconciled', 'void'],
-  matched: ['allocated', 'void'],
-  allocated: ['reconciled', 'void'],
-  reconciled: ['void'],
-  void: [],
+const documentToTransaction = (doc: { id: string; data: DocumentData }): Transaction => {
+  const data = doc.data();
+
+  return {
+    id: doc.id,
+    date: data.date ? new Date(data.date) : new Date(),
+    type: (data.type as Transaction['type']) || 'Draw',
+    category: data.category as any,
+    amount: data.amount || 0,
+    netAmount: data.netAmount || 0,
+    status: (data.status as Transaction['status']) || 'Unassigned',
+    description: data.description,
+    createdAt: data.createdAt ? new Date(data.createdAt) : new Date(),
+    allocations: data.allocations || [],
+  };
+};
+
+/**
+ * Validate transaction data
+ */
+const validateTransactionData = (data: Partial<Transaction>): string[] => {
+  const errors: string[] = [];
+
+  if (!data.type || !['Draw', 'Principal Payment', 'Interest Autodraft'].includes(data.type)) {
+    errors.push('Invalid transaction type');
+  }
+
+  if (!data.amount || data.amount <= 0) {
+    errors.push('Amount must be greater than 0');
+  }
+
+  if (!data.matterId) {
+    errors.push('Matter ID is required');
+  }
+
+  return errors;
 };
 
 // ============================================
@@ -126,866 +127,361 @@ export const STATUS_TRANSITIONS: Record<
 
 /**
  * Create a new transaction
- *
- * @param input - Transaction creation data
- * @returns Operation result with created transaction document
  */
-export async function createTransaction(
-  input: CreateTransactionInput
-): Promise<OperationResult<FirestoreDocument<FirestoreTransaction>>> {
-  const transactionData: Omit<FirestoreTransactionData, 'createdAt' | 'updatedAt'> = {
-    matterId: input.matterId,
-    firmId: input.firmId,
-    type: input.type,
-    amount: input.amount,
-    date: input.date || Date.now(),
-    description: input.description,
-    reference: input.reference,
-    status: 'pending',
-    category: input.category,
-    isReconciled: false,
-    bankFeedId: input.bankFeedId,
-  };
+export const createTransaction = async (
+  data: CreateTransactionInput,
+  firmId?: string
+): Promise<CreateTransactionResult> => {
+  try {
+    const db = getFirebaseDB();
+    const collectionRef = collection(db, TRANSACTIONS_COLLECTION);
 
-  return createDocument<FirestoreTransactionData>(
-    COLLECTION_NAMES.TRANSACTIONS,
-    transactionData
-  );
-}
+    // Validate data
+    const validationErrors = validateTransactionData(data);
+    if (validationErrors.length > 0) {
+      return {
+        success: false,
+        error: validationErrors.join(', '),
+      };
+    }
 
-/**
- * Create a transaction with specific ID
- *
- * @param transactionId - Transaction ID
- * @param input - Transaction creation data
- * @returns Operation result with created transaction document
- */
-export async function createTransactionWithId(
-  transactionId: string,
-  input: CreateTransactionInput
-): Promise<OperationResult<FirestoreDocument<FirestoreTransaction>>> {
-  const transactionData: Omit<FirestoreTransactionData, 'createdAt' | 'updatedAt'> = {
-    matterId: input.matterId,
-    firmId: input.firmId,
-    type: input.type,
-    amount: input.amount,
-    date: input.date || Date.now(),
-    description: input.description,
-    reference: input.reference,
-    status: 'pending',
-    category: input.category,
-    isReconciled: false,
-    bankFeedId: input.bankFeedId,
-  };
+    // Calculate net amount
+    const netAmount = data.amount;
 
-  return createDocumentWithId<FirestoreTransactionData>(
-    COLLECTION_NAMES.TRANSACTIONS,
-    transactionId,
-    transactionData
-  );
-}
+    // Create document
+    const transactionData: DocumentData = {
+      ...data,
+      amount: data.amount,
+      netAmount,
+      status: 'Unassigned',
+      createdAt: new Date(),
+    };
+
+    // Add firm ID if provided
+    if (firmId) {
+      transactionData.firmId = firmId;
+    }
+
+    const docRef = await addDoc(collectionRef, transactionData);
+
+    // Get the created document
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      return {
+        success: false,
+        error: 'Failed to create transaction',
+      };
+    }
+
+    const transaction = documentToTransaction(docSnap);
+
+    return {
+      success: true,
+      transaction,
+    };
+  } catch (error) {
+    console.error('Error creating transaction:', error);
+    const errorMessage =
+      error instanceof Error ? error.message : 'Failed to create transaction';
+
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
 
 /**
  * Get a transaction by ID
- *
- * @param transactionId - Transaction ID
- * @returns Operation result with transaction document
  */
-export async function getTransactionById(
+export const getTransactionById = async (
   transactionId: string
-): Promise<OperationResult<FirestoreDocument<FirestoreTransaction>>> {
-  return getDocument<FirestoreTransactionData>(
-    COLLECTION_NAMES.TRANSACTIONS,
-    transactionId
-  );
-}
+): Promise<CreateTransactionResult> => {
+  try {
+    const db = getFirebaseDB();
+    const docRef = doc(db, TRANSACTIONS_COLLECTION, transactionId);
+    const docSnap = await getDoc(docRef);
 
-/**
- * Update a transaction
- *
- * @param transactionId - Transaction ID
- * @param updates - Transaction update data
- * @returns Operation result
- */
-export async function updateTransaction(
-  transactionId: string,
-  updates: UpdateTransactionInput
-): Promise<OperationResult<void>> {
-  return updateDocument<FirestoreTransactionData>(
-    COLLECTION_NAMES.TRANSACTIONS,
-    transactionId,
-    updates
-  );
-}
-
-/**
- * Delete a transaction
- *
- * @param transactionId - Transaction ID
- * @returns Operation result
- */
-export async function deleteTransaction(
-  transactionId: string
-): Promise<OperationResult<void>> {
-  return deleteDocument(COLLECTION_NAMES.TRANSACTIONS, transactionId);
-}
-
-// ============================================
-// Query Operations
-// ============================================
-
-/**
- * Get transactions by firm
- *
- * @param firmId - Firm ID
- * @param options - Query options (status, type, limit)
- * @returns Operation result with transaction documents
- */
-export async function getTransactionsByFirm(
-  firmId: string,
-  options?: {
-    status?: FirestoreTransactionData['status'];
-    type?: FirestoreTransactionData['type'];
-    limit?: number;
-  }
-): Promise<OperationResult<FirestoreDocument<FirestoreTransaction>[]>> {
-  const whereClauses: QueryConstraint[] = [
-    where('firmId', '==', firmId),
-  ];
-
-  if (options?.status) {
-    whereClauses.push(where('status', '==', options.status));
-  }
-
-  if (options?.type) {
-    whereClauses.push(where('type', '==', options.type));
-  }
-
-  return queryDocuments<FirestoreTransactionData>(COLLECTION_NAMES.TRANSACTIONS, {
-    where: whereClauses.map((clause) => ({
-      field: clause.field as string,
-      operator: clause.operator as any,
-      value: clause.value,
-    })),
-    orderBy: [
-      {
-        field: 'date',
-        direction: 'desc',
-      },
-    ],
-    limit: options?.limit,
-  });
-}
-
-/**
- * Get transactions by matter
- *
- * @param matterId - Matter ID
- * @param options - Query options (status, type)
- * @returns Operation result with transaction documents
- */
-export async function getTransactionsByMatter(
-  matterId: string,
-  options?: {
-    status?: FirestoreTransactionData['status'];
-    type?: FirestoreTransactionData['type'];
-  }
-): Promise<OperationResult<FirestoreDocument<FirestoreTransaction>[]>> {
-  const whereClauses: QueryConstraint[] = [
-    where('matterId', '==', matterId),
-  ];
-
-  if (options?.status) {
-    whereClauses.push(where('status', '==', options.status));
-  }
-
-  if (options?.type) {
-    whereClauses.push(where('type', '==', options.type));
-  }
-
-  return queryDocuments<FirestoreTransactionData>(COLLECTION_NAMES.TRANSACTIONS, {
-    where: whereClauses.map((clause) => ({
-      field: clause.field as string,
-      operator: clause.operator as any,
-      value: clause.value,
-    })),
-    orderBy: [
-      {
-        field: 'date',
-        direction: 'desc',
-      },
-    ],
-  });
-}
-
-/**
- * Get transactions with pagination
- *
- * @param filters - Transaction filters
- * @param pagination - Pagination options
- * @param sort - Sort options
- * @returns Operation result with paginated transactions
- */
-export async function getTransactionsPaginated(
-  filters: TransactionFilters,
-  pagination?: PaginationOptions,
-  sort?: TransactionSortOptions
-): Promise<OperationResult<PaginatedResult<FirestoreTransaction>>> {
-  const whereClauses: QueryConstraint[] = [];
-
-  if (filters.matterId) {
-    whereClauses.push(where('matterId', '==', filters.matterId));
-  }
-
-  if (filters.type) {
-    whereClauses.push(where('type', '==', filters.type));
-  }
-
-  if (filters.status) {
-    whereClauses.push(where('status', '==', filters.status));
-  }
-
-  if (filters.category) {
-    whereClauses.push(where('category', '==', filters.category));
-  }
-
-  if (filters.dateFrom) {
-    whereClauses.push(where('date', '>=', filters.dateFrom));
-  }
-
-  if (filters.dateTo) {
-    whereClauses.push(where('date', '<=', filters.dateTo));
-  }
-
-  if (filters.allocationId) {
-    whereClauses.push(where('allocationId', '==', filters.allocationId));
-  }
-
-  if (filters.bankFeedId) {
-    whereClauses.push(where('bankFeedId', '==', filters.bankFeedId));
-  }
-
-  if (filters.isReconciled !== undefined) {
-    whereClauses.push(where('isReconciled', '==', filters.isReconciled));
-  }
-
-  const orderByClauses = sort
-    ? [
-        {
-          field: sort.field,
-          direction: sort.direction,
-        },
-      ]
-    : [
-        {
-          field: 'date',
-          direction: 'desc',
-        },
-      ];
-
-  const result = await queryDocumentsPaginated<FirestoreTransactionData>(
-    COLLECTION_NAMES.TRANSACTIONS,
-    pagination,
-    {
-      where: whereClauses.map((clause) => ({
-        field: clause.field as string,
-        operator: clause.operator as any,
-        value: clause.value,
-      })),
-      orderBy: orderByClauses,
+    if (!docSnap.exists()) {
+      return {
+        success: false,
+        error: 'Transaction not found',
+      };
     }
-  );
 
-  // Apply search filter if provided
-  if (filters.search && result.success && result.data) {
-    const searchLower = filters.search.toLowerCase();
-    result.data.data = result.data.data.filter(
-      (transaction) =>
-        transaction.data.description?.toLowerCase().includes(searchLower) ||
-        transaction.data.reference?.toLowerCase().includes(searchLower)
-    );
-  }
+    const transaction = documentToTransaction(docSnap);
 
-  return result;
-}
+    return {
+      success: true,
+      transaction,
+    };
+  } catch (error) {
+    console.error('Error getting transaction:', error);
+    const errorMessage =
+      error instanceof Error ? error.message : 'Failed to get transaction';
 
-/**
- * Get transactions by date range
- *
- * @param firmId - Firm ID
- * @param startDate - Start date
- * @param endDate - End date
- * @param options - Query options (status, type)
- * @returns Operation result with transaction documents
- */
-export async function getTransactionsByDateRange(
-  firmId: string,
-  startDate: number,
-  endDate: number,
-  options?: {
-    status?: FirestoreTransactionData['status'];
-    type?: FirestoreTransactionData['type'];
-  }
-): Promise<OperationResult<FirestoreDocument<FirestoreTransaction>[]>> {
-  const whereClauses: QueryConstraint[] = [
-    where('firmId', '==', firmId),
-    where('date', '>=', startDate),
-    where('date', '<=', endDate),
-  ];
-
-  if (options?.status) {
-    whereClauses.push(where('status', '==', options.status));
-  }
-
-  if (options?.type) {
-    whereClauses.push(where('type', '==', options.type));
-  }
-
-  return queryDocuments<FirestoreTransactionData>(COLLECTION_NAMES.TRANSACTIONS, {
-    where: whereClauses.map((clause) => ({
-      field: clause.field as string,
-      operator: clause.operator as any,
-      value: clause.value,
-    })),
-    orderBy: [
-      {
-        field: 'date',
-        direction: 'desc',
-      },
-    ],
-  });
-}
-
-// ============================================
-// Transaction Status Workflow
-// ============================================
-
-/**
- * Validate status transition
- *
- * @param currentStatus - Current status
- * @param newStatus - Proposed new status
- * @returns Whether transition is valid
- */
-export function isValidStatusTransition(
-  currentStatus: FirestoreTransactionData['status'],
-  newStatus: FirestoreTransactionData['status']
-): boolean {
-  const allowedTransitions = STATUS_TRANSITIONS[currentStatus] || [];
-  return allowedTransitions.includes(newStatus);
-}
-
-/**
- * Update transaction status
- *
- * @param transactionId - Transaction ID
- * @param newStatus - New status
- * @returns Operation result
- */
-export async function updateTransactionStatus(
-  transactionId: string,
-  newStatus: FirestoreTransactionData['status']
-): Promise<OperationResult<void>> {
-  // Get current transaction to validate transition
-  const currentResult = await getTransactionById(transactionId);
-
-  if (!currentResult.success || !currentResult.data) {
     return {
       success: false,
-      error: 'Transaction not found',
-      code: 'not-found',
+      error: errorMessage,
     };
   }
-
-  const currentStatus = currentResult.data.data.status;
-
-  // Validate status transition
-  if (!isValidStatusTransition(currentStatus, newStatus)) {
-    return {
-      success: false,
-      error: `Cannot transition from ${currentStatus} to ${newStatus}`,
-      code: 'invalid-argument',
-    };
-  }
-
-  return updateTransaction(transactionId, { status: newStatus });
-}
-
-/**
- * Post a transaction
- *
- * @param transactionId - Transaction ID
- * @param postedBy - User ID who posted the transaction
- * @returns Operation result
- */
-export async function postTransaction(
-  transactionId: string,
-  postedBy?: string
-): Promise<OperationResult<void>> {
-  return updateTransaction(transactionId, {
-    status: 'posted',
-    postedBy,
-  });
-}
-
-/**
- * Match a transaction (to a bank feed)
- *
- * @param transactionId - Transaction ID
- * @param bankFeedId - Bank feed ID
- * @returns Operation result
- */
-export async function matchTransaction(
-  transactionId: string,
-  bankFeedId: string
-): Promise<OperationResult<void>> {
-  return updateTransaction(transactionId, {
-    status: 'matched',
-    bankFeedId,
-  });
-}
-
-/**
- * Allocate a transaction
- *
- * @param transactionId - Transaction ID
- * @param allocationId - Interest allocation ID
- * @returns Operation result
- */
-export async function allocateTransaction(
-  transactionId: string,
-  allocationId: string
-): Promise<OperationResult<void>> {
-  return updateTransaction(transactionId, {
-    status: 'allocated',
-    allocationId,
-  });
-}
-
-/**
- * Reconcile a transaction
- *
- * @param transactionId - Transaction ID
- * @returns Operation result
- */
-export async function reconcileTransaction(
-  transactionId: string
-): Promise<OperationResult<void>> {
-  return updateTransaction(transactionId, {
-    status: 'reconciled',
-    isReconciled: true,
-  });
-}
-
-/**
- * Void a transaction
- *
- * @param transactionId - Transaction ID
- * @returns Operation result
- */
-export async function voidTransaction(
-  transactionId: string
-): Promise<OperationResult<void>> {
-  return updateTransaction(transactionId, {
-    status: 'void',
-  });
-}
-
-/**
- * Get pending transactions
- *
- * @param firmId - Firm ID
- * @returns Operation result with transaction documents
- */
-export async function getPendingTransactions(
-  firmId: string
-): Promise<OperationResult<FirestoreDocument<FirestoreTransaction>[]>> {
-  return queryDocuments<FirestoreTransactionData>(COLLECTION_NAMES.TRANSACTIONS, {
-    where: [
-      {
-        field: 'firmId',
-        operator: '==',
-        value: firmId,
-      },
-      {
-        field: 'status',
-        operator: '==',
-        value: 'pending',
-      },
-    ],
-    orderBy: [
-      {
-        field: 'date',
-        direction: 'asc',
-      },
-    ],
-  });
-}
-
-/**
- * Get unallocated transactions
- *
- * @param firmId - Firm ID
- * @returns Operation result with transaction documents
- */
-export async function getUnallocatedTransactions(
-  firmId: string
-): Promise<OperationResult<FirestoreDocument<FirestoreTransaction>[]>> {
-  return queryDocuments<FirestoreTransactionData>(COLLECTION_NAMES.TRANSACTIONS, {
-    where: [
-      {
-        field: 'firmId',
-        operator: '==',
-        value: firmId,
-      },
-      {
-        field: 'status',
-        operator: 'in',
-        value: ['pending', 'posted', 'matched'],
-      },
-    ],
-    orderBy: [
-      {
-        field: 'date',
-        direction: 'asc',
-      },
-    ],
-  });
-}
-
-/**
- * Get transactions by status
- *
- * @param firmId - Firm ID
- * @param status - Transaction status
- * @returns Operation result with transaction documents
- */
-export async function getTransactionsByStatus(
-  firmId: string,
-  status: FirestoreTransactionData['status']
-): Promise<OperationResult<FirestoreDocument<FirestoreTransaction>[]>> {
-  return queryDocuments<FirestoreTransactionData>(COLLECTION_NAMES.TRANSACTIONS, {
-    where: [
-      {
-        field: 'firmId',
-        operator: '==',
-        value: firmId,
-      },
-      {
-        field: 'status',
-        operator: '==',
-        value: status,
-      },
-    ],
-    orderBy: [
-      {
-        field: 'date',
-        direction: 'desc',
-      },
-    ],
-  });
-}
-
-/**
- * Get transactions by allocation
- *
- * @param allocationId - Interest allocation ID
- * @returns Operation result with transaction documents
- */
-export async function getTransactionsByAllocation(
-  allocationId: string
-): Promise<OperationResult<FirestoreDocument<FirestoreTransaction>[]>> {
-  return queryDocuments<FirestoreTransactionData>(COLLECTION_NAMES.TRANSACTIONS, {
-    where: [
-      {
-        field: 'allocationId',
-        operator: '==',
-        value: allocationId,
-      },
-    ],
-    orderBy: [
-      {
-        field: 'date',
-        direction: 'desc',
-      },
-    ],
-  });
-}
-
-// ============================================
-// Transaction Type Operations
-// ============================================
-
-/**
- * Get transactions by type
- *
- * @param firmId - Firm ID
- * @param type - Transaction type
- * @returns Operation result with transaction documents
- */
-export async function getTransactionsByType(
-  firmId: string,
-  type: FirestoreTransactionData['type']
-): Promise<OperationResult<FirestoreDocument<FirestoreTransaction>[]>> {
-  return queryDocuments<FirestoreTransactionData>(COLLECTION_NAMES.TRANSACTIONS, {
-    where: [
-      {
-        field: 'firmId',
-        operator: '==',
-        value: firmId,
-      },
-      {
-        field: 'type',
-        operator: '==',
-        value: type,
-      },
-    ],
-    orderBy: [
-      {
-        field: 'date',
-        direction: 'desc',
-      },
-    ],
-  });
-}
-
-// ============================================
-// Search & Filtering
-// ============================================
-
-/**
- * Search transactions
- *
- * @param firmId - Firm ID
- * @param searchTerm - Search term (searches description, reference)
- * @param options - Search options (status, type)
- * @returns Operation result with transaction documents
- */
-export async function searchTransactions(
-  firmId: string,
-  searchTerm: string,
-  options?: {
-    status?: FirestoreTransactionData['status'];
-    type?: FirestoreTransactionData['type'];
-  }
-): Promise<OperationResult<FirestoreDocument<FirestoreTransaction>[]>> {
-  const result = await getTransactionsByFirm(firmId, options);
-
-  if (!result.success || !result.data) {
-    return result;
-  }
-
-  const searchLower = searchTerm.toLowerCase();
-  const filteredTransactions = result.data.filter(
-    (transaction) =>
-      transaction.data.description?.toLowerCase().includes(searchLower) ||
-      transaction.data.reference?.toLowerCase().includes(searchLower)
-  );
-
-  return {
-    success: true,
-    data: filteredTransactions,
-  };
-}
+};
 
 /**
  * Get transactions with filters
- *
- * @param filters - Transaction filters
- * @returns Operation result with transaction documents
  */
-export async function getTransactionsByFilters(
-  filters: TransactionFilters
-): Promise<OperationResult<FirestoreDocument<FirestoreTransaction>[]>> {
-  const whereClauses: QueryConstraint[] = [];
+export const getTransactions = async (
+  options: TransactionQueryOptions = {}
+): Promise<{ success: boolean; transactions: Transaction[]; error?: string }> => {
+  try {
+    const db = getFirebaseDB();
+    const collectionRef = collection(db, TRANSACTIONS_COLLECTION);
 
-  if (filters.matterId) {
-    whereClauses.push(where('matterId', '==', filters.matterId));
-  }
+    const constraints: QueryConstraint[] = [];
 
-  if (filters.type) {
-    whereClauses.push(where('type', '==', filters.type));
-  }
-
-  if (filters.status) {
-    whereClauses.push(where('status', '==', filters.status));
-  }
-
-  if (filters.category) {
-    whereClauses.push(where('category', '==', filters.category));
-  }
-
-  if (filters.dateFrom) {
-    whereClauses.push(where('date', '>=', filters.dateFrom));
-  }
-
-  if (filters.dateTo) {
-    whereClauses.push(where('date', '<=', filters.dateTo));
-  }
-
-  if (filters.allocationId) {
-    whereClauses.push(where('allocationId', '==', filters.allocationId));
-  }
-
-  if (filters.bankFeedId) {
-    whereClauses.push(where('bankFeedId', '==', filters.bankFeedId));
-  }
-
-  if (filters.isReconciled !== undefined) {
-    whereClauses.push(where('isReconciled', '==', filters.isReconciled));
-  }
-
-  const result = await queryDocuments<FirestoreTransactionData>(
-    COLLECTION_NAMES.TRANSACTIONS,
-    {
-      where: whereClauses.map((clause) => ({
-        field: clause.field as string,
-        operator: clause.operator as any,
-        value: clause.value,
-      })),
-      orderBy: [
-        {
-          field: 'date',
-          direction: 'desc',
-        },
-      ],
+    // Add filters
+    if (options.matterId) {
+      constraints.push(where('matterId', '==', options.matterId));
     }
-  );
 
-  // Apply search filter if provided
-  if (filters.search && result.success && result.data) {
-    const searchLower = filters.search.toLowerCase();
-    result.data = result.data.filter(
-      (transaction) =>
-        transaction.data.description?.toLowerCase().includes(searchLower) ||
-        transaction.data.reference?.toLowerCase().includes(searchLower)
-    );
+    if (options.type) {
+      constraints.push(where('type', '==', options.type));
+    }
+
+    if (options.status) {
+      constraints.push(where('status', '==', options.status));
+    }
+
+    if (options.startDate) {
+      constraints.push(where('date', '>=', options.startDate.getTime()));
+    }
+
+    if (options.endDate) {
+      constraints.push(where('date', '<=', options.endDate.getTime()));
+    }
+
+    // Add ordering
+    if (options.orderBy) {
+      constraints.push(orderBy(options.orderBy, options.orderDirection || 'desc'));
+    } else {
+      constraints.push(orderBy('date', 'desc'));
+    }
+
+    // Add limit
+    if (options.limit) {
+      constraints.push(limit(options.limit));
+    }
+
+    const q = query(collectionRef, ...constraints);
+    const querySnapshot = await getDocs(q);
+
+    const transactions: Transaction[] = [];
+    querySnapshot.forEach((doc) => {
+      transactions.push(documentToTransaction(doc));
+    });
+
+    return {
+      success: true,
+      transactions,
+    };
+  } catch (error) {
+    console.error('Error getting transactions:', error);
+    const errorMessage =
+      error instanceof Error ? error.message : 'Failed to get transactions';
+
+    return {
+      success: false,
+      transactions: [],
+      error: errorMessage,
+    };
   }
-
-  return result;
-}
-
-// ============================================
-// Real-time Subscriptions
-// ============================================
+};
 
 /**
- * Subscribe to transaction changes
- *
- * @param transactionId - Transaction ID
- * @param onUpdate - Callback for transaction updates
- * @param onError - Error callback
- * @returns Unsubscribe function
+ * Get transactions by matter
  */
-export function subscribeToTransaction(
+export const getTransactionsByMatter = async (
+  matterId: string
+): Promise<{ success: boolean; transactions: Transaction[]; error?: string }> => {
+  return getTransactions({ matterId });
+};
+
+/**
+ * Update a transaction
+ */
+export const updateTransaction = async (
   transactionId: string,
-  onUpdate: (transaction: FirestoreDocument<FirestoreTransaction> | null) => void,
-  onError?: (error: any) => void
-): () => void {
-  return subscribeToDocument<FirestoreTransactionData>(
-    COLLECTION_NAMES.TRANSACTIONS,
-    transactionId,
-    onUpdate,
-    onError
-  );
-}
+  data: Partial<Transaction>,
+  firmId?: string
+): Promise<UpdateTransactionResult> => {
+  try {
+    const db = getFirebaseDB();
+    const docRef = doc(db, TRANSACTIONS_COLLECTION, transactionId);
+
+    // Check if transaction exists
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      return {
+        success: false,
+        error: 'Transaction not found',
+      };
+    }
+
+    // Validate data
+    const validationErrors = validateTransactionData(data);
+    if (validationErrors.length > 0) {
+      return {
+        success: false,
+        error: validationErrors.join(', '),
+      };
+    }
+
+    // Update document
+    const updateData: DocumentData = {
+      ...data,
+    };
+
+    // Add firm ID if provided
+    if (firmId) {
+      updateData.firmId = firmId;
+    }
+
+    await updateDoc(docRef, updateData);
+
+    // Get the updated document
+    const updatedSnap = await getDoc(docRef);
+
+    if (!updatedSnap.exists()) {
+      return {
+        success: false,
+        error: 'Failed to update transaction',
+      };
+    }
+
+    const transaction = documentToTransaction(updatedSnap);
+
+    return {
+      success: true,
+      transaction,
+    };
+  } catch (error) {
+    console.error('Error updating transaction:', error);
+    const errorMessage =
+      error instanceof Error ? error.message : 'Failed to update transaction';
+
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
 
 /**
- * Subscribe to firm transactions
- *
- * @param firmId - Firm ID
- * @param options - Subscription options
- * @param onUpdate - Callback for transactions updates
- * @param onError - Error callback
- * @returns Unsubscribe function
+ * Delete a transaction
  */
-export function subscribeToFirmTransactions(
-  firmId: string,
-  options?: {
-    status?: FirestoreTransactionData['status'];
-    type?: FirestoreTransactionData['type'];
-  },
-  onUpdate: (transactions: FirestoreDocument<FirestoreTransaction>[]) => void,
-  onError?: (error: any) => void
-): () => void {
-  const whereClauses: QueryConstraint[] = [
-    where('firmId', '==', firmId),
-  ];
+export const deleteTransaction = async (
+  transactionId: string,
+  firmId?: string
+): Promise<DeleteTransactionResult> => {
+  try {
+    const db = getFirebaseDB();
+    const docRef = doc(db, TRANSACTIONS_COLLECTION, transactionId);
 
-  if (options?.status) {
-    whereClauses.push(where('status', '==', options.status));
+    // Check if transaction exists
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      return {
+        success: false,
+        error: 'Transaction not found',
+      };
+    }
+
+    await deleteDoc(docRef);
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.error('Error deleting transaction:', error);
+    const errorMessage =
+      error instanceof Error ? error.message : 'Failed to delete transaction';
+
+    return {
+      success: false,
+      error: errorMessage,
+    };
   }
-
-  if (options?.type) {
-    whereClauses.push(where('type', '==', options.type));
-  }
-
-  return subscribeToQuery<FirestoreTransactionData>(
-    COLLECTION_NAMES.TRANSACTIONS,
-    {
-      where: whereClauses.map((clause) => ({
-        field: clause.field as string,
-        operator: clause.operator as any,
-        value: clause.value,
-      })),
-      orderBy: [
-        {
-          field: 'date',
-          direction: 'desc',
-        },
-      ],
-    },
-    onUpdate,
-    onError
-  );
-}
+};
 
 /**
- * Subscribe to matter transactions
- *
- * @param matterId - Matter ID
- * @param options - Subscription options
- * @param onUpdate - Callback for transactions updates
- * @param onError - Error callback
- * @returns Unsubscribe function
+ * Update transaction status
  */
-export function subscribeToMatterTransactions(
-  matterId: string,
-  options?: {
-    status?: FirestoreTransactionData['status'];
-    type?: FirestoreTransactionData['type'];
-  },
-  onUpdate: (transactions: FirestoreDocument<FirestoreTransaction>[]) => void,
-  onError?: (error: any) => void
-): () => void {
-  const whereClauses: QueryConstraint[] = [
-    where('matterId', '==', matterId),
-  ];
+export const updateTransactionStatus = async (
+  transactionId: string,
+  status: Transaction['status'],
+  firmId?: string
+): Promise<UpdateTransactionResult> => {
+  return updateTransaction(transactionId, { status }, firmId);
+};
 
-  if (options?.status) {
-    whereClauses.push(where('status', '==', options.status));
+// ============================================
+// Real-time Listeners
+// ============================================
+
+/**
+ * Listen to transactions in real-time
+ */
+export const listenToTransactions = (
+  options: TransactionListenerOptions
+): (() => void) | null => {
+  try {
+    const db = getFirebaseDB();
+    const collectionRef = collection(db, TRANSACTIONS_COLLECTION);
+
+    const constraints: QueryConstraint[] = [];
+
+    // Add filters
+    if (options.matterId) {
+      constraints.push(where('matterId', '==', options.matterId));
+    }
+
+    constraints.push(orderBy('date', 'desc'));
+
+    const q = query(collectionRef, ...constraints);
+
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const transactions: Transaction[] = [];
+        snapshot.forEach((doc) => {
+          transactions.push(documentToTransaction(doc));
+        });
+
+        if (options.onUpdate) {
+          options.onUpdate(transactions);
+        }
+      },
+      (error) => {
+        console.error('Error listening to transactions:', error);
+        if (options.onError) {
+          options.onError(error);
+        }
+      }
+    );
+
+    return unsubscribe;
+  } catch (error) {
+    console.error('Error setting up transaction listener:', error);
+    if (options.onError) {
+      options.onError(error instanceof Error ? error : new Error(String(error)));
+    }
+    return null;
   }
+};
 
-  if (options?.type) {
-    whereClauses.push(where('type', '==', options.type));
-  }
+// ============================================
+// Export
+// ============================================
 
-  return subscribeToQuery<FirestoreTransactionData>(
-    COLLECTION_NAMES.TRANSACTIONS,
-    {
-      where: whereClauses.map((clause) => ({
-        field: clause.field as string,
-        operator: clause.operator as any,
-        value: clause.value,
-      })),
-      orderBy: [
-        {
-          field: 'date',
-          direction: 'desc',
-        },
-      ],
-    },
-    onUpdate,
-    onError
-  );
-}
+export * from './transactions.service';

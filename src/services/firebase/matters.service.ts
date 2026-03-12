@@ -1,102 +1,133 @@
 /**
  * Matters Service
  *
- * Provides CRUD operations and query management for the matters collection.
+ * CRUD operations for matters in Firestore.
+ * Includes real-time listeners and data validation.
  *
- * @module services/firebase/matters.service
+ * Features:
+ * - CRUD operations for matters
+ * - Real-time updates with listeners
+ * - Data validation
+ * - Error handling
+ * - Loading states
  */
 
 import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
   query,
   where,
   orderBy,
-  QueryConstraint,
+  limit,
+  onSnapshot,
+  type QueryConstraint,
+  type DocumentData,
 } from 'firebase/firestore';
-import {
-  createDocument,
-  createDocumentWithId,
-  getDocument,
-  updateDocument,
-  deleteDocument,
-  queryDocuments,
-  queryDocumentsPaginated,
-  subscribeToDocument,
-  subscribeToQuery,
-  type OperationResult,
-  type FirestoreDocument,
-  type PaginatedResult,
-  type PaginationOptions,
-} from './firestore.service';
-import type { FirestoreMatter, FirestoreMatterData } from '@/types/firestore';
-import { COLLECTION_NAMES } from '@/types/firestore';
+import { getFirebaseDB } from '../..';
+import type { Matter, CreateMatterInput, UpdateMatterInput } from '../../types';
 
 // ============================================
 // Types
 // ============================================
 
-/**
- * Matter creation input
- */
-export interface CreateMatterInput {
-  matterNumber: string;
-  clientName: string;
-  matterType: FirestoreMatterData['matterType'];
-  status?: FirestoreMatterData['status'];
-  principal?: number;
-  interestRate?: number;
-  openDate?: number;
-  description?: string;
-  notes?: string;
-  firmId: string;
-  assignedAttorneyId?: string;
-  tags?: string[];
+export interface MatterQueryOptions {
+  status?: string;
+  searchQuery?: string;
+  hasBalance?: boolean;
+  limit?: number;
+  orderBy?: string;
+  orderDirection?: 'asc' | 'desc';
 }
 
-/**
- * Matter update input
- */
-export interface UpdateMatterInput {
-  clientName?: string;
-  matterType?: FirestoreMatterData['matterType'];
-  status?: FirestoreMatterData['status'];
-  principal?: number;
-  interestRate?: number;
-  closeDate?: number;
-  description?: string;
-  notes?: string;
-  assignedAttorneyId?: string;
-  tags?: string[];
-  // Cached calculated fields
-  totalDraws?: number;
-  totalPrincipalPayments?: number;
-  totalInterestAccrued?: number;
-  interestPaid?: number;
-  principalBalance?: number;
-  totalOwed?: number;
+export interface MatterListenerOptions {
+  firmId?: string;
+  status?: string;
+  onUpdate?: (matters: Matter[]) => void;
+  onError?: (error: Error) => void;
 }
 
-/**
- * Matter query filters
- */
-export interface MatterFilters {
-  firmId: string;
-  status?: FirestoreMatterData['status'];
-  matterType?: FirestoreMatterData['matterType'];
-  assignedAttorneyId?: string;
-  clientNameSearch?: string;
-  dateFrom?: number;
-  dateTo?: number;
-  includeInactive?: boolean;
-  tags?: string[];
+export interface CreateMatterResult {
+  success: boolean;
+  matter?: Matter;
+  error?: string;
 }
 
-/**
- * Matter sort options
- */
-export interface MatterSortOptions {
-  field: 'createdAt' | 'openDate' | 'clientName' | 'status' | 'principalBalance';
-  direction: 'asc' | 'desc';
+export interface UpdateMatterResult {
+  success: boolean;
+  matter?: Matter;
+  error?: string;
 }
+
+export interface DeleteMatterResult {
+  success: boolean;
+  error?: string;
+}
+
+// ============================================
+// Constants
+// ============================================
+
+const MATTERS_COLLECTION = 'matters';
+
+// ============================================
+// Helper Functions
+// ============================================
+
+/**
+ * Convert Firestore document to Matter type
+ */
+const documentToMatter = (doc: { id: string; data: DocumentData }): Matter => {
+  const data = doc.data();
+
+  return {
+    id: doc.id,
+    clientName: data.clientName || '',
+    status: (data.status as Matter['status']) || 'Active',
+    notes: data.notes,
+    createdAt: data.createdAt ? new Date(data.createdAt) : new Date(),
+    closedAt: data.closedAt ? new Date(data.closedAt) : undefined,
+    totalDraws: data.totalDraws || 0,
+    totalPrincipalPayments: data.totalPrincipalPayments || 0,
+    totalInterestAccrued: data.totalInterestAccrued || 0,
+    interestPaid: data.interestPaid || 0,
+    principalBalance: data.principalBalance || 0,
+    totalOwed: data.totalOwed || 0,
+  };
+};
+
+/**
+ * Validate matter data
+ */
+const validateMatterData = (data: Partial<Matter>): string[] => {
+  const errors: string[] = [];
+
+  if (!data.clientName || data.clientName.trim() === '') {
+    errors.push('Client name is required');
+  }
+
+  if (!data.status || !['Active', 'Closed', 'Archive'].includes(data.status)) {
+    errors.push('Invalid status');
+  }
+
+  if (data.principalBalance !== undefined && data.principalBalance < 0) {
+    errors.push('Principal balance cannot be negative');
+  }
+
+  if (data.totalInterestAccrued !== undefined && data.totalInterestAccrued < 0) {
+    errors.push('Total interest accrued cannot be negative');
+  }
+
+  if (data.totalOwed !== undefined && data.totalOwed < 0) {
+    errors.push('Total owed cannot be negative');
+  }
+
+  return errors;
+};
 
 // ============================================
 // CRUD Operations
@@ -104,706 +135,372 @@ export interface MatterSortOptions {
 
 /**
  * Create a new matter
- *
- * @param input - Matter creation data
- * @returns Operation result with created matter document
  */
-export async function createMatter(
-  input: CreateMatterInput
-): Promise<OperationResult<FirestoreDocument<FirestoreMatter>>> {
-  const matterData: Omit<FirestoreMatterData, 'createdAt' | 'updatedAt'> = {
-    matterNumber: input.matterNumber,
-    clientName: input.clientName,
-    matterType: input.matterType,
-    status: input.status || 'Active',
-    principal: input.principal || 0,
-    interestRate: input.interestRate || 11.0,
-    openDate: input.openDate || Date.now(),
-    closeDate: undefined,
-    description: input.description,
-    notes: input.notes,
-    firmId: input.firmId,
-    assignedAttorneyId: input.assignedAttorneyId,
-    tags: input.tags || [],
-    // Initialize cached fields
-    totalDraws: 0,
-    totalPrincipalPayments: 0,
-    totalInterestAccrued: 0,
-    interestPaid: 0,
-    principalBalance: input.principal || 0,
-    totalOwed: input.principal || 0,
-  };
+export const createMatter = async (
+  data: CreateMatterInput,
+  firmId?: string
+): Promise<CreateMatterResult> => {
+  try {
+    const db = getFirebaseDB();
+    const collectionRef = collection(db, MATTERS_COLLECTION);
 
-  return createDocument<FirestoreMatterData>(COLLECTION_NAMES.MATTERS, matterData);
-}
+    // Validate data
+    const validationErrors = validateMatterData(data);
+    if (validationErrors.length > 0) {
+      return {
+        success: false,
+        error: validationErrors.join(', '),
+      };
+    }
 
-/**
- * Create a matter with specific ID
- *
- * @param matterId - Matter ID
- * @param input - Matter creation data
- * @returns Operation result with created matter document
- */
-export async function createMatterWithId(
-  matterId: string,
-  input: CreateMatterInput
-): Promise<OperationResult<FirestoreDocument<FirestoreMatter>>> {
-  const matterData: Omit<FirestoreMatterData, 'createdAt' | 'updatedAt'> = {
-    matterNumber: input.matterNumber,
-    clientName: input.clientName,
-    matterType: input.matterType,
-    status: input.status || 'Active',
-    principal: input.principal || 0,
-    interestRate: input.interestRate || 11.0,
-    openDate: input.openDate || Date.now(),
-    closeDate: undefined,
-    description: input.description,
-    notes: input.notes,
-    firmId: input.firmId,
-    assignedAttorneyId: input.assignedAttorneyId,
-    tags: input.tags || [],
-    totalDraws: 0,
-    totalPrincipalPayments: 0,
-    totalInterestAccrued: 0,
-    interestPaid: 0,
-    principalBalance: input.principal || 0,
-    totalOwed: input.principal || 0,
-  };
+    // Create document
+    const matterData: DocumentData = {
+      ...data,
+      status: data.status || 'Active',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      totalDraws: 0,
+      totalPrincipalPayments: 0,
+      totalInterestAccrued: 0,
+      interestPaid: 0,
+      principalBalance: 0,
+      totalOwed: 0,
+    };
 
-  return createDocumentWithId<FirestoreMatterData>(
-    COLLECTION_NAMES.MATTERS,
-    matterId,
-    matterData
-  );
-}
+    // Add firm ID if provided
+    if (firmId) {
+      matterData.firmId = firmId;
+    }
+
+    const docRef = await addDoc(collectionRef, matterData);
+
+    // Get the created document
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      return {
+        success: false,
+        error: 'Failed to create matter',
+      };
+    }
+
+    const matter = documentToMatter(docSnap);
+
+    return {
+      success: true,
+      matter,
+    };
+  } catch (error) {
+    console.error('Error creating matter:', error);
+    const errorMessage =
+      error instanceof Error ? error.message : 'Failed to create matter';
+
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
 
 /**
  * Get a matter by ID
- *
- * @param matterId - Matter ID
- * @returns Operation result with matter document
  */
-export async function getMatterById(
-  matterId: string
-): Promise<OperationResult<FirestoreDocument<FirestoreMatter>>> {
-  return getDocument<FirestoreMatterData>(COLLECTION_NAMES.MATTERS, matterId);
-}
+export const getMatterById = async (matterId: string): Promise<CreateMatterResult> => {
+  try {
+    const db = getFirebaseDB();
+    const docRef = doc(db, MATTERS_COLLECTION, matterId);
+    const docSnap = await getDoc(docRef);
 
-/**
- * Get matter by matter number
- *
- * @param firmId - Firm ID
- * @param matterNumber - Matter number
- * @returns Operation result with matter document
- */
-export async function getMatterByNumber(
-  firmId: string,
-  matterNumber: string
-): Promise<OperationResult<FirestoreDocument<FirestoreMatter>>> {
-  const result = await queryDocuments<FirestoreMatterData>(COLLECTION_NAMES.MATTERS, {
-    where: [
-      {
-        field: 'firmId',
-        operator: '==',
-        value: firmId,
-      },
-      {
-        field: 'matterNumber',
-        operator: '==',
-        value: matterNumber,
-      },
-    ],
-    limit: 1,
-  });
+    if (!docSnap.exists()) {
+      return {
+        success: false,
+        error: 'Matter not found',
+      };
+    }
 
-  if (!result.success || !result.data || result.data.length === 0) {
+    const matter = documentToMatter(docSnap);
+
+    return {
+      success: true,
+      matter,
+    };
+  } catch (error) {
+    console.error('Error getting matter:', error);
+    const errorMessage =
+      error instanceof Error ? error.message : 'Failed to get matter';
+
     return {
       success: false,
-      error: 'Matter not found',
-      code: 'not-found',
+      error: errorMessage,
     };
   }
-
-  return {
-    success: true,
-    data: result.data[0],
-  };
-}
-
-/**
- * Update a matter
- *
- * @param matterId - Matter ID
- * @param updates - Matter update data
- * @returns Operation result
- */
-export async function updateMatter(
-  matterId: string,
-  updates: UpdateMatterInput
-): Promise<OperationResult<void>> {
-  return updateDocument<FirestoreMatterData>(
-    COLLECTION_NAMES.MATTERS,
-    matterId,
-    updates
-  );
-}
-
-/**
- * Delete a matter
- *
- * @param matterId - Matter ID
- * @returns Operation result
- */
-export async function deleteMatter(
-  matterId: string
-): Promise<OperationResult<void>> {
-  return deleteDocument(COLLECTION_NAMES.MATTERS, matterId);
-}
-
-// ============================================
-// Query Operations
-// ============================================
-
-/**
- * Get matters by firm
- *
- * @param firmId - Firm ID
- * @param options - Query options (includeInactive, status, assignedAttorneyId)
- * @returns Operation result with matter documents
- */
-export async function getMattersByFirm(
-  firmId: string,
-  options?: {
-    includeInactive?: boolean;
-    status?: FirestoreMatterData['status'];
-    assignedAttorneyId?: string;
-  }
-): Promise<OperationResult<FirestoreDocument<FirestoreMatter>[]>> {
-  const whereClauses: QueryConstraint[] = [
-    where('firmId', '==', firmId),
-  ];
-
-  if (!options?.includeInactive) {
-    whereClauses.push(where('status', '==', 'Active'));
-  } else if (options?.status) {
-    whereClauses.push(where('status', '==', options.status));
-  }
-
-  if (options?.assignedAttorneyId) {
-    whereClauses.push(where('assignedAttorneyId', '==', options.assignedAttorneyId));
-  }
-
-  return queryDocuments<FirestoreMatterData>(COLLECTION_NAMES.MATTERS, {
-    where: whereClauses.map((clause) => ({
-      field: clause.field as string,
-      operator: clause.operator as any,
-      value: clause.value,
-    })),
-    orderBy: [
-      {
-        field: 'openDate',
-        direction: 'desc',
-      },
-    ],
-  });
-}
-
-/**
- * Get matters with pagination
- *
- * @param filters - Matter filters
- * @param pagination - Pagination options
- * @param sort - Sort options
- * @returns Operation result with paginated matters
- */
-export async function getMattersPaginated(
-  filters: MatterFilters,
-  pagination?: PaginationOptions,
-  sort?: MatterSortOptions
-): Promise<OperationResult<PaginatedResult<FirestoreMatter>>> {
-  const whereClauses: QueryConstraint[] = [];
-
-  if (!filters.includeInactive) {
-    whereClauses.push(where('status', '==', 'Active'));
-  } else if (filters.status) {
-    whereClauses.push(where('status', '==', filters.status));
-  }
-
-  if (filters.matterType) {
-    whereClauses.push(where('matterType', '==', filters.matterType));
-  }
-
-  if (filters.assignedAttorneyId) {
-    whereClauses.push(where('assignedAttorneyId', '==', filters.assignedAttorneyId));
-  }
-
-  if (filters.dateFrom) {
-    whereClauses.push(where('openDate', '>=', filters.dateFrom));
-  }
-
-  if (filters.dateTo) {
-    whereClauses.push(where('openDate', '<=', filters.dateTo));
-  }
-
-  if (filters.tags && filters.tags.length > 0) {
-    whereClauses.push(where('tags', 'array-contains-any', filters.tags));
-  }
-
-  const orderByClauses = sort
-    ? [
-        {
-          field: sort.field,
-          direction: sort.direction,
-        },
-      ]
-    : [
-        {
-          field: 'openDate',
-          direction: 'desc',
-        },
-      ];
-
-  const result = await queryDocumentsPaginated<FirestoreMatterData>(
-    COLLECTION_NAMES.MATTERS,
-    pagination,
-    {
-      where: whereClauses.map((clause) => ({
-        field: clause.field as string,
-        operator: clause.operator as any,
-        value: clause.value,
-      })),
-      orderBy: orderByClauses,
-    }
-  );
-
-  // Apply client name search filter if provided
-  if (filters.clientNameSearch && result.success && result.data) {
-    const searchLower = filters.clientNameSearch.toLowerCase();
-    result.data.data = result.data.data.filter((matter) =>
-      matter.data.clientName.toLowerCase().includes(searchLower)
-    );
-  }
-
-  return result;
-}
-
-/**
- * Get matters by date range
- *
- * @param firmId - Firm ID
- * @param startDate - Start date
- * @param endDate - End date
- * @param options - Query options (status)
- * @returns Operation result with matter documents
- */
-export async function getMattersByDateRange(
-  firmId: string,
-  startDate: number,
-  endDate: number,
-  options?: {
-    status?: FirestoreMatterData['status'];
-  }
-): Promise<OperationResult<FirestoreDocument<FirestoreMatter>[]>> {
-  const whereClauses: QueryConstraint[] = [
-    where('firmId', '==', firmId),
-    where('openDate', '>=', startDate),
-    where('openDate', '<=', endDate),
-  ];
-
-  if (options?.status) {
-    whereClauses.push(where('status', '==', options.status));
-  }
-
-  return queryDocuments<FirestoreMatterData>(COLLECTION_NAMES.MATTERS, {
-    where: whereClauses.map((clause) => ({
-      field: clause.field as string,
-      operator: clause.operator as any,
-      value: clause.value,
-    })),
-    orderBy: [
-      {
-        field: 'openDate',
-        direction: 'desc',
-      },
-    ],
-  });
-}
-
-/**
- * Get matters by client name
- *
- * @param firmId - Firm ID
- * @param clientName - Client name (partial match)
- * @param options - Query options (status)
- * @returns Operation result with matter documents
- */
-export async function getMattersByClientName(
-  firmId: string,
-  clientName: string,
-  options?: {
-    status?: FirestoreMatterData['status'];
-  }
-): Promise<OperationResult<FirestoreDocument<FirestoreMatter>[]>> {
-  const result = await getMattersByFirm(firmId, options);
-
-  if (!result.success || !result.data) {
-    return result;
-  }
-
-  const searchLower = clientName.toLowerCase();
-  const filteredMatters = result.data.filter((matter) =>
-    matter.data.clientName.toLowerCase().includes(searchLower)
-  );
-
-  return {
-    success: true,
-    data: filteredMatters,
-  };
-}
-
-// ============================================
-// Matter Status Transitions
-// ============================================
-
-/**
- * Close a matter
- *
- * @param matterId - Matter ID
- * @param closeDate - Close date (defaults to now)
- * @returns Operation result
- */
-export async function closeMatter(
-  matterId: string,
-  closeDate?: number
-): Promise<OperationResult<void>> {
-  return updateDocument<FirestoreMatterData>(COLLECTION_NAMES.MATTERS, matterId, {
-    status: 'Closed',
-    closeDate: closeDate || Date.now(),
-    updatedAt: Date.now(),
-  });
-}
-
-/**
- * Archive a matter
- *
- * @param matterId - Matter ID
- * @returns Operation result
- */
-export async function archiveMatter(
-  matterId: string
-): Promise<OperationResult<void>> {
-  return updateDocument<FirestoreMatterData>(COLLECTION_NAMES.MATTERS, matterId, {
-    status: 'Archive',
-    updatedAt: Date.now(),
-  });
-}
-
-/**
- * Reopen a matter
- *
- * @param matterId - Matter ID
- * @returns Operation result
- */
-export async function reopenMatter(
-  matterId: string
-): Promise<OperationResult<void>> {
-  return updateDocument<FirestoreMatterData>(COLLECTION_NAMES.MATTERS, matterId, {
-    status: 'Active',
-    closeDate: undefined,
-    updatedAt: Date.now(),
-  });
-}
-
-/**
- * Get matters with specific status
- *
- * @param firmId - Firm ID
- * @param status - Matter status
- * @returns Operation result with matter documents
- */
-export async function getMattersByStatus(
-  firmId: string,
-  status: FirestoreMatterData['status']
-): Promise<OperationResult<FirestoreDocument<FirestoreMatter>[]>> {
-  return queryDocuments<FirestoreMatterData>(COLLECTION_NAMES.MATTERS, {
-    where: [
-      {
-        field: 'firmId',
-        operator: '==',
-        value: firmId,
-      },
-      {
-        field: 'status',
-        operator: '==',
-        value: status,
-      },
-    ],
-    orderBy: [
-      {
-        field: 'openDate',
-        direction: 'desc',
-      },
-    ],
-  });
-}
-
-/**
- * Get active matters
- *
- * @param firmId - Firm ID
- * @returns Operation result with active matter documents
- */
-export async function getActiveMatters(
-  firmId: string
-): Promise<OperationResult<FirestoreDocument<FirestoreMatter>[]>> {
-  return getMattersByStatus(firmId, 'Active');
-}
-
-/**
- * Get closed matters
- *
- * @param firmId - Firm ID
- * @returns Operation result with closed matter documents
- */
-export async function getClosedMatters(
-  firmId: string
-): Promise<OperationResult<FirestoreDocument<FirestoreMatter>[]>> {
-  return getMattersByStatus(firmId, 'Closed');
-}
-
-// ============================================
-// Search & Filtering
-// ============================================
-
-/**
- * Search matters
- *
- * @param firmId - Firm ID
- * @param searchTerm - Search term (searches client name, matter number, description)
- * @param options - Search options (status, matterType)
- * @returns Operation result with matter documents
- */
-export async function searchMatters(
-  firmId: string,
-  searchTerm: string,
-  options?: {
-    status?: FirestoreMatterData['status'];
-    matterType?: FirestoreMatterData['matterType'];
-  }
-): Promise<OperationResult<FirestoreDocument<FirestoreMatter>[]>> {
-  const result = await getMattersByFirm(firmId, {
-    includeInactive: true,
-    status: options?.status,
-  });
-
-  if (!result.success || !result.data) {
-    return result;
-  }
-
-  const searchLower = searchTerm.toLowerCase();
-  const filteredMatters = result.data.filter(
-    (matter) =>
-      matter.data.clientName.toLowerCase().includes(searchLower) ||
-      matter.data.matterNumber.toLowerCase().includes(searchLower) ||
-      matter.data.description?.toLowerCase().includes(searchLower)
-  );
-
-  // Apply matter type filter if provided
-  if (options?.matterType) {
-    filteredMatters.filter((matter) => matter.data.matterType === options.matterType);
-  }
-
-  return {
-    success: true,
-    data: filteredMatters,
-  };
-}
+};
 
 /**
  * Get matters with filters
- *
- * @param filters - Matter filters
- * @returns Operation result with matter documents
  */
-export async function getMattersByFilters(
-  filters: MatterFilters
-): Promise<OperationResult<FirestoreDocument<FirestoreMatter>[]>> {
-  return getMattersByFirm(filters.firmId, {
-    includeInactive: filters.includeInactive,
-    status: filters.status,
-    assignedAttorneyId: filters.assignedAttorneyId,
-  });
-}
+export const getMatters = async (
+  options: MatterQueryOptions = {}
+): Promise<{ success: boolean; matters: Matter[]; error?: string }> => {
+  try {
+    const db = getFirebaseDB();
+    const collectionRef = collection(db, MATTERS_COLLECTION);
+
+    const constraints: QueryConstraint[] = [];
+
+    // Add filters
+    if (options.status) {
+      constraints.push(where('status', '==', options.status));
+    }
+
+    if (options.hasBalance !== undefined) {
+      constraints.push(
+        where('principalBalance', '>', 0)
+      );
+    }
+
+    // Add search query filter
+    if (options.searchQuery) {
+      constraints.push(
+        where('clientName', '>=', options.searchQuery.toLowerCase())
+      );
+      constraints.push(
+        where('clientName', '<=', options.searchQuery.toLowerCase() + '\uf8ff')
+      );
+    }
+
+    // Add ordering
+    if (options.orderBy) {
+      constraints.push(orderBy(options.orderBy, options.orderDirection || 'asc'));
+    } else {
+      constraints.push(orderBy('createdAt', 'desc'));
+    }
+
+    // Add limit
+    if (options.limit) {
+      constraints.push(limit(options.limit));
+    }
+
+    const q = query(collectionRef, ...constraints);
+    const querySnapshot = await getDocs(q);
+
+    const matters: Matter[] = [];
+    querySnapshot.forEach((doc) => {
+      matters.push(documentToMatter(doc));
+    });
+
+    return {
+      success: true,
+      matters,
+    };
+  } catch (error) {
+    console.error('Error getting matters:', error);
+    const errorMessage =
+      error instanceof Error ? error.message : 'Failed to get matters';
+
+    return {
+      success: false,
+      matters: [],
+      error: errorMessage,
+    };
+  }
+};
 
 /**
- * Get matters by attorney
- *
- * @param attorneyId - Attorney user ID
- * @returns Operation result with matter documents
+ * Update a matter
  */
-export async function getMattersByAttorney(
-  attorneyId: string
-): Promise<OperationResult<FirestoreDocument<FirestoreMatter>[]>> {
-  return queryDocuments<FirestoreMatterData>(COLLECTION_NAMES.MATTERS, {
-    where: [
-      {
-        field: 'assignedAttorneyId',
-        operator: '==',
-        value: attorneyId,
-      },
-      {
-        field: 'status',
-        operator: '==',
-        value: 'Active',
-      },
-    ],
-    orderBy: [
-      {
-        field: 'openDate',
-        direction: 'desc',
-      },
-    ],
-  });
-}
-
-/**
- * Get matters by tags
- *
- * @param firmId - Firm ID
- * @param tags - Array of tags to match
- * @returns Operation result with matter documents
- */
-export async function getMattersByTags(
-  firmId: string,
-  tags: string[]
-): Promise<OperationResult<FirestoreDocument<FirestoreMatter>[]>> {
-  return queryDocuments<FirestoreMatterData>(COLLECTION_NAMES.MATTERS, {
-    where: [
-      {
-        field: 'firmId',
-        operator: '==',
-        value: firmId,
-      },
-      {
-        field: 'status',
-        operator: '==',
-        value: 'Active',
-      },
-      {
-        field: 'tags',
-        operator: 'array-contains-any',
-        value: tags,
-      },
-    ],
-    orderBy: [
-      {
-        field: 'openDate',
-        direction: 'desc',
-      },
-    ],
-  });
-}
-
-// ============================================
-// Cached Fields Updates
-// ============================================
-
-/**
- * Update cached matter calculations
- *
- * @param matterId - Matter ID
- * @param updates - Cached field updates
- * @returns Operation result
- */
-export async function updateMatterCache(
+export const updateMatter = async (
   matterId: string,
-  updates: {
-    totalDraws?: number;
-    totalPrincipalPayments?: number;
-    totalInterestAccrued?: number;
-    interestPaid?: number;
-    principalBalance?: number;
-    totalOwed?: number;
-  }
-): Promise<OperationResult<void>> {
-  return updateDocument<FirestoreMatterData>(
-    COLLECTION_NAMES.MATTERS,
-    matterId,
-    updates
-  );
-}
+  data: UpdateMatterInput,
+  firmId?: string
+): Promise<UpdateMatterResult> => {
+  try {
+    const db = getFirebaseDB();
+    const docRef = doc(db, MATTERS_COLLECTION, matterId);
 
-// ============================================
-// Real-time Subscriptions
-// ============================================
+    // Check if matter exists
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      return {
+        success: false,
+        error: 'Matter not found',
+      };
+    }
+
+    // Validate data
+    const validationErrors = validateMatterData(data);
+    if (validationErrors.length > 0) {
+      return {
+        success: false,
+        error: validationErrors.join(', '),
+      };
+    }
+
+    // Update document
+    const updateData: DocumentData = {
+      ...data,
+      updatedAt: new Date(),
+    };
+
+    // Add firm ID if provided
+    if (firmId) {
+      updateData.firmId = firmId;
+    }
+
+    await updateDoc(docRef, updateData);
+
+    // Get the updated document
+    const updatedSnap = await getDoc(docRef);
+
+    if (!updatedSnap.exists()) {
+      return {
+        success: false,
+        error: 'Failed to update matter',
+      };
+    }
+
+    const matter = documentToMatter(updatedSnap);
+
+    return {
+      success: true,
+      matter,
+    };
+  } catch (error) {
+    console.error('Error updating matter:', error);
+    const errorMessage =
+      error instanceof Error ? error.message : 'Failed to update matter';
+
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
 
 /**
- * Subscribe to matter changes
- *
- * @param matterId - Matter ID
- * @param onUpdate - Callback for matter updates
- * @param onError - Error callback
- * @returns Unsubscribe function
+ * Delete a matter
  */
-export function subscribeToMatter(
+export const deleteMatter = async (
   matterId: string,
-  onUpdate: (matter: FirestoreDocument<FirestoreMatter> | null) => void,
-  onError?: (error: any) => void
-): () => void {
-  return subscribeToDocument<FirestoreMatterData>(
-    COLLECTION_NAMES.MATTERS,
-    matterId,
-    onUpdate,
-    onError
-  );
-}
+  firmId?: string
+): Promise<DeleteMatterResult> => {
+  try {
+    const db = getFirebaseDB();
+    const docRef = doc(db, MATTERS_COLLECTION, matterId);
+
+    // Check if matter exists
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      return {
+        success: false,
+        error: 'Matter not found',
+      };
+    }
+
+    await deleteDoc(docRef);
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.error('Error deleting matter:', error);
+    const errorMessage =
+      error instanceof Error ? error.message : 'Failed to delete matter';
+
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
 
 /**
- * Subscribe to firm matters
- *
- * @param firmId - Firm ID
- * @param options - Subscription options
- * @param onUpdate - Callback for matters updates
- * @param onError - Error callback
- * @returns Unsubscribe function
+ * Close a matter
  */
-export function subscribeToFirmMatters(
-  firmId: string,
-  options?: {
-    status?: FirestoreMatterData['status'];
-    assignedAttorneyId?: string;
-  },
-  onUpdate: (matters: FirestoreDocument<FirestoreMatter>[]) => void,
-  onError?: (error: any) => void
-): () => void {
-  const whereClauses: QueryConstraint[] = [
-    where('firmId', '==', firmId),
-  ];
+export const closeMatter = async (
+  matterId: string,
+  firmId?: string
+): Promise<UpdateMatterResult> => {
+  return updateMatter(matterId, {
+    status: 'Closed',
+    closedAt: new Date(),
+  }, firmId);
+};
 
-  if (options?.status) {
-    whereClauses.push(where('status', '==', options.status));
+/**
+ * Reopen a matter
+ */
+export const reopenMatter = async (
+  matterId: string,
+  firmId?: string
+): Promise<UpdateMatterResult> => {
+  return updateMatter(matterId, {
+    status: 'Active',
+    closedAt: undefined,
+  }, firmId);
+};
+
+// ============================================
+// Real-time Listeners
+// ============================================
+
+/**
+ * Listen to matters in real-time
+ */
+export const listenToMatters = (
+  options: MatterListenerOptions
+): (() => void) | null => {
+  try {
+    const db = getFirebaseDB();
+    const collectionRef = collection(db, MATTERS_COLLECTION);
+
+    const constraints: QueryConstraint[] = [];
+
+    // Add filters
+    if (options.firmId) {
+      constraints.push(where('firmId', '==', options.firmId));
+    }
+
+    if (options.status) {
+      constraints.push(where('status', '==', options.status));
+    }
+
+    constraints.push(orderBy('createdAt', 'desc'));
+
+    const q = query(collectionRef, ...constraints);
+
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const matters: Matter[] = [];
+        snapshot.forEach((doc) => {
+          matters.push(documentToMatter(doc));
+        });
+
+        if (options.onUpdate) {
+          options.onUpdate(matters);
+        }
+      },
+      (error) => {
+        console.error('Error listening to matters:', error);
+        if (options.onError) {
+          options.onError(error);
+        }
+      }
+    );
+
+    return unsubscribe;
+  } catch (error) {
+    console.error('Error setting up matter listener:', error);
+    if (options.onError) {
+      options.onError(error instanceof Error ? error : new Error(String(error)));
+    }
+    return null;
   }
+};
 
-  if (options?.assignedAttorneyId) {
-    whereClauses.push(where('assignedAttorneyId', '==', options.assignedAttorneyId));
-  }
+// ============================================
+// Export
+// ============================================
 
-  return subscribeToQuery<FirestoreMatterData>(
-    COLLECTION_NAMES.MATTERS,
-    {
-      where: whereClauses.map((clause) => ({
-        field: clause.field as string,
-        operator: clause.operator as any,
-        value: clause.value,
-      })),
-      orderBy: [
-        {
-          field: 'openDate',
-          direction: 'desc',
-        },
-      ],
-    },
-    onUpdate,
-    onError
-  );
-}
+export * from './matters.service';

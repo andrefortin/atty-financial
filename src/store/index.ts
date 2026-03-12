@@ -1,55 +1,43 @@
-// Store exports and composition
-// This file exports all stores and provides a single entry point for state management layer
+/**
+ * Store Index
+ *
+ * Central export point for all Zustand stores.
+ *
+ * @module store/index
+ */
 
-export { useMatterStore } from './matterStore';
-export { useTransactionStore } from './transactionStore';
-export { useFirmStore } from './firmStore';
-export { useUIStore } from './uiStore';
-export { useAllocationStore } from './allocationStore';
+// Re-export all stores
+export * from './matterStore';
+export * from './transactionStore';
+export * from './allocationStore';
+export * from './firmStore';
+export * from './uiStore';
+export * from './example';
 
-// Re-export types for convenience
-export type {
-  MatterState,
-  MatterFilters,
-  MatterSorting,
-  MatterPagination,
-} from './matterStore';
+// Initialize all stores
+export const initializeStores = () => {
+  // Get all store creators from the modules
+  const stores = [
+    import('./matterStore'),
+    import('./transactionStore'),
+    import('./allocationStore'),
+    import('./firmStore'),
+    import('./uiStore'),
+    import('./example'),
+  ];
 
-export type {
-  TransactionState,
-  TransactionFilters,
-  TransactionSorting,
-  TransactionPagination,
-} from './transactionStore';
-
-export type {
-  FirmState,
-} from './firmStore';
-
-export type {
-  UIState,
-  Toast,
-  ModalState,
-} from './uiStore';
-
-export type {
-  AllocationState,
-  AllocationFilters,
-  AllocationSorting,
-  AllocationPagination,
-  AllocationMethod,
-  AllocationMethodConfig,
-} from './allocationStore';
-
-// Re-export UI store functions for convenience
-export {
-  openCreateReportModal,
-  openCreateMatterModal,
-  openEditMatterModal,
-  openEditRateModal,
-  openViewTransactionModal,
-  openCreateTransactionModal,
-  openAllocateTransactionModal,
-  openConfirmPayoffModal,
-  openBulkCloseMattersModal,
-} from './uiStore';
+  // Initialize each store
+  Promise.all(stores).then((modules) => {
+    modules.forEach((module) => {
+      if (module.default) {
+        // If the store has an initialize function, call it
+        if (typeof module.default === 'function') {
+          module.default();
+        } else if (module.default.initialize) {
+          module.default.initialize();
+        }
+      }
+    });
+    console.log('All stores initialized');
+  });
+};
