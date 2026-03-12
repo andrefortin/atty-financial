@@ -278,6 +278,10 @@ export const getFirebaseDB = (): Firestore => {
   return instances.db;
 };
 
+// ============================================
+// Aliases for backward compatibility
+// ============================================
+
 /**
  * Get Firebase App Check instance (optional)
  */
